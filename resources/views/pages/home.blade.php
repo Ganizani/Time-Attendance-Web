@@ -24,8 +24,8 @@
                                     <div class="controller">
                                         &nbsp;
                                     </div>
-                                    <div class="tiles-title text-black">ACTIVE LEARNERS</div>
-                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="{{$active}}" data-animation-duration="700">0</span></h4>
+                                    <div class="tiles-title text-black">ACTIVE USERS</div>
+                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="" data-animation-duration="700">0</span></h4>
 
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
@@ -40,8 +40,8 @@
                                     <div class="controller">
                                         &nbsp;
                                     </div>
-                                    <div class="tiles-title text-black">ABSENT LEARNERS </div>
-                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="{{$absents}}" data-animation-duration="700">0</span></h4>
+                                    <div class="tiles-title text-black">ABSENT USERS </div>
+                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="" data-animation-duration="700">0</span></h4>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
                                     </div>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="tiles-title text-black">EXPIRING CONTRACTS ( {{strtoupper(date('F'))}} )</div>
                                     <h4 class="white">
-                                        <span class="item-count animate-number semi-bold" data-value="{{$expiring}}" data-animation-duration="1000">0</span>
+                                        <span class="item-count animate-number semi-bold" data-value="" data-animation-duration="1000">0</span>
                                     </h4>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
@@ -85,8 +85,7 @@
                                             <tr>
                                                 <th style="width:20%">ID NUMBER</th>
                                                 <th style="width:20%">NAME</th>
-                                                <th style="width:20%">SITE</th>
-                                                <th style="width:10%">DEVICE</th>
+                                                <th style="width:20%">COMPANY</th>
                                                 <th style="width:10%">TIME</th>
                                                 <th style="width:10%">STATUS</th>
                                                 <th style="width:10%">MAP</th>
@@ -104,13 +103,13 @@
                         <div class="col-md-4">
                             <div class="grid simple ">
                                 <div class="grid-title">
-                                    <h4> Recently Added Learners</h4>
+                                    <h4> Recently Added Users</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="collapse"></a>
                                     </div>
                                 </div>
                                 <div class="grid-body ">
-                                    @if(count($users) > 0)
+                                    @if(isset($ussers) && count($users) > 0)
                                         @foreach($users as $user)
                                             <div class="post comments-section">
                                         <div class="user-profile-pic-wrapper">
@@ -152,7 +151,6 @@
         $(document).ready(function() {
 
             var table =  $('#_table').DataTable({
-                ajax: "/api/records/recently",
                 dom: "<'row'<'col-sm-2'B>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'>",

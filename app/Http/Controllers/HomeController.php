@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: carlos_pambo
  * Date: 3/13/18
- * Time: 7:51 PM
+ * Time: 9:25 PM
  */
 
 namespace App\Http\Controllers;
@@ -15,7 +15,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        /*if(Helpers::hasValidSession()) {
+
+        return view('pages.home');
+
+        if(Helpers::hasValidSession()) {
 
             //Recently Added
             $today    = date('Y-m-d');
@@ -31,9 +34,7 @@ class HomeController extends Controller
                 'active'    => $active['data']
             ]);
         }
-        else return view('pages.login');*/
-
-        return view('pages.home');
+        else return view('pages.login');
     }
 
     public function login()

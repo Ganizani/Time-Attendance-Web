@@ -1,5 +1,16 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
 //Home Controller
 Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@index');
@@ -21,6 +32,20 @@ Route::get('/reports/map', 'ReportController@map');
 Route::get('/reports/stipend', 'ReportController@stipend');
 Route::get('/reports/registration', 'ReportController@registration');
 
+//Company
+Route::get('/companies', 'CompanyController@index');
+Route::get('/companies/add', 'CompanyController@add');
+Route::get('/companies/upload', 'CompanyController@upload');
+Route::get('/companies/edit/{id?}', 'CompanyController@edit');
+
+//Leave
+Route::get('/leaves', 'LeaveController@add_leave');
+Route::get('/leaves/add', 'LeaveController@add_leave');
+Route::get('/leaves/edit/{id?}', 'LeaveController@edit_leave');
+Route::get('/leaves/upload', 'LeaveController@upload_leave');
+Route::get('/leaves/types', 'LeaveController@list_type');
+Route::get('/leaves/types/add', 'LeaveController@add_type');
+Route::get('/leaves/types/edit/{id}', 'LeaveController@edit_type');
 
 //Holiday
 Route::get('/holidays', 'HolidayController@index');
@@ -28,6 +53,11 @@ Route::get('/holidays/add', 'HolidayController@add');
 Route::get('/holidays/upload', 'HolidayController@upload');
 Route::get('/holidays/edit/{id?}', 'HolidayController@edit');
 
+//Device
+Route::get('/devices', 'DeviceController@index');
+Route::get('/devices/add', 'DeviceController@add');
+Route::get('/devices/upload', 'DeviceController@upload');
+Route::get('/devices/edit/{id?}', 'DeviceController@edit');
 
 //User
 Route::get('/users', 'UserController@index');
@@ -37,4 +67,4 @@ Route::get('/users/upload', 'UserController@upload');
 Route::get('/users/edit/{id?}', 'UserController@edit');
 
 //MyAccount
-Route::get('/my-account', 'UserController@myAccount');
+Route::get('/my-account/{id?}', 'UserController@myAccount');

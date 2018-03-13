@@ -11,7 +11,7 @@
             </ul>
             <!-- BEGIN LOGO -->
             <a href="/" >
-                <img src="{{URL::asset("theme/img/seta-logo.png")}}"  alt="Seta Logo" class="logo" data-src="{{URL::asset("theme/img/seta-logo.png")}}"   data-src-retina="{{URL::asset("theme/img/seta-logo.png")}}" width="21" height="21" >
+                <img src="{{URL::asset("theme/img/logo")}}"  alt="Logo" class="logo" data-src="{{URL::asset("theme/img/")}}"   data-src-retina="{{URL::asset("theme/img/")}}" width="21" height="21" >
             </a>
             <!-- END LOGO -->
         </div>
@@ -26,43 +26,6 @@
                         </a>
                     </li>
                 </ul>
-            </div>
-            <div id="notification-list" style="display:none">
-                <div style="width:300px">
-                    <div class="notification-messages success">
-                        <div class="user-profile">
-                            <img src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"  alt="" data-src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"    width="35" height="35">
-                        </div>
-                        <div class="message-wrapper">
-                            <div class="heading">
-                                New Clocking
-                            </div>
-                            <div class="description">
-                            </div>
-                            <div class="date pull-left">
-                                A min ago
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="notification-messages success">
-                        <div class="user-profile">
-                            <img src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"  alt=""  data-src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}" width="35" height="35">
-                        </div>
-                        <div class="message-wrapper">
-                            <div class="heading">
-                                New Upload
-                            </div>
-                            <div class="description">
-
-                            </div>
-                            <div class="date pull-left">
-                                An hour ago
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
             </div>
             <!-- END TOP NAVIGATION MENU -->
             <!-- BEGIN CHAT TOGGLER -->

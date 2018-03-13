@@ -30,13 +30,13 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-5">
-            <img src="{{URL::asset("theme/img/seta-logo-450x400.png")}}" width="450" height="400" alt="Seta Logo">
+            <img src="{{URL::asset("theme/img/")}}" width="450" height="400" alt="Logo 450x400">
         </div>
         <div class="clearfix"></div>
         <br><br><br>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#">SETA</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>

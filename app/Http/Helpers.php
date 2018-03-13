@@ -3,49 +3,18 @@
  * Created by PhpStorm.
  * User: carlos_pambo
  * Date: 3/13/18
- * Time: 7:42 PM
+ * Time: 9:25 PM
  */
 
 namespace App\Http;
-use Illuminate\Support\Facades\DB;
-use DateTime;
-use DateInterval;
-use DatePeriod;
-use GuzzleHttp\Client;
+use \GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 
 class Helpers
 {
-    public static function callAPI($method, $url, $data , $authorization = "")
-    {
-        $client = new Client();
-        $result = [];
-        $body   = [
-            'json'    => $data,
-            'headers' => [
-                'Content-Type'   =>  "application/json",
-                'Accept'         => '*/*',
-                'X-Access-Token' => $authorization
-            ]
-        ];
 
-        try {
-            $response = $client->request(strtoupper($method), url(env('API_URL')).$url, $body);
-
-            $result = json_decode($response->getBody(), true);
-        }
-        catch (RequestException $e) {
-
-            if ($e->hasResponse()) {
-                $result = json_decode($e->getResponse()->getBody()->getContents(), true);
-            }
-        }
-
-        return $result;
-    }
-
-    public static function PasswordRegex($password, $confirm_password){
+    public static function passwordRegex($password, $confirm_password){
 
 
         $uppercase      = preg_match('@[A-Z]@', $password);
@@ -83,22 +52,35 @@ class Helpers
         if($date != null){
             return date($format, strtotime($date));
         }
-        else return null;
+        else return "";
     }
 
-    public static function swapDates(&$from, &$to){
-        $from = strtotime($from);
-        $to   = strtotime($to);
+    public static function callAPI($method, $url, $data , $authorization = "")
+    {
+        $client = new Client();
+        $result = [];
+        $body   = [
+            'json'    => $data,
+            'headers' => [
+                'Content-Type'   =>  "application/json",
+                'Accept'         => '*/*',
+                'X-Access-Token' => $authorization
+            ]
+        ];
 
-        //check to see the greatest date
-        if($from > $to){
-            $t_fr = $from;
-            $from = $to;
-            $to   = $t_fr;
+        try {
+            $response = $client->request(strtoupper($method), url(env('API_URL')).$url, $body);
+
+            $result = json_decode($response->getBody(), true);
+        }
+        catch (RequestException $e) {
+
+            if ($e->hasResponse()) {
+                $result = json_decode($e->getResponse()->getBody()->getContents(), true);
+            }
         }
 
-        $from = date('Y-m-d',$from);
-        $to   = date('Y-m-d',$to);
+        return $result;
     }
 
     public static function getError($response){
@@ -156,9 +138,5 @@ class Helpers
         }
 
         return $data;
-    }
-
-    public static function generateFileId($name){
-        return md5($name)."-".date('YmdHsi')."-".rand(1000,9999);
     }
 }

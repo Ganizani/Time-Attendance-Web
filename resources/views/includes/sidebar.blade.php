@@ -8,8 +8,8 @@
                 <div class="availability-bubble online"></div>
             </div>
             <div class="user-info sm">
-                <div class="username">{{$_SESSION['SETA-EMPLG-FIRST-NAME']}} <span class="semi-bold">{{$_SESSION['SETA-EMPLG-LAST-NAME']}}</span></div>
-                <div class="status">{{$_SESSION['SETA-EMPLG-USER-TYPE-NAME']}}</div>
+                <div class="username"> <span class="semi-bold"></span></div>
+                <div class="status"></div>
             </div>
         </div>
         <!-- END MINI-PROFILE -->
@@ -33,86 +33,52 @@
                 </ul>
             </li>
 
-            <li @if(Request::is('learners/*') || Request::is('learners')) class="open active" @endif>
-                <a href="javascript:;"> <i class="material-icons">supervisor_account</i> <span class="title">Learners</span>  <span class="@if(Request::is('learners/*') || Request::is('learners')) open @endif arrow"></span> </a>
+            <li @if(Request::is('companies/*') || Request::is('companies')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">account_balance</i> <span class="title">Companies</span>  <span class="@if(Request::is('companies/*') || Request::is('companies')) open @endif arrow"></span> </a>
                 <ul class="sub-menu">
-                    <li> <a href="/learners/"> List</a> </li>
-                    @if($_SESSION['SETA-EMPLG-USER-TYPE'] <= 2)
-                        <li> <a href="/learners/add" > Add </a> </li>
-                        <li> <a href="/learners/upload" > Upload </a> </li>
-                    @endif
+                    <li> <a href="/companies"> List</a> </li>
+                    <li> <a href="/companies/add" > Add </a> </li>
+                    <li> <a href="/companies/upload" > Upload </a> </li>
                 </ul>
             </li>
 
-            @if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3)
-                <li @if(Request::is('companies/*') || Request::is('companies')) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">account_balance</i> <span class="title">Companies</span>  <span class="@if(Request::is('companies/*') || Request::is('companies')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/companies"> List</a> </li>
-                        <li> <a href="/companies/add" > Add </a> </li>
-                        <li> <a href="/companies/upload" > Upload </a> </li>
-                    </ul>
-                </li>
+            <li @if(Request::is('devices/*') || Request::is('devices')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">dock</i> <span class="title">Devices</span>  <span class="@if(Request::is('devices/*') || Request::is('devices')) open @endif arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li> <a href="/devices">   List</a> </li>
+                    <li> <a href="/devices/add">    Add </a> </li>
+                    <li> <a href="/devices/upload"> Upload </a> </li>
+                </ul>
+            </li>
 
-                <li @if(Request::is('sites/*') || Request::is('sites')) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">location_city</i> <span class="title">Sites</span>  <span class="@if(Request::is('sites/*') || Request::is('sites')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/sites"> List</a> </li>
-                        <li> <a href="/sites/add" > Add </a> </li>
-                        <li> <a href="/sites/upload" > Upload </a> </li>
-                    </ul>
-                </li>
+            <li @if(Request::is('leaves/*') || Request::is('leaves')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">local_hospital</i> <span class="title">Leaves</span>  <span class="@if(Request::is('leaves/*') || Request::is('leaves')) open @endif arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li> <a href="/leaves/add">    Add Leave </a> </li>
+                    <li> <a href="/leaves/upload"> Upload Leave</a> </li>
+                    <li> <a href="/leaves/types/add">  Add Leave Type </a> </li>
+                    <li> <a href="/leaves/types">   List Leave Type </a> </li>
+                </ul>
+            </li>
 
-                <li @if(Request::is('devices/*') || Request::is('devices')) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">dock</i> <span class="title">Devices</span>  <span class="@if(Request::is('devices/*') || Request::is('devices')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/devices">   List</a> </li>
-                        <li> <a href="/devices/add">    Add </a> </li>
-                        <li> <a href="/devices/upload"> Upload </a> </li>
-                    </ul>
-                </li>
+            <li @if(Request::is('holidays/*') || Request::is('holidays') ) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">event</i> <span class="title">Holidays</span>  <span class="@if(Request::is('holidays/*') || Request::is('holidays')) open @endif arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li> <a href="/holidays">   List</a> </li>
+                    <li> <a href="/holidays/add" >   Add </a> </li>
+                    <li> <a href="/holidays/upload"> Upload </a> </li>
+                </ul>
+            </li>
 
-                <li @if(Request::is('leaves/*') || Request::is('leaves')) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">local_hospital</i> <span class="title">Leaves</span>  <span class="@if(Request::is('leaves/*') || Request::is('leaves')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/leaves/add">    Add Leave </a> </li>
-                        <li> <a href="/leaves/upload"> Upload Leave</a> </li>
-                        <li> <a href="/leaves/types/add">  Add Leave Type </a> </li>
-                        <li> <a href="/leaves/types">   List Leave Type </a> </li>
-                    </ul>
-                </li>
+            <li @if(Request::is('users/*') || Request::is('users')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('users/*') || Request::is('users')) open @endif arrow"></span> </a>
+                <ul class="sub-menu">
+                    <li> <a href="/users"> List</a> </li>
+                    <li> <a href="/users/add">  Add </a> </li>
+                    <li> <a href="/users/upload"> Upload </a> </li>
+                </ul>
+            </li>
 
-                <li @if(Request::is('holidays/*') || Request::is('holidays') ) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">event</i> <span class="title">Holidays</span>  <span class="@if(Request::is('holidays/*') || Request::is('holidays')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/holidays">   List</a> </li>
-                        <li> <a href="/holidays/add" >   Add </a> </li>
-                        <li> <a href="/holidays/upload"> Upload </a> </li>
-                    </ul>
-                </li>
-
-
-                <li @if(Request::is('sms/*') || Request::is('sms')) class="open active" @endif>
-                    <a href="javascript:;"> <i class="material-icons">email</i> <span class="title">SMS</span>  <span class="@if(Request::is('sms/*') || Request::is('sms')) open @endif arrow"></span> </a>
-                    <ul class="sub-menu">
-                        <li> <a href="/sms/compose"> Compose </a> </li>
-                        <li> <a href="/sms/outbox">  Outbox </a> </li>
-                    </ul>
-                </li>
-
-                <li @if(Request::is('graphs') || Request::is('graphs/*')) class="open active" @endif>
-                    <a href="/graphs"> <i class="material-icons">timeline</i> <span class="title">Graphs</span>  <span class="@if(Request::is('graphs') || Request::is('graphs/')) selected @endif"></span> </a>
-                </li>
-                @if($_SESSION['SETA-EMPLG-USER-TYPE'] == 1)
-                    <li @if(Request::is('users/*') || Request::is('users')) class="open active" @endif>
-                        <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('users/*') || Request::is('users')) open @endif arrow"></span> </a>
-                        <ul class="sub-menu">
-                            <li> <a href="/users"> List</a> </li>
-                            <li> <a href="/users/add">  Add </a> </li>
-                        </ul>
-                    </li>
-                @endif
-            @endif
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>
