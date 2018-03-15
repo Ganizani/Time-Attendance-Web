@@ -8,22 +8,18 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Leaves</li>
                 <li><a href="#" class="active">Upload</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">local_hospital</i><h3>Leaves</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
-                        <div class="grid-title">
-                            <label><b>* Excel Spreadsheet Only</b> </label>
-                        </div>
+                        <div class="grid-title"><h4>&nbsp;</h4></div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="upload_form" action="/api/uploads/leaves"  method="post" enctype="multipart/form-data">
-                                <div class="row column-seperation">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="form-group col-md-6">
@@ -35,7 +31,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <span class="txt-red">* Required Fields</span>
+                                        <span class="txt-red">* Required Fields (.xls, .xlsx files only)</span>
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -45,7 +41,7 @@
                                         </div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-upload"></i> &nbsp;Upload</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-upload"></i> &nbsp;Upload</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>

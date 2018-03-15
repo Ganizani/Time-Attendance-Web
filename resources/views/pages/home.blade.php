@@ -8,12 +8,8 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
-                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#" class="active"> Dashboard</a></li>
             </ul>
-            <div class="page-title">
-                <i class="material-icons">home</i><h3>Dashboard</h3>
-            </div>
             <div class="row-fluid">
                 <div class="span12">
                     <!-- BEGIN DASHBOARD TILES -->

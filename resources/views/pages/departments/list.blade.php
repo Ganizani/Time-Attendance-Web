@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Companies')
+@section('title', 'Departments')
 
 @section('content')
     <!-- BEGIN PAGE CONTAINER-->
@@ -8,12 +8,10 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
-                <li>Companies</li>
+                <li>Departments</li>
                 <li><a href="#" class="active">List</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">account_balance</i><h3>Companies</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -22,6 +20,7 @@
                             <h4> &nbsp; <span class="semi-bold"></span></h4>
                         </div>
                         <div class="grid-body ">
+                            <div class="row"></div>
                             <div class="table-responsive">
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
@@ -57,7 +56,6 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
-                ajax: "/api/companies/all",
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",

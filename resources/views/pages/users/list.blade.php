@@ -8,12 +8,10 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Users</li>
                 <li><a href="#" class="active">List</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">person</i><h3>Users</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -55,7 +53,6 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
-                ajax: "/api/users/all",
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",

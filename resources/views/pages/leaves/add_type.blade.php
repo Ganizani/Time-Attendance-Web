@@ -8,19 +8,17 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Leave</li>
-                <li>Type</li>
+                <li>Types</li>
                 <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">local_hospital</i><h3>Leave Type</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Leave Type Information</b></h4>
+                            <h4><b>Add Leave Type Form</b></h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
@@ -54,8 +52,8 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Create</button>
+                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>

@@ -4,9 +4,7 @@
 @section('content')
     <div class="row login-container column-seperation">
         <div class="col-md-6" >
-            <img src="" width="200" >
-            <h2> Sign In</h2>
-            <br>
+            <h2 style="color: #dc9758;"> <b>Sign In</b></h2>
             <form class="login-form validate" id="login-form"  name="login-form">
                 <div class="row" >
                     <div class="form-group col-md-12">
@@ -27,17 +25,18 @@
                 </div>
 
                 <div class="row" >
-                    <div class="form-group col-md-12">
-                        <button class="btn btn-primary btn-cons pull-right" type="submit">Login</button>
+                    <div class="form-group col-md-6">
+                        <div class="copyright error-number">
+                            <a href="/password/forgot" class="" type="submit" style="color: #dc9758;"><b>Forgot Password ?</b></a>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <button class="btn btn-warning btn-cons pull-right" type="submit">Login</button>
                     </div>
                 </div>
             </form>
             <div class="row" >
-                <div class="form-group col-md-12">
-                    <div class="copyright error-number">
-                        Having Trouble Logging In? <a href="/password/forgot" class="" type="submit">Reset Password</a>
-                    </div>
-                </div>
+
             </div>
         </div>
         <div class="col-md-1"></div>
@@ -47,7 +46,7 @@
         <div class="clearfix"></div>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" style="color: #dc9758;">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>

@@ -53,7 +53,6 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
-                ajax:'api/holidays/all',
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",

@@ -23,7 +23,6 @@
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="edit_form" >
-                                <input name="UserId" id="UserId" type="hidden" class="form-control" value="{{$user['id']}}">
                                 <div class="row column-seperation">
                                     <div class="col-md-6">
                                         <div class="row">
@@ -57,14 +56,14 @@
                                             <div class="form-group col-md-6">
                                                 <label for="UserFirstName">First Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name" value="{{$user['first_name']}}">
+                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name" value="">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="UserLastName">Last Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name" value="{{$user['last_name']}}">
+                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -104,7 +103,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="UserPhoneNumber">Phone Number <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserPhoneNumber" id="UserPhoneNumber" type="text" class="form-control" placeholder="Phone Number" value="{{$user['phone_number']}}">
+                                                    <input name="UserPhoneNumber" id="UserPhoneNumber" type="text" class="form-control" placeholder="Phone Number" >
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +114,7 @@
                                             <div class="form-group col-md-12">
                                                 <label for="UserEmail">Email <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmail" id="UserEmail" type="email" class="form-control" placeholder="Email Address" value="{{$user['email']}}" >
+                                                    <input name="UserEmail" id="UserEmail" type="email" class="form-control" placeholder="Email Address"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -176,10 +175,10 @@
     @parent
     <script>
         $(document).ready(function() {
-            $('#UserTitle').select2({minimumResultsForSearch: -1}).select2('val', '{{$user['title']}}');
-            $('#UserStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{$user['status']}}');
-            $('#UserType').select2({minimumResultsForSearch: -1}).select2('val', '{{$user['user_type']}}');
-            $('#UserGender').select2({minimumResultsForSearch: -1}).select2('val', '{{$user['gender']}}');
+            $('#UserTitle').select2({minimumResultsForSearch: -1}).select2('val', '');
+            $('#UserStatus').select2({minimumResultsForSearch: -1}).select2('val', '');
+            $('#UserType').select2({minimumResultsForSearch: -1}).select2('val', '');
+            $('#UserGender').select2({minimumResultsForSearch: -1}).select2('val', '');
         });
 
 

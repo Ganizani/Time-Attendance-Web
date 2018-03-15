@@ -33,10 +33,10 @@ Route::get('/reports/stipend', 'ReportController@stipend');
 Route::get('/reports/registration', 'ReportController@registration');
 
 //Company
-Route::get('/companies', 'CompanyController@index');
-Route::get('/companies/add', 'CompanyController@add');
-Route::get('/companies/upload', 'CompanyController@upload');
-Route::get('/companies/edit/{id?}', 'CompanyController@edit');
+Route::get('/departments', 'DepartmentController@index');
+Route::get('/departments/add', 'DepartmentController@add');
+Route::get('/departments/upload', 'DepartmentController@upload');
+Route::get('/departments/edit/{id?}', 'DepartmentController@edit');
 
 //Leave
 Route::get('/leaves', 'LeaveController@add_leave');

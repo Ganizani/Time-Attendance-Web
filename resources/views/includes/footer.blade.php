@@ -53,7 +53,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/api/companies/select/change",
+            url:"/api/departments/select/change",
             cache:false,
             data:{
                 company_id : company_id

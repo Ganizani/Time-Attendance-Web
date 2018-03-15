@@ -10,12 +10,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Helpers;
 
-class CompanyController extends Controller
+class DepartmentController extends Controller
 {
     //WEB CALLS
     public function index()
     {
-        return view('pages.companies.list');
+        return view('pages.departments.list');
         /*if(Helpers::hasValidSession()) {
             if($_SESSION['GANIZANI-EMPLG-USER-TYPE'] < 3) {
                 return view('pages.companies.list');
@@ -29,7 +29,7 @@ class CompanyController extends Controller
 
     public function add()
     {
-        return view('pages.companies.add');
+        return view('pages.departments.add');
         /*if(Helpers::hasValidSession()) {
             if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
                 return view('pages.companies.add');
@@ -43,7 +43,7 @@ class CompanyController extends Controller
 
     public function edit($id)
     {
-        return view('pages.companies.edit');
+        return view('pages.departments.edit');
         /*if(Helpers::hasValidSession()) {
             if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
                 $r_comp = Helpers::callAPI('GET', "/companies/" . $id, "");
@@ -60,7 +60,7 @@ class CompanyController extends Controller
 
     public function upload()
     {
-        return view('pages.companies.upload');
+        return view('pages.departments.upload');
         /*if(Helpers::hasValidSession()) {
 
             if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
@@ -76,7 +76,7 @@ class CompanyController extends Controller
     //API CALLS
     public function get_all()
     {
-        $response = Helpers::callAPI('GET', "/companies", "");
+        $response = Helpers::callAPI('GET', "/departments", "");
 
         $val = ($response['data'] != "")? $response['data'] : [];
 
@@ -85,7 +85,7 @@ class CompanyController extends Controller
 
     public function get_one($id)
     {
-        $response = Helpers::callAPI('GET', "/companies/" . $id, "");
+        $response = Helpers::callAPI('GET', "/departments/" . $id, "");
 
         $val = ($response['data'] != "")? $response['data'] : [];
 
@@ -94,7 +94,7 @@ class CompanyController extends Controller
 
     public function create(Request $request)
     {
-        $response = Helpers::callAPI( "POST", "/companies" , $this->get_array($request));
+        $response = Helpers::callAPI( "POST", "/departments" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$response['data']}</div>";
@@ -123,7 +123,7 @@ class CompanyController extends Controller
     public function select_options(Request $request)
     {
         if(isset($request->company_id) &&  $request->company_id != "") {
-            $response = Helpers::callAPI('GET', "/companies/" . $request->company_id . "/sites", "");
+            $response = Helpers::callAPI('GET', "/departments/" . $request->company_id . "/sites", "");
         }
         else{
             $response = Helpers::callAPI('GET', "/sites", "");

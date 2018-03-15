@@ -127,7 +127,7 @@
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
             $.ajax({
                 type:"PUT",
-                url:"/api/companies/update/" + id,
+                url:"/api/departments/update/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){

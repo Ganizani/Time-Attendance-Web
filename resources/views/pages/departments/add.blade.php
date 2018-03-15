@@ -8,22 +8,22 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOU ARE HERE:</p></li>
-                <li>Companies</li>
+                <li>Departments</li>
                 <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">account_balance</i><h3>Companies</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Company Information</b></h4>
+                            <h4>&nbsp;</h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
-                                <div class="row column-seperation">
+                                <span class="txt-red">* Required Fields</span><br>
+                                <div class="row">
+                                    <h4 class="info-section"><b>Department Information</b></h4>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="form-group col-md-6">
@@ -94,16 +94,14 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <span class="txt-red">* Required Fields</span>
-                                </div>
+
                                 <div class="form-actions">
                                     <div class="pull-left">
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp; Create</button>
+                                        <button class="btn btn-white btn-cons  btn-medium" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -132,7 +130,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/companies/create",
+                url:"/api/departments/create",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

@@ -4,7 +4,7 @@
     <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
         <div class="user-info-wrapper sm">
             <div class="profile-wrapper sm">
-                <img src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"  alt="" data-src="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"  data-src-retina="{{URL::asset("theme/img/profiles/profile_placeholder.jpg")}}"  width="69" height="69" />
+                <img src="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  alt="" data-src="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  data-src-retina="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  width="69" height="69" />
                 <div class="availability-bubble online"></div>
             </div>
             <div class="user-info sm">
@@ -28,17 +28,16 @@
                     <li> <a href="/reports/base">           Base </a> </li>
                     <li> <a href="/reports/leave">          Leave </a> </li>
                     <li> <a href="/reports/map">            Map </a> </li>
-                    <li> <a href="/reports/stipend">        Stipend </a> </li>
                     <li> <a href="/reports/registration">   Registration </a> </li>
                 </ul>
             </li>
 
-            <li @if(Request::is('companies/*') || Request::is('companies')) class="open active" @endif>
-                <a href="javascript:;"> <i class="material-icons">account_balance</i> <span class="title">Companies</span>  <span class="@if(Request::is('companies/*') || Request::is('companies')) open @endif arrow"></span> </a>
+            <li @if(Request::is('departments') || Request::is('departments')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">account_balance</i> <span class="title">Departments</span>  <span class="@if(Request::is('departments/*') || Request::is('departments')) open @endif arrow"></span> </a>
                 <ul class="sub-menu">
-                    <li> <a href="/companies"> List</a> </li>
-                    <li> <a href="/companies/add" > Add </a> </li>
-                    <li> <a href="/companies/upload" > Upload </a> </li>
+                    <li> <a href="/departments"> List</a> </li>
+                    <li> <a href="/departments/add" > Add </a> </li>
+                    <li> <a href="/departments/upload" > Upload </a> </li>
                 </ul>
             </li>
 
@@ -85,11 +84,8 @@
 </div>
 <a href="#" class="scrollup">Scroll</a>
 <div class="footer-widget">
-    <div class="progress transparent progress-small no-radius no-margin">
-        <div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="100%" style="width: 79%;"></div>
-    </div>
-    <div class="pull-right">
-        <div class="details-status"> <span class="animate-number" data-value="100" data-animation-duration="560"></span></div>
-    </div>
+    <p><b>Ganizani T - A</b>  v1.1</p>
+    <p><strong>All Rights Reserved. &copy; <?php echo date('Y'); ?></strong></p>
+
 </div>
 <!-- END SIDEBAR -->

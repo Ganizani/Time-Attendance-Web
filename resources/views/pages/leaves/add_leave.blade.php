@@ -8,18 +8,16 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Leaves</li>
                 <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">local_hospital</i><h3>Leaves</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Leave Information</b></h4>
+                            <h4><b>Add Leave Form</b></h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
@@ -31,9 +29,7 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="LeaveIdNumber" id="LeaveIdNumber" class="select2 form-control" data-init-plugin="select2">
                                                         <option value="">-- Learner --</option>
-                                                        @foreach($learners as $learner)
-                                                            <option value="{{$learner['id_number']}}">{{$learner['name']}}</option>
-                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -45,9 +41,7 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="LeaveReason" id="LeaveReason" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Reason --</option>
-                                                        @foreach($leave_types as $leave)
-                                                            <option value="{{$leave['id']}}">{{$leave['name']}}</option>
-                                                        @endforeach
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -56,7 +50,7 @@
                                         <div class="row ">
                                             <div class="form-group col-md-6">
                                                 <label for="LeaveFromDate">From Date <span class="txt-red">*</span></label>
-                                                <div class="input-append info col-lg-10 no-padding">
+                                                <div class="input-append warning col-lg-10 no-padding">
                                                     <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
@@ -64,7 +58,7 @@
 
                                             <div class="form-group col-md-6">
                                                 <label for="LeaveToDate">To Date <span class="txt-red">*</span></label>
-                                                <div class="input-append info col-lg-10 no-padding">
+                                                <div class="input-append warning col-lg-10 no-padding">
                                                     <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
@@ -83,7 +77,7 @@
 
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveAttachment">Attachment <span class="txt-red"></span></label>
+                                                <label for="LeaveAttachment">Attachments <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="LeaveAttachment" id="LeaveAttachment" type="file" class="form-control">
                                                 </div>
@@ -99,8 +93,8 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Create</button>
+                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>

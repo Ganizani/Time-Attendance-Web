@@ -8,58 +8,45 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Reports</li>
                 <li><a href="#" class="active">Map</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">assignment</i><h3>Map Report</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
                             <form  id="search_form">
-                                <div class="col-md-1"></div>
-                                <div class="col-md-2">
-                                    <div class="input-append info col-lg-10 no-padding">
+                                <div class="col-md-3">
+                                    <div class="input-append warning col-lg-10 no-padding">
                                         <input name="FromDate" id="FromDate" type="text" class="form-control datepicker" placeholder="From Date" value="{{isset($_GET['FromDate'])? $_GET['FromDate']: ""}}">
                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div class="input-append info col-lg-10 no-padding">
+                                <div class="col-md-3">
+                                    <div class="input-append warning col-lg-10 no-padding">
                                         <input name="ToDate" id="ToDate" type="text" class="form-control datepicker" placeholder="To Date" value="{{isset($_GET['ToDate'])? $_GET['ToDate']: ""}}">
                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <select name="Company" id="Company" class="select2 form-control" data-init-plugin="select2">
-                                        <option value="" >-- Company --</option>
-                                        @foreach ($companies as $company)
-                                            <option value="{{$company['id']}}">{{$company['name']}}</option>
-                                        @endforeach
+                                <div class="col-md-3">
+                                    <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
+                                        <option value="" >-- Department --</option>
+
                                     </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <select name="Site" id="Site" class="select2 form-control" data-init-plugin="select2">
-                                        <option value="" >-- Site --</option>
-                                        @foreach ($sites as $site)
-                                            <option value="{{$site['id']}}">{{$site['name']}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary btn-block " type="submit" ><i class="fa fa-filter"></i> &nbsp;Filter </button>
                                 </div>
                                 <div class="col-md-1"></div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-warning btn-block btn-medium" type="submit" ><i class="fa fa-filter"></i> &nbsp;Filter </button>
+                                </div>
 
-                                <h4> &nbsp;</h4>
+                                <p> &nbsp;</p>
                             </form>
                         </div>
 
                         <div class="grid-body ">
-
+                            <div class="row"></div>
                             <div id="map" style="width:100%;height:450px; "></div>
                         </div>
                     </div>
@@ -114,7 +101,7 @@
             });
         });
     </script>
-    @if(count($record) > 0 ){
+    @if(isset($record) && count($record) > 0 ){
         <script>
             function myMap() {
                 var coordenates = {lat:{{$record['latitude']}}, lng: {{$record['longitude']}}};
@@ -147,7 +134,7 @@
 
             }
         </script>
-    @elseif(count($records) > 0){
+    @elseif(isset($records) && count($records) > 0){
         <script>
             function myMap() {
                 var coordenates = {lat: {{$records[0]['latitude']}} , lng: {{$records[0]['longitude']}} };
