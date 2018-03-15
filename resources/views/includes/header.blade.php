@@ -33,7 +33,7 @@
                 <div class="chat-toggler sm">
                     <div class="profile-pic">
                         <img src="{{ URL::asset("theme/img/profile_placeholder.jpg")}}"  alt="" data-src="{{URL::asset("theme/img/profile_placeholder.jpg")}}" width="35" height="35" />
-                        <div class="availability-bubble online"></div>
+                        <!--div class="availability-bubble online"></div-->
                     </div>
                 </div>
                 <ul class="nav quick-section ">

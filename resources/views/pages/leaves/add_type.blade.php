@@ -18,11 +18,13 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Add Leave Type Form</b></h4>
+                            <h4><b>Leave Type Form</b></h4>
                         </div>
                         <div class="grid-body ">
+                            <span class="txt-red">* Required Fields</span>
                             <form class="form-no-horizontal-spacing" id="add_form" >
-                                <div class="row column-seperation">
+                                <h4 class="info-section"><b>Leave Type Information</b></h4>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="row ">
                                             <div class="form-group col-md-12">
@@ -43,9 +45,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <span class="txt-red">* Required Fields</span>
                                 </div>
                                 <div class="form-actions">
                                     <div class="pull-left">

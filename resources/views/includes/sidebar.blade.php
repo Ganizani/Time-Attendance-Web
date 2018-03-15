@@ -5,7 +5,7 @@
         <div class="user-info-wrapper sm">
             <div class="profile-wrapper sm">
                 <img src="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  alt="" data-src="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  data-src-retina="{{URL::asset("theme/img/profile_placeholder.jpg")}}"  width="69" height="69" />
-                <div class="availability-bubble online"></div>
+                <!--div class="availability-bubble online"></div-->
             </div>
             <div class="user-info sm">
                 <div class="username"> <span class="semi-bold"></span></div>
@@ -84,8 +84,6 @@
 </div>
 <a href="#" class="scrollup">Scroll</a>
 <div class="footer-widget">
-    <p><b>Ganizani T - A</b>  v1.1</p>
-    <p><strong>All Rights Reserved. &copy; <?php echo date('Y'); ?></strong></p>
-
+    <p><b>Ganizani T - A</b>  v1.1  &copy; <?php echo date('Y'); ?></p>
 </div>
 <!-- END SIDEBAR -->

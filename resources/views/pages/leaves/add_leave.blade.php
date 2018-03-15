@@ -17,31 +17,68 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Add Leave Form</b></h4>
+                            <h4><b>Leave Form</b></h4>
                         </div>
                         <div class="grid-body ">
+                            <span class="txt-red">* Required Fields</span>
                             <form class="form-no-horizontal-spacing" id="add_form" >
-                                <div class="row column-seperation">
+                                <div class="row ">
                                     <div class="col-md-6">
+                                        <h5 class="info-section"><b>Employee Information</b></h5>
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveIdNumber">Learner <span class="txt-red">*</span></label>
+                                                <label for="LeaveIdNumber">Employee Applying for Leave <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="LeaveIdNumber" id="LeaveIdNumber" class="select2 form-control" data-init-plugin="select2">
-                                                        <option value="">-- Learner --</option>
+                                                        <option value="">-- Employee --</option>
 
                                                     </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h5 class="info-section"><b>Contact Details While On Leave</b></h5>
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label for="LeaveIdNumber">Address  <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control" placeholder="Address">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveIdNumber">Email  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control" placeholder="Email">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveIdNumber">Tel.  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control" placeholder="Phone Number">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveReason">Reason <span class="txt-red">*</span></label>
+                                                <label for="LeaveIdNumber">Notes  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <textarea name="LeaveFromDate" id="LeaveFromDate"  rows="4" class="form-control" placeholder="Notes ... "></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <h5 class="info-section"><b>Leave Details</b></h5>
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label for="LeaveReason">Type of Leave <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="LeaveReason" id="LeaveReason" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Reason --</option>
-
+                                                        <option value="">-- Type of Leave --</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -49,44 +86,31 @@
 
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveFromDate">From Date <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-lg-10 no-padding">
+                                                <label for="LeaveFromDate">Last Date of Working <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
                                                     <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveToDate">To Date <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-lg-10 no-padding">
+                                                <label for="LeaveFromDate">Start Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
+                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveToDate">Last Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
                                                     <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row ">
-                                            <div class="form-group col-md-12">
-                                                <label for="LeaveComment">Comments <span class="txt-red"></span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <textarea name="LeaveComment" id="LeaveComment" rows="4" class="form-control" placeholder="Comments ..."></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row ">
-                                            <div class="form-group col-md-12">
-                                                <label for="LeaveAttachment">Attachments <span class="txt-red"></span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="LeaveAttachment" id="LeaveAttachment" type="file" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <span class="txt-red">* Required Fields</span>
                                 </div>
                                 <div class="form-actions">
                                     <div class="pull-left">
