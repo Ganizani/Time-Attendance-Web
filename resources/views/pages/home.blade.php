@@ -36,7 +36,7 @@
                                     <div class="controller">
                                         &nbsp;
                                     </div>
-                                    <div class="tiles-title text-black">ABSENT USERS </div>
+                                    <div class="tiles-title text-black">ABSENT EMPLOYEES ( {{strtoupper(date('jS F'))}} ) </div>
                                     <h4 class="white"><span class="item-count animate-number semi-bold" data-value="" data-animation-duration="700">0</span></h4>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
@@ -50,7 +50,7 @@
                                     <div class="controller">
                                         &nbsp;
                                     </div>
-                                    <div class="tiles-title text-black">EXPIRING CONTRACTS ( {{strtoupper(date('F'))}} )</div>
+                                    <div class="tiles-title text-black">EMPLOYEES ON LEAVE ( {{strtoupper(date('jS F'))}} )</div>
                                     <h4 class="white">
                                         <span class="item-count animate-number semi-bold" data-value="" data-animation-duration="1000">0</span>
                                     </h4>

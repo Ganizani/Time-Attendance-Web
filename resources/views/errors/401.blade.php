@@ -27,7 +27,7 @@
         <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-offset-1 col-xs-10">
             <div class="error-container">
                 <div class="error-main">
-                    <div class="error-number" style="color:#dc9758 !important;"> 503 </div>
+                    <div class="error-number" style="color:#dc9758 !important;"> 401 </div>
                     <div class="error-description"> Authorization Required</div>
                     <div class="error-description-mini"> You don't have the required authorization to view this content </div>
                     <div class="error-description-mini"> Please contact <b>System Administrator.</b> </div>

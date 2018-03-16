@@ -8,18 +8,16 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
-                <li>Users</li>
+                <li>Employees</li>
                 <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">person</i><h3>Users</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>New User Form</b></h4>
+                            <h4><b>New Employee Form</b></h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
@@ -28,7 +26,7 @@
                                         <span class="txt-red">* Required Fields</span>
                                     </div>
                                     <div class="col-md-12">
-                                        <h4 class="info-section"><b>Personal Information</b></h4><br>
+                                        <h5 class="info-section"><b>Personal Information</b></h5><br>
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="UserTitle">Title <span class="txt-red">*</span></label>
@@ -154,7 +152,7 @@
 
                                         </div>
 
-                                        <h4 class="info-section"><b>Residential Address</b></h4><br>
+                                        <h5 class="info-section"><b>Residential Address</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -225,7 +223,7 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Job Information</b></h4><br>
+                                        <h5 class="info-section"><b>Job Information</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -297,7 +295,7 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Emergency Contact/Next Of Kin Information</b></h4><br>
+                                        <h5 class="info-section"><b>Emergency Contact/Next Of Kin Information</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -402,7 +400,8 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Other Information</b></h4><br>
+                                        <h5 class="info-section"><b>Other Information</b></h5><br>
+
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="UserPaymentNumber">PAY Number<span class="txt-red">*</span></label>
