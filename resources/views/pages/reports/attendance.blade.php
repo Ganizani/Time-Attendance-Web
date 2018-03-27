@@ -51,16 +51,15 @@
                                 <table class="table table-striped dataTable" id="report_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:10%">ID NUMBER</th>
-                                        <th style="width:10%">NAME</th>
-                                        <th style="width:10%">COMPANY</th>
-                                        <th style="width:10%">SITE</th>
-                                        <th style="width:10%">INTERVENTION</th>
-                                        <th style="width:10%">QUALIFICATION</th>
                                         <th style="width:10%">DATE</th>
+                                        <th style="width:10%">WEEKDAY</th>
+                                        <th style="width:10%">EMPLOYEE CODE</th>
+                                        <th style="width:10%">NAME</th>
+                                        <th style="width:10%">DEPARTMENT</th>
                                         <th style="width:10%">CLOCK IN</th>
                                         <th style="width:10%">CLOCK OUT</th>
-                                        <th style="width:10%">MAP</th>
+                                        <th style="width:10%">NORMAL HOURS</th>
+                                        <th style="width:10%">EXTRA HOURS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -82,20 +81,12 @@
     <script>
 
         $(document).ready(function() {
-            $('.datepicker').datepicker({
-                format: "yyyy-mm-dd",
-                startView: 0,
-                autoClose: true,
-                todayHighlight: true
-            });
-
             $("#search_form").submit(function(event) {
                 event.preventDefault();
 
-                var from_date = $('#FromDate').val();
-                var to_date   = $('#ToDate').val();
-                var company   = $('#Company').val();
-                var site      = $('#Site').val();
+                var from_date  = $('#FromDate').val();
+                var to_date    = $('#ToDate').val();
+                var department = $('#Department').val();
 
                 if(from_date === ""){
                     toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
@@ -115,8 +106,7 @@
                             data: {
                                 from_date: from_date,
                                 to_date: to_date,
-                                site: site,
-                                company: company
+                                department: department
                             }
                         },
                         order: [[ 6, "asc" ]],
@@ -159,59 +149,6 @@
                                         }
                                     }
                                 ]
-                            }
-                        ],
-                        columns: [
-                            {   //ID NUMBER
-                                data: 'learner.id_number',
-                                defaultContent: ''
-
-                            },
-                            {   //NAME
-                                data: 'learner.name',
-                                defaultContent: ''
-                            },
-                            {
-                                //COMPANY
-                                data: 'learner.site.company.name',
-                                defaultContent: ''
-                            },
-                            {   //SITE
-                                data: 'learner.site.name',
-                                defaultContent: ''
-                            },
-                            {   //INTERVENTION
-                                data: 'learner.intervention',
-                                defaultContent: ''
-                            },
-                            {   //QUALIFICATION
-                                data: 'learner.qualification',
-                                defaultContent: ''
-                            },
-                            {   //DATE
-                                data: 'record.in.date',
-                                defaultContent: ''
-                            },
-                            {   //CLOCK IN
-                                data: null,
-                                defaultContent: '',
-                                render : function ( data, type, row, meta ) {
-                                    return '<span class="label ">'+ data.record.in.time + '</span>';
-                                }
-                            },
-                            {   //CLOCK OUT
-                                data: null,
-                                defaultContent: '',
-                                render : function ( data, type, row, meta ) {
-                                    return '<span class="label ">'+ data.record.out.time + '</span>';
-                                }
-                            },
-                            {   //MAP
-                                data: null,
-                                defaultContent: '',
-                                render : function ( data, type, row, meta ) {
-                                    return '<a href="/reports/map?rid='+  '' +'" class="btn btn-white btn-block"> <i class="fa fa-map-marker"></i>&nbsp; View</a>';
-                                }
                             }
                         ]
                     });
@@ -263,18 +200,6 @@
                             }
                         ]
                     }
-                ],
-                columns: [
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null }
                 ]
             });
 

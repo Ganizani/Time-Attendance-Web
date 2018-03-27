@@ -16,11 +16,7 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
-                        <div class="grid-title">
-                            <label></label>
-                        </div>
                         <div class="grid-body ">
-                            <span class="txt-red">* Required Fields (.xls, .xlsx only)</span><br><br>
                             <form class="form-no-horizontal-spacing" id="upload_form" action="/api/uploads/departments"  method="post" enctype="multipart/form-data">
                                 <div class="row column-seperation">
                                     <div class="col-md-12">
@@ -33,6 +29,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div>
+                                    <span class="txt-red">* Required Fields (.xls, .xlsx files only)</span><br><br>
                                 </div>
                                 <div class="form-actions">
                                     <div class="pull-left">

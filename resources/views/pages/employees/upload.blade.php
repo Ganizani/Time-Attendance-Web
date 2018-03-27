@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Holidays')
+@section('title', 'Employees')
 
 @section('content')
     <!-- BEGIN PAGE CONTAINER-->
@@ -8,7 +8,7 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li>Holidays</li>
+                <li>Employees</li>
                 <li><a href="#" class="active">Upload</a> </li>
             </ul>
             <div class="page-title">
@@ -17,30 +17,31 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4>&nbsp;</h4>
+                            <label>&nbsp;</label>
                         </div>
                         <div class="grid-body ">
-                            <span class="txt-red">* Required Fields (.xls, .xlsx files only)</span><br><br>
-                            <form class="form-no-horizontal-spacing" id="upload_form" action="/api/uploads/holidays"  method="post" enctype="multipart/form-data">
+                            <form class="form-no-horizontal-spacing" id="upload_form" action="/api/uploads/employees"  method="post" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label>Holiday File <span class="txt-red">*</span></label>
+                                                <label for="EmployeeFile">Empployee File <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="HolidayFile" id="HolidayFile" type="file" class="form-control" accept=".xls, .xlsx">
+                                                    <input name="EmployeeFile" id="EmployeeFile" type="file" class="form-control" accept=".xls, .xlsx">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <span class="txt-red">* Required Fields (.xls, .xlsx files only)</span>
+                                    </div>
                                 </div>
-
                                 <div class="form-actions">
                                     <div class="pull-left">
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-upload"></i> &nbsp;Upload</button>
+                                        <button class="btn btn-warning btn-cons " type="submit"><i class="fa fa-upload"></i> &nbsp;Upload</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
@@ -75,7 +76,7 @@
             focusInvalid: false,
             ignore: "",
             rules: {
-                HolidayFile: {
+                DeviceFile: {
                     required: true ,
                     extension: "xls|xlsx"
                 }

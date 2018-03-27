@@ -18,13 +18,13 @@
                     <div class="grid simple ">
                         <div class="grid-title">
                             <form  id="search_form">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="input-append warning col-lg-10 no-padding">
                                         <input name="FromDate" id="FromDate" type="text" class="form-control datepicker" placeholder="From Date" value="{{isset($_GET['FromDate'])? $_GET['FromDate']: ""}}">
                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="input-append warning col-lg-10 no-padding">
                                         <input name="ToDate" id="ToDate" type="text" class="form-control datepicker" placeholder="To Date" value="{{isset($_GET['ToDate'])? $_GET['ToDate']: ""}}">
                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
@@ -36,12 +36,16 @@
 
                                     </select>
                                 </div>
-                                <div class="col-md-1"></div>
+                                <div class="col-md-3">
+                                    <select name="Reason" id="Reason" class="select2 form-control" data-init-plugin="select2">
+                                        <option value="" >-- Reason --</option>
+
+                                    </select>
+                                </div>
                                 <div class="col-md-2">
                                     <button class="btn btn-warning btn-block btn-medium" type="submit" ><i class="fa fa-filter"></i> &nbsp;Filter </button>
                                 </div>
-
-                                <p> &nbsp;</p>
+                                <h4> &nbsp;</h4>
                             </form>
                         </div>
 
@@ -51,14 +55,13 @@
                                 <table class="table table-striped dataTable" id="report_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:10%">ID NUMBER</th>
+                                        <th style="width:10%">EMPLOYEE CODE</th>
                                         <th style="width:10%">NAME</th>
-                                        <th style="width:10%">COMPANY</th>
-                                        <th style="width:10%">SITE</th>
-                                        <th style="width:10%">INTERVENTION</th>
+                                        <th style="width:10%">DEPARTMENT</th>
+                                        <th style="width:10%">LEAVE TYPE</th>
                                         <th style="width:10%">FROM DATE</th>
                                         <th style="width:10%">TO DATE</th>
-                                        <th style="width:10%">REASON</th>
+                                        <th style="width:10%">LEAVE DAYS</th>
                                         <th style="width:10%">COMMENTS</th>
                                         <th style="width:10%">ACTIONS</th>
                                     </tr>
@@ -85,11 +88,10 @@
             $("#search_form").submit(function(event) {
                 event.preventDefault();
 
-                var from_date = $('#FromDate').val();
-                var to_date   = $('#ToDate').val();
-                var company   = $('#Company').val();
-                var site      = $('#Site').val();
-                var reason    = $('#Reason').val();
+                var from_date  = $('#FromDate').val();
+                var to_date    = $('#ToDate').val();
+                var department = $('#Department').val();
+                var reason     = $('#Reason').val();
 
                 if(from_date === ""){
                     toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
@@ -109,8 +111,7 @@
                             data: {
                                 from_date: from_date,
                                 to_date: to_date,
-                                site: site,
-                                company: company,
+                                department: department,
                                 reason: reason
                             }
                         },
@@ -147,53 +148,6 @@
                                         }
                                     }
                                 ]
-                            }
-                        ],
-                        columns: [
-                            {   //ID NUMBER
-                                data: 'learner.id_number',
-                                defaultContent: ''
-
-                            },
-                            {   //NAME
-                                data: 'learner.name',
-                                defaultContent: ''
-                            },
-                            {
-                                //COMPANY
-                                data: 'learner.site.company.name',
-                                defaultContent: ''
-                            },
-                            {   //SITE
-                                data: 'learner.site.name',
-                                defaultContent: ''
-                            },
-                            {   //INTERVENTION
-                                data: 'learner.intervention',
-                                defaultContent: ''
-                            },
-                            {   //FROM DATE
-                                data: 'from_date',
-                                defaultContent: ''
-                            },
-                            {   //TO DATE
-                                data: 'to_date',
-                                defaultContent: ''
-                            },
-                            {   //REASON
-                                data: 'reason.name',
-                                defaultContent: ''
-                            },
-                            {   //COMMENTS
-                                data: 'comments',
-                                defaultContent: ''
-                            },
-                            {   //ACTIONS
-                                data: null,
-                                defaultContent: '',
-                                render : function ( data, type, row, meta ) {
-                                    return '<a href="/leaves/edit/'+  data.id +'" class="btn btn-info btn-block btn-small"> <i class="fa fa-paste"></i>&nbsp; EDIT</a>';
-                                }
                             }
                         ]
                     });
@@ -238,18 +192,6 @@
                             }
                         ]
                     }
-                ],
-                columns: [
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null }
                 ]
             });
 

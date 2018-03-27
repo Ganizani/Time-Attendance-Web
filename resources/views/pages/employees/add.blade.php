@@ -8,8 +8,8 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li>Users</li>
-                <li><a href="#" class="active">My Account</a> </li>
+                <li>Employees</li>
+                <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
             </div>
@@ -17,7 +17,7 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>My Account Form</b></h4>
+                            <h4><b>New Employee Form</b></h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
@@ -26,7 +26,7 @@
                                         <span class="txt-red">* Required Fields</span>
                                     </div>
                                     <div class="col-md-12">
-                                        <h4 class="info-section"><b>Personal Information</b></h4><br>
+                                        <h5 class="info-section"><b>Personal Information</b></h5><br>
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="UserTitle">Title <span class="txt-red">*</span></label>
@@ -152,7 +152,7 @@
 
                                         </div>
 
-                                        <h4 class="info-section"><b>Residential Address</b></h4><br>
+                                        <h5 class="info-section"><b>Residential Address</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -223,7 +223,7 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Job Information</b></h4><br>
+                                        <h5 class="info-section"><b>Job Information</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -295,7 +295,7 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Emergency Contact/Next Of Kin Information</b></h4><br>
+                                        <h5 class="info-section"><b>Emergency Contact/Next Of Kin Information</b></h5><br>
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
@@ -400,7 +400,8 @@
                                             </div>
                                         </div>
 
-                                        <h4 class="info-section"><b>Other Information</b></h4><br>
+                                        <h5 class="info-section"><b>Other Information</b></h5><br>
+
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label for="UserPaymentNumber">PAY Number<span class="txt-red">*</span></label>
@@ -417,6 +418,31 @@
                                             </div>
 
                                         </div>
+                                        <!--div class="row ">
+                                            <div class="form-group col-md-4">
+                                                <label for="UserType">User Type <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <select name="UserType" id="UserType" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- User Type --</option>
+                                                        <option value="ADMIN">System Admin</option>
+                                                        <option value="MANAGER">Manager</option>
+                                                        <option value="OPERATOR">Operator</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label for="UserStatus">Status <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <select name="UserStatus" id="UserStatus" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Status --</option>
+                                                        <option value="ACTIVE">Active</option>
+                                                        <option value="DEACTIVATED">Deactivated</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div-->
+
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -459,7 +485,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/users/create",
+                url:"/api/employees/create",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

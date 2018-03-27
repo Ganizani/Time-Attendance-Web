@@ -43,43 +43,7 @@
     $('.datepicker').datepicker({
         format: "yyyy-mm-dd",
         startView: 1,
-        autoclose: true,
+        autoClose: true,
         todayHighlight: true
-    });
-
-    $( "#Company" ).change( function  (event) {
-        event.preventDefault();
-        var company_id    =  $( "#Company").val();
-
-        $.ajax({
-            type:"POST",
-            url:"/api/departments/select/change",
-            cache:false,
-            data:{
-                company_id : company_id
-            },
-            success: function(response){
-                $( "#Site").html(response);
-            }
-        });
-    });
-
-    $( "#Site" ).change( function(event) {
-        event.preventDefault();
-        var site_id =  $( "#Site").val();
-
-        $.ajax({
-            type:"POST",
-            url:"/api/sites/select/change",
-            cache:false,
-            data:{
-                site_id : site_id
-            },
-            success: function(response){
-                $('#Company').select2().select2('val', response);
-                $('#Site').val(site_id)
-            }
-        });
-
     });
 </script>

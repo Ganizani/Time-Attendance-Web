@@ -28,7 +28,7 @@ class HomeController extends Controller
             $absent   = $response = Helpers::callAPI('GET', "/learners/absents?date={$today}", "");
 
             return view('pages.home', [
-                'users'     => $users['data'],
+                'employees'     => $users['data'],
                 'expiring'  => $expiring['data'],
                 'absents'   => $absent['data'],
                 'active'    => $active['data']
@@ -65,7 +65,7 @@ class HomeController extends Controller
 
         $user['data'] = ['email' => '', 'token' => ''];
         if(isset($request->token)) {
-            $user = $response = Helpers::callAPI('GET', "/users/token/" . $request->token, "");
+            $user = $response = Helpers::callAPI('GET', "/employees/token/" . $request->token, "");
         }
         return view('pages.reset_password', [
             'user' => $user['data']

@@ -26,14 +26,11 @@
                                     <thead>
                                     <tr>
                                         <th style="width:10%">NAME</th>
-                                        <th style="width:5%">PHONE NUMBER</th>
-                                        <th style="width:10%">EMAIL</th>
-                                        <th style="width:10%">WEBSITE</th>
-                                        <th style="width:10%">CONTACT PERSON</th>
-                                        <th style="width:10%">ADDRESS</th>
-                                        <th style="width:10%">LOGIN ID</th>
-                                        <th style="width:10%">PASSWORD</th>
-                                        <th style="width:5%">SITE COUNT</th>
+                                        <th style="width:20%">DESCRIPTION</th>
+                                        <th style="width:10%">PHONE NUMBER</th>
+                                        <th style="width:10%">EMPLOYEE COUNT</th>
+                                        <th style="width:10%">DEVICE COUNT</th>
+                                        <th style="width:10%">MANAGER</th>
                                         <th style="width:10%">ACTIONS</th>
                                     </tr>
                                     </thead>
@@ -73,7 +70,7 @@
                             {
                                 extend: 'excel',
                                 text: 'Excel',
-                                title: '{{env('APP_NAME')}} - Company List',
+                                title: '{{env('APP_NAME')}} - Department List',
                                 exportOptions: {
                                     columns: [0,1,2,3,4,5,6,8]
                                 }
@@ -81,7 +78,7 @@
                             {
                                 extend: 'pdf',
                                 text: 'PDF',
-                                title: '{{env('APP_NAME')}}  - Company List',
+                                title: '{{env('APP_NAME')}}  - Department List',
                                 orientation: 'landscape',
                                 pageSize: 'LEGAL',
                                 exportOptions: {
@@ -89,50 +86,6 @@
                                 }
                             }
                         ]
-                    }
-                ],
-                columns: [
-                    {   //NAME
-                        data: 'name',
-                        defaultContent: 'N/a'
-                    },
-                    {   //PHONE NUMBER
-                        data: 'phone_number',
-                        defaultContent: 'N/a'
-                    },
-                    {   //EMAIL
-                        data: 'email',
-                        defaultContent: 'N/a'
-                    },
-                    {   //WEBSITE
-                        data: 'website',
-                        defaultContent: 'N/a'
-                    },
-                    {   //CONTACT PERSON
-                        data: 'contact_person',
-                        defaultContent: 'N/a'
-                    },
-                    {   //ADDRESS
-                        data: 'address.id',
-                        defaultContent: 'N/a'
-                    },
-                    {   //LOGIN ID
-                        data: 'login_id',
-                        defaultContent: 'N/a'
-                    },
-                    {   //PASSWORD
-                        data: 'password',
-                        defaultContent: 'N/a'
-                    },
-                    {   //SITE COUNT
-                        data: 'site_count',
-                        defaultContent: 'N/a'
-                    },
-                    {   //ACTIONS
-                        data : null,
-                        'render' : function ( data, type, row, meta ) {
-                            return '<a href = "/companies/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
-                        }
                     }
                 ]
             });

@@ -16,33 +16,29 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
-                        <div class="grid-title">
-                            <h4><b>Add Holiday Form</b></h4>
-                        </div>
                         <div class="grid-body ">
-                            <span class="txt-red">* Required Fields</span><br>
                             <form class="form-no-horizontal-spacing" id="add_form" >
                                 <div class="row">
                                     <h4 class="info-section"><b>Holiday Information</b></h4>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label for="HolidayName">Holiday Name<span class="txt-red"></span></label>
+                                            <div class="form-group col-md-12">
+                                                <label for="HolidayName"> Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="HolidayName" id="HolidayName" type="text" class="form-control" placeholder="Holiday Name" >
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label for="HolidayDate">Holiday Date <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-lg-10 no-padding">
-                                                    <input name="HolidayDate" id="HolidayDate" type="text" class="form-control datepicker" placeholder="Holiday Date, e.g: YYYY-MM-DD">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="HolidayDate"> Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-lg-10 no-padding">
+                                                    <input name="HolidayDate" id="HolidayDate" type="text" class="form-control datepicker" placeholder="Holiday Date, e.g: YYYY-MM-DD">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
                                             <div class="form-group col-md-6">
                                                 <label for="HolidayDepartment">Department <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
@@ -62,6 +58,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span class="txt-red">* Required Fields</span>
                                     </div>
                                 </div>
 

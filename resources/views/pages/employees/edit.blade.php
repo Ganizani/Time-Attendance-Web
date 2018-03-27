@@ -193,7 +193,7 @@
 
             $.ajax({
                 type:"PUT",
-                url:"/api/users/update/" + id,
+                url:"/api/employees/update/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){

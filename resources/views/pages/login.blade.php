@@ -4,7 +4,7 @@
 @section('content')
     <div class="row login-container column-seperation">
         <div class="col-md-6" >
-            <h2 style="color: #dc9758;"> <b>Sign In</b></h2>
+            <h2 class="txt-orange"> <b>Sign In</b></h2>
             <form class="login-form validate" id="login-form"  name="login-form">
                 <div class="row" >
                     <div class="form-group col-md-12">
@@ -63,7 +63,7 @@
 
         $.ajax({
             type:"POST",
-            url:"/api/users/login",
+            url:"/api/employees/login",
             cache: false,
             data: var_form_data,
             success: function(response){

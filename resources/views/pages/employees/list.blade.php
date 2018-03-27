@@ -125,29 +125,13 @@
                         data : null,
                         defaultContent: '',
                         'render' : function ( data, type, row, meta ) {
-                            return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+                            return '<a href = "/employees/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
                         }
                     }
-                ],
-                filterDropDown: {
-                    bootstrap: true,
-                    label: "Filters | ",
-                    columns: [
-                        {idx: 2},
-                        {idx: 4}
-                    ]
-                }
+                ]
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
-            $('#_table_filterSelect2').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
-            $('#_table_filterSelect4').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
         });
     </script>
 @endsection

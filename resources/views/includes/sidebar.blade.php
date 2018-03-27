@@ -28,7 +28,6 @@
                     <li> <a href="/reports/base">           Base </a> </li>
                     <li> <a href="/reports/leave">          Leave </a> </li>
                     <li> <a href="/reports/map">            Map </a> </li>
-                    <li> <a href="/reports/registration">   Registration </a> </li>
                 </ul>
             </li>
 
@@ -69,12 +68,12 @@
                 </ul>
             </li>
 
-            <li @if(Request::is('users/*') || Request::is('users')) class="open active" @endif>
-                <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('users/*') || Request::is('users')) open @endif arrow"></span> </a>
+            <li @if(Request::is('employees') || Request::is('employees')) class="open active" @endif>
+                <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('employees/*') || Request::is('employees')) open @endif arrow"></span> </a>
                 <ul class="sub-menu">
-                    <li> <a href="/users"> List</a> </li>
-                    <li> <a href="/users/add">  Add </a> </li>
-                    <li> <a href="/users/upload"> Upload </a> </li>
+                    <li> <a href="/employees"> List</a> </li>
+                    <li> <a href="/employees/add">  Add </a> </li>
+                    <li> <a href="/employees/upload"> Upload </a> </li>
                 </ul>
             </li>
 
@@ -84,6 +83,6 @@
 </div>
 <a href="#" class="scrollup">Scroll</a>
 <div class="footer-widget">
-    <p><b>Ganizani T - A</b>  v1.1  &copy; <?php echo date('Y'); ?></p>
+    <p><b>Time and Attendance&nbsp;</b>  v1.0</p>
 </div>
 <!-- END SIDEBAR -->

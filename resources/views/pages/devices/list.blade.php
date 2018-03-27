@@ -29,11 +29,10 @@
                                         <th style="width:10%">NAME</th>
                                         <th style="width:10%">PHONE NUMBER</th>
                                         <th style="width:10%">SUPERVISOR</th>
-                                        <th style="width:10%">SITE</th>
+                                        <th style="width:10%">DEPARTMENT</th>
                                         <th style="width:10%">STATUS</th>
                                         <th style="width:15%">LAST SYNC</th>
                                         <th style="width:10%">ACTIONS</th>
-                                        <th style="width:1%">STATUS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -89,77 +88,10 @@
                             }
                         ]
                     }
-                ],
-                columns: [
-                    {   //IMEI NUMBER
-                        data: 'imei_number',
-                        defaultContent: ''
-                    },
-                    {   //SERIAL NUMBER
-                        data: 'serial_number',
-                        defaultContent: ''
-                    },
-                    {   //DEVICE NAME
-                        data: 'device_name',
-                        defaultContent: 'N/a'
-                    },
-                    {   //PHONE NUMBER
-                        data: 'phone_number',
-                        defaultContent: ''
-                    },
-                    {   //SUPERVISOR
-                        data: 'supervisor',
-                        defaultContent: 'N/a'
-                    },
-                    {   //SITE
-                        data: 'site.name',
-                        defaultContent: 'N/a'
-                    },
-                    {   //STATUS
-                        data: null,
-                        defaultContent: '<span class="label label-info"> N/a </span>',
-                        'render' : function ( data, type, row, meta ) {
-                            var labelClass = (data.status === 'ACTIVE') ? "label-success" : "label-important";
-                            return '<span class="label '+ labelClass +'">' + data.status +'</span>';
-                        }
-                    },
-                    {   //LAST SYNC
-                        data: 'last_sync',
-                        defaultContent: 'N/a'
-                    },
-                    {
-                        //ACTIONS
-                        data: null,
-                        defaultContent: '',
-                        'render' : function ( data, type, row, meta ) {
-                            return '<a href = "/devices/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
-                        }
-                    },
-                    {   //
-                        data: 'status',
-                        defaultContent: 'N/a',
-                        visible: false
-                    }
-                ],
-                filterDropDown: {
-                    bootstrap: true,
-                    label: "Filters | ",
-                    columns: [
-                        {idx: 5},
-                        {idx: 9}
-                    ]
-                }
+                ]
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
-            $('#_table_filterSelect5').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
-            $('#_table_filterSelect9').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
         });
     </script>
 @endsection

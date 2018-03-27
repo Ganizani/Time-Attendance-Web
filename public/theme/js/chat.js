@@ -6,11 +6,11 @@ $(document).ready(function() {
 			set_user_details($(this).attr('data-user-name'),$(this).attr('data-chat-status'));
             var el = $('#messages-wrapper').parent('.scroll-content').show();
             if(el.length > 0){
-                $('#chat-users').parent().hide(); 
+                $('#chat-employees').parent().hide(); 
                 $('#messages-wrapper').parent('.scroll-content').show();  
             }
             else{
-                 $('#chat-users').hide();
+                 $('#chat-employees').hide();
             }
             $('#messages-wrapper').show(); 
 			$('.chat-input-wrapper').show();
@@ -21,11 +21,11 @@ $(document).ready(function() {
 			$('#messages-wrapper .chat-messages-header .status').removeClass('busy');
             var el = $('#messages-wrapper').parent('.scroll-content').show();
             if(el.length > 0){
-                $('#chat-users').parent().show(); 
+                $('#chat-employees').parent().show(); 
                 $('#messages-wrapper').parent('.scroll-content').hide();  
             }
             else{
-                 $('#chat-users').show();
+                 $('#chat-employees').show();
             }
             $('#messages-wrapper').hide(); 
 			$('.chat-input-wrapper').hide();
@@ -42,7 +42,7 @@ $(document).ready(function() {
             e.preventDefault();
 		}
 	 })
-    $('#chat-users').scrollbar({
+    $('#chat-employees').scrollbar({
         ignoreMobile:true
     });
     $('.chat-messages').scrollbar({

@@ -29,7 +29,9 @@ class DeviceController extends Controller
 
     public function add(){
 
-        return view('pages.devices.add');
+        $r_department  = Helpers::callAPI('GET', "/departments", "");
+        return view('pages.devices.add', [
+        ]);
 
         /*if(Helpers::hasValidSession()) {
             if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {

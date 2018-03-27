@@ -53,13 +53,13 @@
                                     <tr>
                                         <th style="width:10%">DATE</th>
                                         <th style="width:10%">WEEEKDAY</th>
-                                        <th style="width:10%">ID NUMBER</th>
+                                        <th style="width:10%">EMPLOYEE CODE</th>
                                         <th style="width:10%">NAME</th>
-                                        <th style="width:10%">COMPANY</th>
-                                        <th style="width:10%">SITE</th>
-                                        <th style="width:10%">INTERVENTION</th>
-                                        <th style="width:10%">QUALIFICATION</th>
-                                        <th style="width:10%">REASON</th>
+                                        <th style="width:10%">DEPARTMENT</th>
+                                        <th style="width:10%">FROM</th>
+                                        <th style="width:10%">TO</th>
+                                        <th style="width:10%">LEAVE TYPE</th>
+                                        <th style="width:10%">LEAVE DAYS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -81,20 +81,12 @@
     <script>
         $(document).ready(function() {
 
-            $('.datepicker').datepicker({
-                format: "yyyy-mm-dd",
-                startView: 0,
-                autoClose: true,
-                todayHighlight: true
-            });
-
             $("#search_form").submit(function(event) {
                 event.preventDefault();
 
-                var from_date = $('#FromDate').val();
-                var to_date   = $('#ToDate').val();
-                var company   = $('#Company').val();
-                var site      = $('#Site').val();
+                var from_date  = $('#FromDate').val();
+                var to_date    = $('#ToDate').val();
+                var department = $('#Department').val();
 
                 if(from_date === ""){
                     toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
@@ -113,8 +105,7 @@
                             data: {
                                 from_date: from_date,
                                 to_date: to_date,
-                                site: site,
-                                company: company
+                                department: department
                             }
                         },
                         language: {
@@ -257,7 +248,7 @@
                     { data: null },
                     { data: null },
                     { data: null },
-                    { data: null }
+                    { data: null },
                 ]
             });
 

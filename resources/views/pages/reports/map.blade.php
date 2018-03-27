@@ -41,7 +41,7 @@
                                     <button class="btn btn-warning btn-block btn-medium" type="submit" ><i class="fa fa-filter"></i> &nbsp;Filter </button>
                                 </div>
 
-                                <p> &nbsp;</p>
+                                <h4> &nbsp;</h4>
                             </form>
                         </div>
 
@@ -66,27 +66,17 @@
         $(document).ready(function() {
 
             <?php
-                if(isset($_GET['Company']) && $_GET['Company'] != ""){ ?>
-                    $('#Company').select2().select2('val','{{$_GET['Company']}}');
-                <? }
-                if(isset($_GET['Site']) && $_GET['Site'] != ""){ ?>
-                    $('#Site').select2().select2('val','{{$_GET['Site']}}');
+                if(isset($_GET['Department']) && $_GET['Department'] != ""){ ?>
+                    $('#Department').select2().select2('val','{{$_GET['Department']}}');
                 <? }
             ?>
-            $('.datepicker').datepicker({
-                format: "yyyy-mm-dd",
-                startView: 0,
-                autoClose: true,
-                todayHighlight: true
-            });
 
             $("#search_form").submit(function(event) {
                 event.preventDefault();
 
-                var from_date = $('#FromDate').val();
-                var to_date   = $('#ToDate').val();
-                var company   = $('#Company').val();
-                var site      = $('#Site').val();
+                var from_date  = $('#FromDate').val();
+                var to_date    = $('#ToDate').val();
+                var department = $('#Department').val();
 
                 if(from_date === ""){
                     toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
@@ -95,7 +85,7 @@
                     toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
                 }
                 else {
-                   window.location.href = "/reports/map?FromDate="+ from_date +"&ToDate="+to_date +"&Company="+ company+"&Site=" + site;
+                   window.location.href = "/reports/map?FromDate="+ from_date +"&ToDate="+to_date +"&Department="+ department;
                 }
 
             });

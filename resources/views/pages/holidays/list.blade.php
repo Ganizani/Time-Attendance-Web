@@ -8,12 +8,10 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Holidays</li>
                 <li><a href="#" class="active">List</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">event</i><h3>Holidays</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -29,8 +27,7 @@
                                         <th style="width:20%">DATE</th>
                                         <th style="width:10%">NAME</th>
                                         <th style="width:20%">DESCRIPTION</th>
-                                        <th style="width:20%">COMPANY</th>
-                                        <th style="width:20%">SITE</th>
+                                        <th style="width:20%">DEPARTMENT</th>
                                         <th style="width:10%">ACTIONS</th>
                                     </tr>
                                     </thead>
@@ -87,55 +84,10 @@
                             }
                         ]
                     }
-                ],
-                columns: [
-                    {   //DATE
-                        data: 'date',
-                        defaultContent:''
-                    },
-                    {   //NAME
-                        data: 'name',
-                        defaultContent:''
-                    },
-                    {   //DESCRIPTION
-                        data: 'description',
-                        defaultContent:''
-                    },
-                    {   //COMPANY
-                        data: 'company.name',
-                        defaultContent:''
-                    },
-                    {   //SITE
-                        data: 'site.name',
-                        defaultContent:''
-                    },
-                    {   //Actions
-                        data: null,
-                        defaultContent: '',
-                        render : function ( data, type, row, meta ) {
-                            return '<a href = "/holidays/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
-                        }
-                    }
-                ],
-                filterDropDown: {
-                    bootstrap: true,
-                    label: "Filters | ",
-                    columns: [
-                        {idx: 3},
-                        {idx: 4}
-                    ]
-                }
+                ]
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
-            $('#_table_filterSelect3').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
-            $('#_table_filterSelect4').select2({
-                minimumResultsForSearch: -1,
-                width: '400px'
-            });
         });
     </script>
 @endsection

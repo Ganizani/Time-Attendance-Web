@@ -3,14 +3,11 @@
 @section('title', 'Reset Password')
 @section('content')
     <div class="row login-container column-seperation">
-        <div class="col-md-7" >
-            <img src="" width="200" >
-            <h2> Forgot Password</h2>
-            <br>
+        <div class="col-md-6" >
+            <h2 class="txt-orange"> Reset Password</h2>
             <form class="login-form validate" id="reset-password-form"  name="reset-password-form">
                 <input class="form-control" id="txt_token" name="txt_token" type="hidden"  value="{{$user['token']}}">
                 <input class="form-control" id="txt_email" name="txt_email" type="hidden"  value="{{$user['email']}}">
-
                 <div class="row" >
                     <div class="form-group col-md-12">
                         <div id="Results"></div>
@@ -31,8 +28,8 @@
 
                 <div class="row" >
                     <div class="form-group col-md-12">
-                        <a href="/login" class="btn btn-white btn-cons pull-left" type="submit">Login</a>
-                        <button class="btn btn-info btn-cons pull-right" type="submit">Reset Password</button>
+                        <a href="/login" class="btn btn-white btn-cons btn-medium pull-left" type="submit">Login</a>
+                        <button class="btn btn-warning btn-cons btn-medium pull-right" type="submit">Reset Password</button>
                     </div>
                 </div>
             </form>
@@ -45,7 +42,7 @@
         <br><br><br>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" class="txt-orange">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>
@@ -62,7 +59,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/users/password/reset",
+                url:"/api/employees/password/reset",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

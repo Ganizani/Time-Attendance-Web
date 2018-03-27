@@ -4,9 +4,7 @@
 @section('content')
     <div class="row login-container column-seperation">
         <div class="col-md-7" >
-            <img src="" width="200" >
-            <h2> Forgot Password</h2>
-            <br>
+            <h2 class="txt-orange"> Forgot Password</h2>
             <form class="login-form validate" id="forgot-password-form"  name="forgot-password-form">
                 <div class="row" >
                     <div class="form-group col-md-12">
@@ -22,8 +20,8 @@
 
                 <div class="row" >
                     <div class="form-group col-md-12">
-                        <a href="/login" class="btn btn-white btn-cons pull-left" type="submit">Login</a>
-                        <button class="btn btn-info btn-cons pull-right" type="submit">Send Reset Link</button>
+                        <a href="/login" class="btn btn-white btn-cons btn-medium pull-left" type="submit">Login</a>
+                        <button class="btn btn-warning btn-cons btn-medium pull-right" type="submit">Send Reset Link</button>
                     </div>
                 </div>
             </form>
@@ -36,7 +34,7 @@
         <br><br><br>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" class="txt-orange">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>
@@ -53,7 +51,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/users/password/forgot",
+                url:"/api/employees/password/forgot",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

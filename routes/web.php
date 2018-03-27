@@ -60,11 +60,11 @@ Route::get('/devices/upload', 'DeviceController@upload');
 Route::get('/devices/edit/{id?}', 'DeviceController@edit');
 
 //User
-Route::get('/users', 'UserController@index');
-Route::get('/users/list', 'UserController@index');
-Route::get('/users/add', 'UserController@add');
-Route::get('/users/upload', 'UserController@upload');
-Route::get('/users/edit/{id?}', 'UserController@edit');
+Route::get('/employees', 'EmployeeController@index');
+Route::get('/employees/list', 'EmployeeController@index');
+Route::get('/employees/add', 'EmployeeController@add');
+Route::get('/employees/upload', 'EmployeeController@upload');
+Route::get('/employees/edit/{id?}', 'EmployeeController@edit');
 
 //MyAccount
-Route::get('/my-account/{id?}', 'UserController@myAccount');
+Route::get('/my-account/{id?}', 'EmployeeController@myAccount');
