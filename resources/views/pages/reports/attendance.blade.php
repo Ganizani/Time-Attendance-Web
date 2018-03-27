@@ -33,7 +33,11 @@
                                 <div class="col-md-3">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Department --</option>
-
+                                        @if(isset($departments) && count($departments) > 0)
+                                            @foreach($departments as $department)
+                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -51,11 +55,10 @@
                                 <table class="table table-striped dataTable" id="report_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:10%">DATE</th>
-                                        <th style="width:10%">WEEKDAY</th>
                                         <th style="width:10%">EMPLOYEE CODE</th>
                                         <th style="width:10%">NAME</th>
                                         <th style="width:10%">DEPARTMENT</th>
+                                        <th style="width:10%">DATE</th>
                                         <th style="width:10%">CLOCK IN</th>
                                         <th style="width:10%">CLOCK OUT</th>
                                         <th style="width:10%">NORMAL HOURS</th>
@@ -101,7 +104,7 @@
                     table = $('#report_table').DataTable({
                         ajax: {
                             url: "/api/reports/attendance",
-                            type: "POST",
+                            type: "GET",
                             dataSrc: "",
                             data: {
                                 from_date: from_date,
@@ -122,33 +125,52 @@
                         buttons: [
                             {
                                 extend: 'collection',
+                                className: 'btn',
                                 text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                                 buttons: [
                                     {
-                                        text: 'Excel',
-                                        action: function ( e, dt, node, config ) {
-                                            var site     = $("#Site").val();
-                                            var company  = $("#Company").val();
-                                            var from     = $("#FromDate").val();
-                                            var to       = $("#ToDate").val();
-                                            var type     = "excel";
-                                            var val      = "/api/reports/attendance/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                            window.location.href = val;
-                                        }
+                                        text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                        className: 'btn'
                                     },
                                     {
-                                        text: 'PDF',
-                                        action: function ( e, dt, node, config ) {
-                                            var site     = $("#Site").val();
-                                            var company  = $("#Company").val();
-                                            var from     = $("#FromDate").val();
-                                            var to       = $("#ToDate").val();
-                                            var type     = "pdf";
-                                            var val      = "/api/reports/attendance/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                            window.location.href = val;
-                                        }
+                                        text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                        className: 'btn'
                                     }
                                 ]
+                            }
+                        ],
+                        columns: [
+                            {   //EMPLOYEE CODE
+                                data: 'user.employee_code',
+                                defaultContent: ''
+                            },
+                            {   //NAME
+                                data: 'user.name',
+                                defaultContent: ''
+                            },
+                            {   //DEPARTMENT
+                                data: 'user.department.name',
+                                defaultContent: ''
+                            },
+                            {   //DATE
+                                data: 'record.in.date',
+                                defaultContent: ''
+                            },
+                            {   //CLOCK IN
+                                data: 'record.in.time',
+                                defaultContent: ''
+                            },
+                            {   //CLOCK OUT
+                                data: 'record.out.time',
+                                defaultContent: ''
+                            },
+                            {   //NORMAL HOURS
+                                data: null,
+                                defaultContent: ''
+                            },
+                            {   //EXTRA HOURS
+                                data: null,
+                                defaultContent: ''
                             }
                         ]
                     });
@@ -172,31 +194,16 @@
                 buttons: [
                     {
                         extend: 'collection',
+                        className: 'btn',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         buttons: [
                             {
-                                text: 'Excel',
-                                action: function ( e, dt, node, config ) {
-                                    var site     = $("#Site").val();
-                                    var company  = $("#Company").val();
-                                    var from     = $("#FromDate").val();
-                                    var to       = $("#ToDate").val();
-                                    var type     = "excel";
-                                    var val      = "/api/reports/attendance/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                    window.location.href = val;
-                                }
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                className: 'btn'
                             },
                             {
-                                text: 'PDF',
-                                action: function ( e, dt, node, config ) {
-                                    var site     = $("#Site").val();
-                                    var company  = $("#Company").val();
-                                    var from     = $("#FromDate").val();
-                                    var to       = $("#ToDate").val();
-                                    var type     = "pdf";
-                                    var val      = "/api/reports/attendance/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                    window.location.href = val;
-                                }
+                                text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                className: 'btn'
                             }
                         ]
                     }

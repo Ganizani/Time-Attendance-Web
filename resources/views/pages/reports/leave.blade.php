@@ -33,13 +33,21 @@
                                 <div class="col-md-3">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Department --</option>
-
+                                        @if(isset($departments) && count($departments) > 0)
+                                            @foreach($departments as $department)
+                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-3">
                                     <select name="Reason" id="Reason" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Reason --</option>
-
+                                        @if(isset($leave_types) && count($leave_type) > 0)
+                                            @foreach($leave_types as $leave_type)
+                                                <option value="{{$leave_type['id']}}" >{{$leave_type['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-2">
@@ -106,7 +114,7 @@
                     table = $('#report_table').DataTable({
                         ajax: {
                             url: "/api/reports/leave",
-                            type: "POST",
+                            type: "GET",
                             dataSrc: "",
                             data: {
                                 from_date: from_date,
@@ -127,29 +135,20 @@
                         buttons: [
                             {
                                 extend: 'collection',
+                                className: 'btn',
                                 text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                                 buttons: [
                                     {
-                                        extend: 'excel',
-                                        text: 'Excel',
-                                        title: '{{env('APP_NAME')}} - Base Report',
-                                        exportOptions: {
-                                            columns: [0,1,2]
-                                        }
+                                        text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                        className: 'btn'
                                     },
                                     {
-                                        extend: 'pdf',
-                                        text: 'PDF',
-                                        title: '{{env('APP_NAME')}} - Base Report',
-                                        orientation: 'landscape',
-                                        pageSize: 'LEGAL',
-                                        exportOptions: {
-                                            columns: [0,1,2]
-                                        }
+                                        text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                        className: 'btn'
                                     }
                                 ]
                             }
-                        ]
+                        ],
                     });
 
                     $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
@@ -170,25 +169,16 @@
                 buttons: [
                     {
                         extend: 'collection',
+                        className: 'btn',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         buttons: [
                             {
-                                extend: 'excel',
-                                text: 'Excel',
-                                title: '{{env('APP_NAME')}} - Base Report',
-                                exportOptions: {
-                                    columns: [0,1,2]
-                                }
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                className: 'btn'
                             },
                             {
-                                extend: 'pdf',
-                                text: 'PDF',
-                                title: '{{env('APP_NAME')}} - Base Report',
-                                orientation: 'landscape',
-                                pageSize: 'LEGAL',
-                                exportOptions: {
-                                    columns: [0,1,2]
-                                }
+                                text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                className: 'btn'
                             }
                         ]
                     }

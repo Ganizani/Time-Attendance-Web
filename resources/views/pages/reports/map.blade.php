@@ -33,7 +33,11 @@
                                 <div class="col-md-3">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Department --</option>
-
+                                        @if(isset($departments) && count($departments) > 0)
+                                            @foreach($departments as $department)
+                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>

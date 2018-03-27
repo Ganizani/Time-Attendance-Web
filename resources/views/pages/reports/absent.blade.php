@@ -33,7 +33,11 @@
                                 <div class="col-md-3">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Department --</option>
-
+                                        @if(isset($departments) && count($departments) > 0)
+                                            @foreach($departments as $department)
+                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -56,9 +60,7 @@
                                         <th style="width:10%">EMPLOYEE CODE</th>
                                         <th style="width:10%">NAME</th>
                                         <th style="width:10%">DEPARTMENT</th>
-                                        <th style="width:10%">FROM</th>
-                                        <th style="width:10%">TO</th>
-                                        <th style="width:10%">LEAVE TYPE</th>
+                                        <th style="width:10%">REASON</th>
                                         <th style="width:10%">LEAVE DAYS</th>
                                     </tr>
                                     </thead>
@@ -99,8 +101,8 @@
                     table.destroy();
                     table = $('#report_table').DataTable({
                         ajax: {
-                            url: "/api/reports/absent",
-                            type: "POST",
+                            url: "/api/reports/absentee",
+                            type: "GET",
                             dataSrc: "",
                             data: {
                                 from_date: from_date,
@@ -120,31 +122,16 @@
                         buttons: [
                             {
                                 extend: 'collection',
+                                className: 'btn',
                                 text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                                 buttons: [
                                     {
-                                        text: 'Excel',
-                                        action: function ( e, dt, node, config ) {
-                                            var site     = $("#Site").val();
-                                            var company  = $("#Company").val();
-                                            var from     = $("#FromDate").val();
-                                            var to       = $("#ToDate").val();
-                                            var type     = "excel";
-                                            var val = "/api/reports/absentee/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                            window.location.href = val;
-                                        }
+                                        text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                        className: 'btn'
                                     },
                                     {
-                                        text: 'PDF',
-                                        action: function ( e, dt, node, config ) {
-                                            var site     = $("#Site").val();
-                                            var company  = $("#Company").val();
-                                            var from     = $("#FromDate").val();
-                                            var to       = $("#ToDate").val();
-                                            var type     = "pdf";
-                                            var val = "/api/reports/absentee/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                            window.location.href = val;
-                                        }
+                                        text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                        className: 'btn'
                                     }
                                 ]
                             }
@@ -158,35 +145,24 @@
                                 data: 'weekday',
                                 defaultContent: ''
                             },
-                            {   //ID NUMBER
-                                data: 'learner.id_number',
+                            {   //EMPLOYEE CODE
+                                data: 'user.employee_code',
                                 defaultContent: ''
-
                             },
                             {   //NAME
-                                data: 'learner.name',
+                                data: 'user.name',
                                 defaultContent: ''
                             },
-                            {
-                                //COMPANY
-                                data: 'learner.site.company.name',
+                            {   //DEPARTMENT
+                                data: 'user.department.name',
                                 defaultContent: ''
                             },
-                            {   //SITE
-                                data: 'learner.site.name',
-                                defaultContent: ''
-                            },
-                            {   //INTERVENTION
-                                data: 'learner.intervention',
-                                defaultContent: ''
-                            },
-                            {   //QUALIFICATION
-                                data: 'learner.qualification',
-                                defaultContent: ''
-                            },
-
                             {   //REASON
-                                data: 'reason.name',
+                                data: 'reason',
+                                defaultContent: ''
+                            },
+                            {   //LEAVE DAYS
+                                data: null,
                                 defaultContent: ''
                             }
                         ]
@@ -210,45 +186,19 @@
                 buttons: [
                     {
                         extend: 'collection',
+                        className: 'btn',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         buttons: [
                             {
-                                text: 'Excel',
-                                action: function ( e, dt, node, config ) {
-                                    var site     = $("#Site").val();
-                                    var company  = $("#Company").val();
-                                    var from     = $("#FromDate").val();
-                                    var to       = $("#ToDate").val();
-                                    var type     = "excel";
-                                    var val = "/api/reports/absentee/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                    window.location.href = val;
-                                }
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                className: 'btn'
                             },
                             {
-                                text: 'PDF',
-                                action: function ( e, dt, node, config ) {
-                                    var site     = $("#Site").val();
-                                    var company  = $("#Company").val();
-                                    var from     = $("#FromDate").val();
-                                    var to       = $("#ToDate").val();
-                                    var type     = "pdf";
-                                    var val = "/api/reports/absentee/export?type=" + type + "&from_date=" +from+ "&to_date=" +to+ "&company=" +company+ "&site="+site;
-                                    window.location.href = val;
-                                }
+                                text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                className: 'btn'
                             }
                         ]
                     }
-                ],
-                columns: [
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
-                    { data: null },
                 ]
             });
 

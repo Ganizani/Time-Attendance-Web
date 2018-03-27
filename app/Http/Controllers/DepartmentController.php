@@ -15,81 +15,53 @@ class DepartmentController extends Controller
     //WEB CALLS
     public function index()
     {
-        return view('pages.departments.list');
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['GANIZANI-EMPLG-USER-TYPE'] < 3) {
-                return view('pages.companies.list');
-            }
-            else{
-                return view('errors.503');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.departments.list');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function add()
     {
-        return view('pages.departments.add');
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                return view('pages.companies.add');
-            }
-            else{
-                return view('pages.errors.auth');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.departments.add');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function edit($id)
     {
-        return view('pages.departments.edit');
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                $r_comp = Helpers::callAPI('GET', "/companies/" . $id, "");
-                return view('pages.companies.edit', [
-                    'company' => $r_comp['data']
-                ]);
-            }
-            else{
-                return view('pages.errors.auth');
-            }
+        if(Helpers::hasValidSession()) {
+            $r_department = Helpers::callAPI('GET', "/departments/" . $id, "");
+
+            return view('pages.departments.edit',[
+                'department' => $r_department['data']
+            ]);
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function upload()
     {
-        return view('pages.departments.upload');
-        /*if(Helpers::hasValidSession()) {
-
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                return view('pages.companies.upload');
-            }
-            else{
-                return view('pages.errors.auth');
-            }
+        if(Helpers::hasValidSession()) {
+           return view('pages.departments.upload');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     //API CALLS
     public function get_all()
     {
-        $response = Helpers::callAPI('GET', "/departments", "");
+        $response = Helpers::callAPI('GET', "/departments");
 
-        $val = ($response['data'] != "")? $response['data'] : [];
-
-        return response()->json(["data" => $val], 200);
+        return $response;
     }
 
     public function get_one($id)
     {
         $response = Helpers::callAPI('GET', "/departments/" . $id, "");
 
-        $val = ($response['data'] != "")? $response['data'] : [];
-
-        return response()->json(["data" => $val], 200);
+        return $response['data'];
     }
 
     public function create(Request $request)
@@ -97,57 +69,38 @@ class DepartmentController extends Controller
         $response = Helpers::callAPI( "POST", "/departments" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
-            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$response['data']}</div>";
+            $message = "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Successfully Created!</div>";
         }
         else{
             $error = Helpers::getError($response);
-            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+            $message =  "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+
+        return $message;
     }
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/companies/" . $id, $this->get_array($request, 'edit'));
+        $response = Helpers::callAPI( "PUT", "/departments/" . $id, $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
-            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$response['data']}</div>";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Information  Successfully Updated!</div>";
         }
         else{
             $error = Helpers::getError($response);
 
-            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+            $message =  "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+
+        return $message;
     }
 
-
-    public function select_options(Request $request)
-    {
-        if(isset($request->company_id) &&  $request->company_id != "") {
-            $response = Helpers::callAPI('GET', "/departments/" . $request->company_id . "/sites", "");
-        }
-        else{
-            $response = Helpers::callAPI('GET', "/sites", "");
-        }
-
-        $data = "<option value=''>-- Sites --</option>";
-        foreach ($response['data'] as $item) {
-            $data = $data . "<option value='" . $item['id'] . "'> " . $item['name'] . "</option>";
-        }
-
-        return $data;
-    }
-
-    public function get_array($request , $method = 'add')
+    public function get_array($request)
     {
         $data = [
-            'name'              => $request->CompanyName,
-            'contact_person'    => $request->CompanyContactPerson,
-            'email'             => $request->CompanyEmail,
-            'login_id'          => $request->CompanyLoginId,
-            'password'          => $request->CompanyLoginPassword,
-            'phone_number'      => $request->CompanyPhoneNumber,
-            'address'           => $request->CompanyAddress,
-            'website'           => $request->CompanyWebsite,
+            'name'        => $request->DepartmentName,
+            'description' => $request->DepartmentDescription,
+            'location'    => $request->DepartmentLocation,
         ];
 
         return $data;

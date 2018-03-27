@@ -27,7 +27,7 @@
                                     <tr>
                                         <th style="width:10%">NAME</th>
                                         <th style="width:20%">DESCRIPTION</th>
-                                        <th style="width:10%">PHONE NUMBER</th>
+                                        <th style="width:10%">LOCATION</th>
                                         <th style="width:10%">EMPLOYEE COUNT</th>
                                         <th style="width:10%">DEVICE COUNT</th>
                                         <th style="width:10%">MANAGER</th>
@@ -53,39 +53,48 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
+                ajax: "/api/departments",
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
+                dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 pageLength:  25,
-                buttons: [
-                    {
-                        extend: 'collection',
-                        text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
-                        buttons: [
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                title: '{{env('APP_NAME')}} - Department List',
-                                exportOptions: {
-                                    columns: [0,1,2,3,4,5,6,8]
-                                }
-                            },
-                            {
-                                extend: 'pdf',
-                                text: 'PDF',
-                                title: '{{env('APP_NAME')}}  - Department List',
-                                orientation: 'landscape',
-                                pageSize: 'LEGAL',
-                                exportOptions: {
-                                    columns: [0,1,2,3,4,5,6,8]
-                                }
-                            }
-                        ]
+                columns: [
+                    {   //NAME
+                        data: 'name',
+                        defaultContent: ''
+                    },
+                    {   //DESCRIPTION
+                        data: 'description',
+                        defaultContent: ''
+                    },
+                    {   //Location
+                        data: 'location',
+                        defaultContent: ''
+                    },
+                    {   //EMPLOYEE COUNT
+                        data: 'employees',
+                        defaultContent: ''
+                    },
+                    {   //DEVICE COUNT
+                        data: 'devices',
+                        defaultContent: ''
+                    },
+                    {   //MANAGER
+                        data: null,
+                        defaultContent: ''
+                    },
+                    {   //ACTION
+                        data: null,
+                        defaultContent: '',
+                        render : function ( data, type, row, meta ) {
+                            return '<a href = "/departments/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
+                        }
+
                     }
                 ]
             });

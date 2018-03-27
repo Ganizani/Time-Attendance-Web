@@ -55,16 +55,19 @@ class Helpers
         else return "";
     }
 
-    public static function callAPI($method, $url, $data , $authorization = "")
+    public static function callAPI($method, $url, $data = [])
     {
+        if (session_status() == PHP_SESSION_NONE) session_start();
+        $authorization = isset($_SESSION['GANIZANI-EMPLG-ACCESS-TOKEN']) ? $_SESSION['GANIZANI-EMPLG-ACCESS-TOKEN'] : "";
+
         $client = new Client();
         $result = [];
         $body   = [
             'json'    => $data,
             'headers' => [
-                'Content-Type'   =>  "application/json",
-                'Accept'         => '*/*',
-                'X-Access-Token' => $authorization
+                'Content-Type'   => "application/json",
+                'Accept'         => "*/*",
+                'Authorization'  => "Bearer ".$authorization
             ]
         ];
 
@@ -96,32 +99,20 @@ class Helpers
         elseif(isset($response['error']['status'])) $error = $response['error']['status'][0];
         elseif(isset($response['error']['phone_number'])) $error = $response['error']['phone_number'][0];
         elseif(isset($response['error']['token'])) $error = $response['error']['token'][0];
-        //Learners
-        elseif(isset($response['error']['id_number'])) $error = $response['error']['id_number'][0];
-        elseif(isset($response['error']['card_number'])) $error = $response['error']['card_number'][0];
-        elseif(isset($response['error']['company'])) $error = $response['error']['company'][0];
-        elseif(isset($response['error']['site'])) $error = $response['error']['site'][0];
-        elseif(isset($response['error']['intervention'])) $error = $response['error']['intervention'][0];
-        elseif(isset($response['error']['qualification'])) $error = $response['error']['qualification'][0];
-        elseif(isset($response['error']['start_date'])) $error = $response['error']['start_date'][0];
-        elseif(isset($response['error']['end_date'])) $error = $response['error']['end_date'][0];
-        elseif(isset($response['error']['monthly_stipend'])) $error = $response['error']['monthly_stipend'][0];
+        elseif(isset($response['error']['department'])) $error = $response['error']['department'][0];
+        elseif(isset($response['error']['department_id'])) $error = $response['error']['department_id'][0];
+        elseif(isset($response['error']['name'])) $error = $response['error']['name'][0];
         //Devices
         elseif(isset($response['error']['imei_number'])) $error = $response['error']['imei_number'][0];
         elseif(isset($response['error']['supervisor'])) $error = $response['error']['supervisor'][0];
-        elseif(isset($response['error']['device_name'])) $error = $response['error']['device_name'][0];
-        //SMS
-        elseif(isset($response['error']['user'])) $error = $response['error']['user'][0];
-        elseif(isset($response['error']['message'])) $error = $response['error']['message'][0];
+        elseif(isset($response['error']['serial_number'])) $error = $response['error']['serial_number'][0];
         //Holiday
         elseif(isset($response['error']['date'])) $error = $response['error']['date'][0];
-        //Leave Type
-        elseif(isset($response['error']['name'])) $error = $response['error']['name'][0];
         elseif(isset($response['error']['description'])) $error = $response['error']['description'][0];
         //Leave
         elseif(isset($response['error']['attachment'])) $error = $response['error']['attachment'][0];
-        elseif(isset($response['error']['comment'])) $error = $response['error']['comment'][0];
-        elseif(isset($response['error']['reason'])) $error = $response['error']['reason'][0];
+        elseif(isset($response['error']['comments'])) $error = $response['error']['comments'][0];
+        elseif(isset($response['error']['leave_type'])) $error = $response['error']['leave_type'][0];
         elseif(isset($response['error']['from_date'])) $error = $response['error']['from_date'][0];
         elseif(isset($response['error']['to_date'])) $error = $response['error']['to_date'][0];
         //ELSE

@@ -79,9 +79,9 @@
                                         <table class="table table-striped dataTable" id="_table" width="100%">
                                             <thead>
                                             <tr>
-                                                <th style="width:20%">ID NUMBER</th>
+                                                <th style="width:20%">EMPLOYEE CODE</th>
                                                 <th style="width:20%">NAME</th>
-                                                <th style="width:20%">COMPANY</th>
+                                                <th style="width:20%">DEPARTMENT</th>
                                                 <th style="width:10%">TIME</th>
                                                 <th style="width:10%">STATUS</th>
                                                 <th style="width:10%">MAP</th>
@@ -147,33 +147,25 @@
         $(document).ready(function() {
 
             var table =  $('#_table').DataTable({
-                dom: "<'row'<'col-sm-2'B>>" +
+                dom: "<'row'>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'>",
                 pageLength:  25,
-                buttons: [
-                    {
-                        text: '&nbsp; <i class="fa fa-search-plus"></i> &nbsp; View All',
-                        action: function ( e, dt, node, config ) {
-                           window.location.href = "/reports/attendance";
-                        }
-                    }
-                ],
                 columns: [
-                    {   //ID NUMBER
-                        data: 'learner.id_number',
+                    {   //EMPLOYEE CODE
+                        data: 'user.employee_code',
                         defaultContent: ''
                     },
-                    {   //NAME
-                        data: 'learner.name',
+                    {   //EMPLOYEE NAME
+                        data: 'user.name',
                         defaultContent: ''
                     },
-                    {   //SITE
-                        data: 'learner.site.name',
+                    {   //DEPARTMENT
+                        data: 'user.department.name',
                         defaultContent: ''
                     },
                     {   //DEVICE
-                        data: 'device.device_name',
+                        data: 'device.name',
                         defaultContent: ''
                     },
                     {   //TIME

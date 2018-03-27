@@ -14,74 +14,35 @@ class DeviceController extends Controller
 {
     //WEB CALLS
     public function index(){
-        return view('pages.devices.list');
 
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['GANI-EMPLG-USER-TYPE'] < 3) {
-                return view('pages.devices.list');
-            }
-            else {
-                return view('errors.503');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.devices.list');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function add(){
 
-        $r_department  = Helpers::callAPI('GET', "/departments", "");
-        return view('pages.devices.add', [
-        ]);
-
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                $r_site  = Helpers::callAPI('GET', "/sites", "");
-
-                return view('pages.devices.add' ,[
-                    'sites' => $r_site['data']
-                ]);
-            }
-            else {
-                return view('errors.503');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.devices.add');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function upload(){
 
-        return view('pages.devices.upload');
-
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                return view('pages.devices.upload');
-            }
-            else {
-                return view('errors.503');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.devices.upload');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function edit($id)
     {
-        return view('pages.devices.edit');
-
-        /*if(Helpers::hasValidSession()) {
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                $r_site   = Helpers::callAPI('GET', "/sites", "");
-                $r_device = Helpers::callAPI('GET', "/devices/" . $id, "");
-
-                return view('pages.devices.edit', [
-                    'sites'  => $r_site['data'],
-                    'device' => $r_device['data']
-                ]);
-            }
-            else {
-                return view('errors.503');
-            }
+        if(Helpers::hasValidSession()) {
+            return view('pages.devices.edit');
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     //API CALLS
@@ -89,14 +50,14 @@ class DeviceController extends Controller
     {
         $r_device= Helpers::callAPI('GET', "/devices", "");
 
-        return response()->json(["data" => $r_device['data']], 200);
+        return $r_device['data'];
     }
 
     public function get_one($id)
     {
         $r_device = Helpers::callAPI('GET', "/devices/" . $id, "");
 
-        return response()->json(["data" => $r_device['data']], 200);
+        return $r_device['data'];
     }
 
     public function create(Request $request)
@@ -104,20 +65,22 @@ class DeviceController extends Controller
         $response = Helpers::callAPI( "POST", "/devices" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
-            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$response['data']}</div>";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Successfully Created!</div>";
         }
         else{
             $error = Helpers::getError($response);
-            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+            $message =  "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+
+        return $message;
     }
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/devices/" . $id , $this->get_array($request, "edit"));
+        $response = Helpers::callAPI( "PUT", "/devices/" . $id , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
-            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$response['data']}</div>";
+            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Information Successfully Updated!</div>";
         }
         else{
             $error = Helpers::getError($response);
@@ -125,23 +88,16 @@ class DeviceController extends Controller
         }
     }
 
-    public function get_array($request , $method = 'add'){
-        if (session_status() == PHP_SESSION_NONE) session_start();
-
+    public function get_array($request){
         $data = [
-            'id'             => $request->has('DeviceId') ? $request->DeviceId : null,
-            'imei_number'    => $request->DeviceImeiNumber,
-            'device_name'    => $request->DeviceName,
-            'status'         => $request->DeviceStatus,
-            'supervisor'     => $request->DeviceSupervisor,
-            'created_by'     => isset($_SESSION['SETA-EMPLG-ID'])? $_SESSION['SETA-EMPLG-ID'] : "",
-            'updated_by'     => isset($_SESSION['SETA-EMPLG-ID'])? $_SESSION['SETA-EMPLG-ID'] : "",
-            'site'           => $request->DeviceSite,
+            'imei_number'   => $request->DeviceImeiNumber,
+            'serial_number' => $request->DeviceSerialNumber,
+            'phone_number'  => $request->DeviceSerialNumber,
+            'name'          => $request->DeviceName,
+            'status'        => $request->DeviceStatus,
+            'supervisor'    => $request->DeviceSupervisor,
+            'department'    => $request->DeviceDepartment,
         ];
-
-        if ($method == "add") {
-            $data = array_except($data, ['id']);
-        }
 
         return $data;
     }

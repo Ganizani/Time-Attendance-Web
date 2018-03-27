@@ -15,24 +15,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-
-        return view('pages.home');
-
         if(Helpers::hasValidSession()) {
-
             //Recently Added
-            $today    = date('Y-m-d');
-            $users    = $response = Helpers::callAPI('GET', "/learners?recently=true", "");
-            $expiring = $response = Helpers::callAPI('GET', "/learners/expiring", "");
-            $active   = $response = Helpers::callAPI('GET', "/learners/active", "");
-            $absent   = $response = Helpers::callAPI('GET', "/learners/absents?date={$today}", "");
-
-            return view('pages.home', [
-                'employees'     => $users['data'],
-                'expiring'  => $expiring['data'],
-                'absents'   => $absent['data'],
-                'active'    => $active['data']
-            ]);
+            return view('pages.home');
         }
         else return view('pages.login');
     }
@@ -65,7 +50,7 @@ class HomeController extends Controller
 
         $user['data'] = ['email' => '', 'token' => ''];
         if(isset($request->token)) {
-            $user = $response = Helpers::callAPI('GET', "/employees/token/" . $request->token, "");
+            $user = $response = Helpers::callAPI('GET', "/users/token/" . $request->token, "");
         }
         return view('pages.reset_password', [
             'user' => $user['data']
@@ -77,7 +62,7 @@ class HomeController extends Controller
     {
         $today = date("Y-m-d");
 
-        $response = Helpers::callAPI('GET', "/records?from_date={$today}&to_date={$today}&recently=true", "");
+        $response = Helpers::callAPI('GET', "/records/recently");
 
         $val = ($response['data'] != "")? $response['data'] : [];
 
