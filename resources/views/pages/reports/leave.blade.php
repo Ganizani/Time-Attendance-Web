@@ -86,12 +86,46 @@
         </div>
     </div>
     <!-- END PAGE CONTAINER-->
+
+    <!-- BEGIN VIEW ATTACHMENT MODAL -->
+    <div class="modal fade" id="ViewAttachmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 id="leave_name" class="semi-bold">Attachment</h4>
+                </div>
+                <div class="modal-body">
+                    <iframe id="file_source" name="file_source" src="" style="width:100%; height:550px;">
+                        <p>Your browser does not support iframes.</p>
+                    </iframe>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- END VIEW ATTACHMENT MODAL -->
 @endsection
 @section('footer')
     @parent
 
     <script>
         $(document).ready(function() {
+
+            $('#ViewAttachmentModal').on('show.bs.modal', function (event) {
+                var button     = $(event.relatedTarget); // Button that triggered the modal
+                var source     = button.data('src');     // Extract info from data-* attributes
+                var leave_type = button.data('leave');   // Extract info from data-* attributes
+
+                $('#file_source').attr('src', source);
+                $('#leave_name').html(leave_type + " Attachment");
+            });
 
             $("#search_form").submit(function(event) {
                 event.preventDefault();
@@ -149,6 +183,52 @@
                                 ]
                             }
                         ],
+                        columns: [
+                            {   //EMPLOYEE CODE
+                                data: 'user.employee_code',
+                                defaultContent: ''
+                            },
+                            {   //NAME
+                                data: 'user.name',
+                                defaultContent: ''
+                            },
+                            {   //DEPARTMENT
+                                data: 'user.department.name',
+                                defaultContent: ''
+                            },
+                            {   //LEAVE TYPE
+                                data: 'leave_type',
+                                defaultContent: ''
+                            },
+                            {   //FROM DATE
+                                data: 'from_date',
+                                defaultContent: ''
+                            },
+                            {   //TO DATE
+                                data: 'to_date',
+                                defaultContent: ''
+                            },
+                            {   //LEAVE DAYS
+                                data: 'leave_days',
+                                defaultContent: ''
+                            },
+                            {   //COMMENTS
+                                data: 'comments',
+                                defaultContent: ''
+                            },
+                            {   //ACTION
+                                data: null,
+                                defaultContent: '',
+                                render : function ( data, type, row, meta ) {
+                                    var attachment = "";
+                                    if(data.attachment !== null){
+                                        attachment = '<a class="btn btn-white btn-cons btn-block btn-small" data-leave="' +  data.user.employee_code + '" data-src="' +  data.attachment + '" data-toggle="modal" data-target="#ViewAttachmentModal"><i class="fa fa-files-o"></i> &nbsp; Attachment </a>';
+                                    }
+                                    return attachment + '<a href = "" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
+                                }
+
+                            }
+                        ]
                     });
 
                     $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
