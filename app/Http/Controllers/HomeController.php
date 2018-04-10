@@ -74,11 +74,11 @@ class HomeController extends Controller
     {
         $response = Helpers::callAPI('GET', "/records/recently");
 
-        return response()->json($response['data'], 200);
+        return response()->json(["data" => $response['data']], 200);
     }
 
     public function  dashboard_info(Request $request){
-        $leave    = Helpers::callAPI('GET', "/users/leave");
+        $leave    = Helpers::callAPI('GET', "/users/leave?date={$this->today}");
         $active   = Helpers::callAPI('GET', "/users/active");
         $absent   = Helpers::callAPI('GET', "/users/absent?date={$this->today}");
 
