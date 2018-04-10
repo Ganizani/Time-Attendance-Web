@@ -16,7 +16,11 @@ class DeviceController extends Controller
     public function index(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.devices.list');
+            $r_department = Helpers::callAPI('GET', "/departments");
+
+            return view('pages.devices.list',[
+                'departments' => $r_department['data']
+            ]);
         }
         else return view('pages.login');
     }
@@ -24,7 +28,12 @@ class DeviceController extends Controller
     public function add(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.devices.add');
+            $r_department = Helpers::callAPI('GET', "/departments");
+            $r_user       = Helpers::callAPI('GET', "/users");
+
+            return view('pages.devices.add', [
+                'departments' => $r_department['data']
+            ]);
         }
         else return view('pages.login');
     }
@@ -32,6 +41,7 @@ class DeviceController extends Controller
     public function upload(){
 
         if(Helpers::hasValidSession()) {
+
             return view('pages.devices.upload');
         }
         else return view('pages.login');
@@ -40,15 +50,28 @@ class DeviceController extends Controller
     public function edit($id)
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.devices.edit');
+            $r_department = Helpers::callAPI('GET', "/departments");
+            $r_user       = Helpers::callAPI('GET', "/users");
+            $r_device     = Helpers::callAPI('GET', "/devices/{$id}");
+
+            return view('pages.devices.edit', [
+                'departments' => $r_department['data'],
+                'device'      => $r_device['data'],
+                'users'       => $r_user['data']
+            ]);
         }
         else return view('pages.login');
     }
 
     //API CALLS
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $r_device= Helpers::callAPI('GET', "/devices", "");
+        $WHEREDepartment = "";
+        if(isset($request->department) && $request->department != ""){
+            $WHEREDepartment = "?department={$request->department}";
+        }
+
+        $r_device= Helpers::callAPI('GET', "/devices{$WHEREDepartment}");
 
         return $r_device['data'];
     }
@@ -90,13 +113,14 @@ class DeviceController extends Controller
 
     public function get_array($request){
         $data = [
-            'imei_number'   => $request->DeviceImeiNumber,
-            'serial_number' => $request->DeviceSerialNumber,
-            'phone_number'  => $request->DeviceSerialNumber,
-            'name'          => $request->DeviceName,
-            'status'        => $request->DeviceStatus,
-            'supervisor'    => $request->DeviceSupervisor,
-            'department'    => $request->DeviceDepartment,
+            'imei_number'     => $request->DeviceImeiNumber,
+            'serial_number'   => $request->DeviceSerialNumber,
+            'phone_number'    => $request->DeviceSerialNumber,
+            'name'            => $request->DeviceName,
+            'status'          => $request->DeviceStatus,
+            'supervisor'      => $request->DeviceSupervisor,
+            'allocation_date' => $request->DeviceSupervisor,
+            'department'      => $request->DeviceDepartment,
         ];
 
         return $data;

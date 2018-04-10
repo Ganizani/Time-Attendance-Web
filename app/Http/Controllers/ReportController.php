@@ -19,7 +19,9 @@ class ReportController extends Controller
         if(Helpers::hasValidSession()) {
             $r_department = Helpers::callAPI('GET', "/departments");
 
-            return view('pages.reports.absent');
+            return view('pages.reports.absent', [
+                'departments' => $r_department['data']
+            ]);
         }
         else return view('pages.login');
     }
@@ -61,13 +63,40 @@ class ReportController extends Controller
         else return view('pages.login');
     }
 
-    public function map(){
+    public function map(Request $request){
 
         if(Helpers::hasValidSession()) {
+            //Clockings
+            $r_record = $r_records = [];
+            if(isset($request->sid) && $request->sid != ""){
+                $id = $request->sid;
+                $r_department = Helpers::callAPI('GET', "/departments/{$id}");
+                return view('pages.reports.map', [
+                    'department' => $r_department['data']
+                ]);
+            }
+            elseif(isset($request->rid) && $request->rid != ""){
+                $id = $request->rid;
+                $r_record = Helpers::callAPI('GET', "/records/{$id}");
+            }
+            elseif(isset($request->FromDate) && $request->FromDate != "" && isset($request->ToDate) && $request->ToDate){
+                $data = [
+                    'from_date'  => $request->FromDate,
+                    'to_date'    => $request->ToDate,
+                    'department' => isset($request->Department)? $request->Department : ""
+                ];
+
+                $r_records = Helpers::callAPI('GET', "/records", $data);
+            }
+            else $r_record = $r_records = [];
+
             $r_department = Helpers::callAPI('GET', "/departments");
 
             return view('pages.reports.map', [
                 'departments' => $r_department['data'],
+                'records'     => (count($r_records) > 0)? $r_records['data'] : [],
+                'record'      => (count($r_record) > 0)?  $r_record['data']  : [],
+
             ]);
         }
         else return view('pages.login');
@@ -114,7 +143,7 @@ class ReportController extends Controller
             'from_date'     => $request->from_date,
             'to_date'       => $request->to_date,
             'department'    => $request->department,
-            'reason'        => isset($request->reason)? $request->reason : null,
+            'leave_type'    => isset($request->leave_type)? $request->leave_type : null,
         ];
 
         return $data;

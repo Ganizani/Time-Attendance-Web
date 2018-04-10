@@ -59,7 +59,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/employees/password/reset",
+                url:"/api/users/password/reset",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

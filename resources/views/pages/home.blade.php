@@ -21,7 +21,9 @@
                                         &nbsp;
                                     </div>
                                     <div class="tiles-title text-black">ACTIVE USERS</div>
-                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="" data-animation-duration="700">0</span></h4>
+                                    <h4 class="white">
+                                        <span id="active_count" class="item-count animate-number semi-bold" data-value="0" data-animation-duration="700">0</span>
+                                    </h4>
 
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
@@ -37,7 +39,9 @@
                                         &nbsp;
                                     </div>
                                     <div class="tiles-title text-black">ABSENT EMPLOYEES ( {{strtoupper(date('jS F'))}} ) </div>
-                                    <h4 class="white"><span class="item-count animate-number semi-bold" data-value="" data-animation-duration="700">0</span></h4>
+                                    <h4 class="white">
+                                        <span id="absent_count" class="item-count animate-number semi-bold" data-value="0" data-animation-duration="700">0</span>
+                                    </h4>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
                                     </div>
@@ -52,7 +56,7 @@
                                     </div>
                                     <div class="tiles-title text-black">EMPLOYEES ON LEAVE ( {{strtoupper(date('jS F'))}} )</div>
                                     <h4 class="white">
-                                        <span class="item-count animate-number semi-bold" data-value="" data-animation-duration="1000">0</span>
+                                        <span id="leave_count" class="item-count animate-number semi-bold" data-value="0" data-animation-duration="1000">0</span>
                                     </h4>
                                     <div class="progress transparent progress-small no-radius m-t-20" style="width:90%">
                                         <div class="progress-bar progress-bar-white animate-progress-bar" data-percentage="100%"></div>
@@ -69,7 +73,7 @@
                         <div class="col-md-8">
                             <div class="grid simple ">
                                 <div class="grid-title">
-                                    <h4>Latest Clockings</h4>
+                                    <h4>Latest Clocks</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="collapse"></a>
                                     </div>
@@ -105,12 +109,12 @@
                                     </div>
                                 </div>
                                 <div class="grid-body ">
-                                    @if(isset($ussers) && count($users) > 0)
+                                    @if(isset($users) && count($users) > 0)
                                         @foreach($users as $user)
                                             <div class="post comments-section">
                                         <div class="user-profile-pic-wrapper">
                                             <div class="user-profile-pic-normal">
-                                                <img width="35" height="35" alt="" src={{ URL::asset("theme/img/profiles/profile_placeholder.jpg") }} data-src={{ URL::asset("theme/img/profiles/profile_placeholder.jpg") }} data-src-retina={{ URL::asset("theme/img/profiles/profile_placeholder.jpg") }}>
+                                                <img width="35" height="35" alt="" src="{{ URL::asset("theme/img/profile_placeholder.jpg")}}" data-src="{{ URL::asset("theme/img/profile_placeholder.jpg")}}" data-src-retina="{{ URL::asset("theme/img/profile_placeholder.jpg")}}">
                                             </div>
                                         </div>
                                         <div class="info-wrapper">
@@ -118,7 +122,7 @@
                                                 <span class="dark-text">{{$user['name']}}</span>
                                             </div>
                                             <div class="info">
-                                                Added To <span class="dark-text">{{$user['company']['name']}}</span> , <span class="dark-text">{{$user['site']['name']}}</span>
+                                                Added To <span class="dark-text">{{$user['department']['name']}}</span>
                                             </div>
                                             <div class="more-details">
                                                 <ul class="post-links">
@@ -144,47 +148,56 @@
 @section('footer')
     @parent
     <script>
-        $(document).ready(function() {
-
-            var table =  $('#_table').DataTable({
-                dom: "<'row'>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'>",
-                pageLength:  25,
-                columns: [
-                    {   //EMPLOYEE CODE
-                        data: 'user.employee_code',
-                        defaultContent: ''
-                    },
-                    {   //EMPLOYEE NAME
-                        data: 'user.name',
-                        defaultContent: ''
-                    },
-                    {   //DEPARTMENT
-                        data: 'user.department.name',
-                        defaultContent: ''
-                    },
-                    {   //DEVICE
-                        data: 'device.name',
-                        defaultContent: ''
-                    },
-                    {   //TIME
-                        data: 'time',
-                        defaultContent: ''
-                    },
-                    {   //STATUS
-                        data: 'status',
-                        defaultContent: ''
-                    },
-                    {   //MAP
-                        data : null,
-                        defaultContent: '',
-                        'render' : function ( data, type, row, meta ) {
-                            return '<a href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; View </a>';
-                        }
+        $.ajax({
+            type:"GET",
+            url:"/api/dashboard_info",
+            cache:false,
+            data:{},
+            success: function(response){
+                $("#leave_count").html(response.leave);
+                $("#active_count").html(response.active);
+                $("#absent_count").html(response.absent);
+            }
+        });
+        var table =  $('#_table').DataTable({
+            ajax: "/api/records/recently",
+            dom: "<'row'>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'>",
+            pageLength:  25,
+            columns: [
+                {   //EMPLOYEE CODE
+                    data: 'user.employee_code',
+                    defaultContent: ''
+                },
+                {   //EMPLOYEE NAME
+                    data: 'user.name',
+                    defaultContent: ''
+                },
+                {   //DEPARTMENT
+                    data: 'user.department.name',
+                    defaultContent: ''
+                },
+                {   //DEVICE
+                    data: 'device.name',
+                    defaultContent: ''
+                },
+                {   //TIME
+                    data: 'time',
+                    defaultContent: ''
+                },
+                {   //STATUS
+                    data: 'status',
+                    defaultContent: ''
+                },
+                {   //MAP
+                    data : null,
+                    defaultContent: '',
+                    'render' : function ( data, type, row, meta ) {
+                        return '<a href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; View </a>';
                     }
-                ]
-            });
+                }
+            ]
         });
     </script>
 @endsection

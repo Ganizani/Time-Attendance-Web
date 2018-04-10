@@ -90,12 +90,8 @@
                 var to_date    = $('#ToDate').val();
                 var department = $('#Department').val();
 
-                if(from_date === ""){
-                    toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
-                }
-                else if(to_date === ""){
-                    toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
-                }
+                if(from_date === "")toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
+                else if(to_date === "") toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
                 else {
 
                     table.destroy();

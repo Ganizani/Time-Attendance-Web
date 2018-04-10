@@ -51,7 +51,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/employees/password/forgot",
+                url:"/api/users/password/forgot",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

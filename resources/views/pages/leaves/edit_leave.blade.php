@@ -8,85 +8,116 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Leaves</li>
                 <li><a href="#" class="active">Edit</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">local_hospital</i><h3>Leaves</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>Leave Information</b></h4>
+                            <h4><b>Leave Form</b></h4>
                         </div>
                         <div class="grid-body ">
+
                             <form class="form-no-horizontal-spacing" id="edit_form" >
-                                <input name="LeaveId" id="LeaveId" type="hidden" class="form-control" value="{{$leave['id']}}">
-                                <div class="row column-seperation">
+                                <input name="LeaveId" id="LeaveId" type="hidden" class="form-control" value="{{isset($leave['id']) ? $leave['id'] : ""}}">
+
+                                <div class="row ">
                                     <div class="col-md-6">
+                                        <h5 class="info-section"><b>Employee Information</b></h5>
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveIdNumber">Learner <span class="txt-red">*</span></label>
+                                                <label for="LeaveUser">Employee Applying for Leave <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="LeaveIdNumber" id="LeaveIdNumber" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Learner --</option>
-                                                        @foreach($learners as $learner)
-                                                            <option value="{{$learner['id_number']}}">{{$learner['name']}}</option>
-                                                        @endforeach
+                                                    <select name="LeaveUser" id="LeaveUser" class="select2 form-control" data-init-plugin="select2">
+                                                        <option value="">-- Employee --</option>
+                                                        @if(isset($users) && count($users))
+                                                            @foreach($users as $user)
+                                                                <option value="{{$user['id']}}">{{$user['name']}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <h5 class="info-section"><b>Contact Details While On Leave</b></h5>
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveReason">Reason <span class="txt-red">*</span></label>
+                                                <label for="LeaveAddress">Address  <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="LeaveReason" id="LeaveReason" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Reason --</option>
-                                                        @foreach($leave_types as $leave)
-                                                            <option value="{{$leave['id']}}">{{$leave['name']}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                    <input name="LeaveAddress" id="LeaveAddress" type="text" class="form-control" placeholder="Address" value="{{isset($leave['address_on_leave']) ? $leave['address_on_leave'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveFromDate">From Date <span class="txt-red">*</span></label>
-                                                <div class="input-append info col-lg-10 no-padding">
-                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date" value="{{$leave['from_date']}}">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <label for="LeaveIdNumber">Email  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveEmail" id="LeaveEmail" type="email" class="form-control" placeholder="Email" value="{{isset($leave['email_on_leave']) ? $leave['email_on_leave'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveToDate">To Date <span class="txt-red">*</span></label>
-                                                <div class="input-append info col-lg-10 no-padding">
-                                                    <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date" value="{{$leave['from_date']}}">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <label for="LeavePhoneNumber">Tel.  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeavePhoneNumber" id="LeavePhoneNumber" type="text" class="form-control" placeholder="Phone Number" value="{{isset($leave['phone_on_leave']) ? $leave['phone_on_leave'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
+
                                     <div class="col-md-6">
+                                        <h5 class="info-section"><b>Leave Details</b></h5>
                                         <div class="row ">
-                                            <div class="form-group col-md-12">
-                                                <label for="LeaveComment">Comments <span class="txt-red"></span></label>
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveType">Type of Leave <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <textarea name="LeaveComment" id="LeaveComment" rows="4" class="form-control" placeholder="Comments ...">{{$leave['comment']}}</textarea>
+                                                    <select name="LeaveType" id="LeaveType" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Type of Leave --</option>
+                                                        @if(isset($leave_types) && count($leave_types))
+                                                            @foreach($leave_types as $leave_type)
+                                                                <option value="{{$leave_type['id']}}">{{$leave_type['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveLastWorkingDay">Last Date of Working <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
+                                                    <input name="LeaveLastWorkingDay" id="LeaveLastWorkingDay" type="text" class="form-control datepicker" placeholder="Last Day Of Work" value="{{isset($leave['last_day_of_work']) ? $leave['last_day_of_work'] : ""}}">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveFromDate">Start Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
+                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date" value="{{isset($leave['from_date']) ? $leave['from_date'] : ""}}">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveToDate">Last Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
+                                                    <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date" value="{{isset($leave['to_date']) ? $leave['to_date'] : ""}}">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label for="LeaveAttachment">Attachment <span class="txt-red"></span></label>
+                                                <label for="LeaveNotes">Notes  <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="LeaveAttachment" id="LeaveAttachment" type="file" class="form-control">
+                                                    <textarea name="LeaveNotes" id="LeaveNotes"  rows="4" class="form-control" placeholder="Notes ... ">{{isset($leave['comments']) ? $leave['comments'] : ""}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,8 +131,8 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Update </button>
+                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -115,20 +146,22 @@
 @endsection
 @section('footer')
     @parent
-
-
     <script>
 
+        $(document).ready(function() {
+            $('#LeaveUser').select2('val', '{{isset($leave['user']['id']) ? $leave['user']['id'] : "" }}');
+            $('#LeaveType').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($leave['leave_type']['id']) ? $leave['leave_type']['id'] : ""}}');
+        });
+
         $("#edit_form").submit(function(event){
+
             event.preventDefault();
-            var id = $('#LeaveId').val();
             var_form_data = $(this).serialize();
-
+            var id = $("#LeaveId").val();
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
-
             $.ajax({
-                type:"POST",
-                url:"/api/leaves/update/" + id,
+                type:"PUT",
+                url:"/api/leaves/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -149,11 +182,12 @@
             focusInvalid: false,
             ignore: "",
             rules: {
-                LeaveId:        { required: true },
-                LeaveIdNumber:  { required: true },
-                LeaveReason:    { required: true },
-                LeaveFromDate:  { required: true },
-                LeaveToDate:    { required: true }
+                LeaveUser:             { required: true },
+                LeaveType:             { required: true },
+                LeaveAddress:          { required: true },
+                LeaveLastWorkingDay:   { required: true },
+                LeaveFromDate:         { required: true },
+                LeaveToDate:           { required: true }
             },
 
             invalidHandler: function (event, validator) {

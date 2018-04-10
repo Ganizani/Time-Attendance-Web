@@ -17,7 +17,9 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
+
                             <form  id="search_form">
+                                @if(isset($record) && count($record) == 0)
                                 <div class="col-md-3">
                                     <div class="input-append warning col-lg-10 no-padding">
                                         <input name="FromDate" id="FromDate" type="text" class="form-control datepicker" placeholder="From Date" value="{{isset($_GET['FromDate'])? $_GET['FromDate']: ""}}">
@@ -44,9 +46,10 @@
                                 <div class="col-md-2">
                                     <button class="btn btn-warning btn-block btn-medium" type="submit" ><i class="fa fa-filter"></i> &nbsp;Filter </button>
                                 </div>
-
+                                @endif
                                 <h4> &nbsp;</h4>
                             </form>
+
                         </div>
 
                         <div class="grid-body ">
@@ -104,15 +107,14 @@
                     center: coordenates
                 });
 
-                var contentString = '<b>Name: </b>{{$record['learner']['name']}}'+
-                    '<br><b>ID: </b>{{$record['learner']['id_number']}}'+
-                '<br><b>Company: </b>{{$record['learner']['site']['company']['name']}}' +
-                '<br><b>Site: </b>{{$record['learner']['site']['name']}}' +
-                '<br><b>Intervention: </b>{{$record['learner']['intervention']}}'+
+                var contentString = '<b>Name: </b>{{$record['user']['name']}}'+
+                    '<br><b>Employee Code: </b>{{$record['user']['employee_code']}}'+
+                '<br><b>Department: </b>{{$record['user']['department']['name']}}' +
+                '<br><b>Job Title: </b>{{$record['user']['job_title']}}' +
                 '<br><b>Date: </b>{{$record['date']}}'+
                 '<br><b>Time: </b>{{$record['time']}}'+
                 '<br><b>Status: </b>{{$record['status']}}'+
-                '<br><b>Device: </b>{{$record['device']['device_name']}}';
+                '<br><b>Device: </b>{{$record['device']['name']}}';
 
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString
@@ -138,15 +140,15 @@
                 });
 
                 @foreach($records as $item){
-                    var contentString{{$item['id']}} = '<b>Name: </b>{{$item['learner']['name']}}' +
-                        '<br><b>ID: </b>{{$item['learner']['id_number']}}' +
-                        '<br><b>Company: </b>{{$item['learner']['site']['company']['name']}}' +
-                        '<br><b>Site: </b>{{$item['learner']['site']['name']}}' +
-                        '<br><b>Intervention: </b>{{$item['learner']['intervention']}}' +
-                        '<br><b>Date: </b>{{$item['date']}}' +
-                        '<br><b>Time: </b>{{$item['time']}}' +
+
+                    var contentString{{$item['id']}} = '<b>Name: </b>{{$item['user']['name']}}'+
+                        '<br><b>Employee Code: </b>{{$item['user']['employee_code']}}'+
+                        '<br><b>Department: </b>{{$item['user']['department']['name']}}' +
+                        '<br><b>Job Title: </b>{{$item['user']['job_title']}}' +
+                        '<br><b>Date: </b>{{$item['date']}}'+
+                        '<br><b>Time: </b>{{$item['time']}}'+
                         '<br><b>Status: </b>{{$item['status']}}'+
-                        '<br><b>Device: </b>{{$item['device']['device_name']}}';
+                        '<br><b>Device: </b>{{$item['device']['name']}}';
 
                     var infowindow{{$item['id']}} = new google.maps.InfoWindow({
                         content: contentString{{$item['id']}}

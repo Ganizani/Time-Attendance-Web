@@ -1341,7 +1341,7 @@ Hammer.gestures.Touch = {
     // call preventDefault at touchstart, and makes the element blocking by
     // disabling the scrolling of the page, but it improves gestures like
     // transforming and dragging.
-    // be careful with using this, it can be very annoying for employees to be stuck
+    // be careful with using this, it can be very annoying for users to be stuck
     // on the page
     prevent_default    : false,
 

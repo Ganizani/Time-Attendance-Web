@@ -164,7 +164,7 @@
                             data : null,
                             defaultContent: '',
                             'render' : function ( data, type, row, meta ) {
-                                return '<a href = "/employees/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+                                return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
                             }
                         }
                     ]

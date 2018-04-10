@@ -25,9 +25,9 @@
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:25%">NAME</th>
+                                        <th style="width:40%">NAME</th>
                                         <th style="width:50%">DESCRIPTION</th>
-                                        <th style="width:25%">ACTIONS</th>
+                                        <th style="width:10%">ACTIONS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -48,7 +48,7 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
-
+                ajax:"/api/leave_types",
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",
@@ -61,6 +61,7 @@
                 buttons: [
                     {
                         extend: 'collection',
+                        className: 'btn',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         buttons: [
                             {

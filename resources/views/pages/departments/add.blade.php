@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Companies')
+@section('title', 'Departments')
 
 @section('content')
     <!-- BEGIN PAGE CONTAINER-->
@@ -31,9 +31,9 @@
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-12">
-                                                <label for="DepartmentPhoneNumber">Phone Number <span class="txt-red">*</span></label>
+                                                <label for="DepartmentLocation">Location <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DepartmentPhoneNumber" id="DepartmentPhoneNumber" type="number" class="form-control" placeholder="Department Phone Number" >
+                                                    <input name="DepartmentLocation" id="DepartmentLocation" type="text" class="form-control" placeholder="Department Location" {{isset($department) ? $department['location'] : ""}}>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/departments/create",
+                url:"/api/departments",
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -106,7 +106,7 @@
             ignore: "",
             rules: {
                 DepartmentName :    { required: true },
-                DepartmentPhoneNumber:   { required: true }
+                DepartmentLocation:   { required: true }
             },
 
             invalidHandler: function (event, validator) {

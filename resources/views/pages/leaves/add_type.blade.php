@@ -69,22 +69,18 @@
     <script>
 
         $("#add_form").submit(function(event){
-
             event.preventDefault();
             var_form_data = $(this).serialize();
-
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
-
             $.ajax({
                 type:"POST",
-                url:"/api/leaves/type/create",
+                url:"/api/leave_types",
                 cache: false,
                 data: var_form_data,
                 success: function(response){
                     $("#Results").html(response);
                 }
             });
-
         });
 
         //Iconic form validation sample

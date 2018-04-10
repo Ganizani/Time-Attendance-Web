@@ -20,49 +20,81 @@
                             <form class="form-no-horizontal-spacing" id="add_form">
                                 <div class="row ">
                                     <h4 class="info-section"><b>Device Information</b></h4>
+                                    <br>
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="form-group col-md-12">
-                                                <label for="DeviceName">Name <span class="txt-red">*</span></label>
+                                            <div class="form-group col-md-6">
+                                                <label for="Name">Device Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="DeviceName" id="DeviceName" type="text" class="form-control" placeholder="Device Name" >
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
+
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceImeiNumber">IMEI Number <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="DeviceImeiNumber" id="DeviceImeiNumber" type="number" class="form-control" placeholder="IMEI Number" >
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="DeviceSerialNumber">Serial Number <span class="txt-red"></span></label>
+                                                <label for="DeviceSerialNumber">Serial Number <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="DeviceSerialNumber" id="DeviceSerialNumber" type="text" class="form-control" placeholder="Device Serial Number" >
                                                 </div>
                                             </div>
-                                        </div>
 
+                                            <div class="form-group col-md-6">
+                                                <label for="DeviceAllocationDate">Allocation Date <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <div class="input-append warning col-lg-10 no-padding">
+                                                        <input name="DeviceAllocationDate" id="DeviceAllocationDate" type="text" class="form-control datepicker" placeholder="Device Allocation Date">
+                                                        <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red"></span></label>
+                                                <label for="DeviceDepartment">Department  <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number" >
+                                                    <select name="DeviceDepartment" id="DeviceDepartment" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Department --</option>
+                                                        @if(isset($departments) && count($departments) > 0)
+                                                            @foreach($departments as $department)
+                                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="DeviceSupervisor">Supervisor Name <span class="txt-red"></span></label>
+                                                <label for="DeviceSupervisor">Supervisor Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DeviceSupervisor" id="DeviceSupervisor" type="text" class="form-control" placeholder="Supervisor Name" >
+                                                    <select name="DeviceSupervisor" id="DeviceSupervisor" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Supervisor Name --</option>
+                                                        @if(isset($users) && count($users) > 0)
+                                                            @foreach($users as $user)
+                                                                <option value="{{$user['id']}}" >{{$user['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number"   >
+                                                </div>
+                                            </div>
+
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceStatus">Status <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
@@ -74,19 +106,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="DeviceDepartment">Departments <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="DeviceDepartment" id="DeviceDepartment" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Departments --</option>
-                                                        @if(isset($departments) && count($departments) > 0)
-                                                            @foreach ($departments as $department)
-                                                                <option value="{{$department['id']}}">{{$department['name']}}</option>
-                                                            @endforeach
-                                                        @endif
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -128,7 +147,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/devices/create",
+                url:"/api/devices",
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -156,7 +175,8 @@
                 DevicePhoneNumber:      { required: true },
                 DeviceAllocationDate:   { required: true },
                 DeviceSupervisor:       { required: true },
-                DeviceName:             { required: true }
+                DeviceName:             { required: true },
+                DeviceDepartment:       { required: true }
             },
 
             invalidHandler: function (event, validator) {

@@ -13,11 +13,23 @@ use App\Http\Helpers;
 
 class HomeController extends Controller
 {
+    private $today;
+
+    public function __construct(){
+
+        $this->today = date("Y-m-d");
+    }
+
     public function index()
     {
         if(Helpers::hasValidSession()) {
             //Recently Added
-            return view('pages.home');
+            $users = Helpers::callAPI('GET', "/users/recently");
+
+            //die(json_encode($users['data']));
+            return view('pages.home', [
+                'users' => $users['data']
+            ]);
         }
         else return view('pages.login');
     }
@@ -60,12 +72,22 @@ class HomeController extends Controller
     //API CALLS
     public function recent_records(Request $request)
     {
-        $today = date("Y-m-d");
-
         $response = Helpers::callAPI('GET', "/records/recently");
 
-        $val = ($response['data'] != "")? $response['data'] : [];
+        return response()->json($response['data'], 200);
+    }
 
-        return response()->json(["data" => $val], 200);
+    public function  dashboard_info(Request $request){
+        $leave    = Helpers::callAPI('GET', "/users/leave");
+        $active   = Helpers::callAPI('GET', "/users/active");
+        $absent   = Helpers::callAPI('GET', "/users/absent?date={$this->today}");
+
+        $data = [
+            'leave'  => $leave['data'],
+            'active' => $active['data'],
+            'absent' => $absent['data']
+        ];
+
+        return response()->json($data, 200);
     }
 }

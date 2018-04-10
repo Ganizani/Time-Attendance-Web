@@ -122,7 +122,7 @@ class Helpers
     }
 
     public static function hasValidSession(){
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         $data = true;
         if(!isset($_SESSION['GANIZANI-EMPLG-ID']) || $_SESSION['GANIZANI-EMPLG-ID'] == ""){
             $data = false;

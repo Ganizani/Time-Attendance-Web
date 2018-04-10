@@ -8,7 +8,7 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li>Employees</li>
+                <li>Users</li>
                 <li><a href="#" class="active">Add</a> </li>
             </ul>
             <div class="page-title">
@@ -17,7 +17,7 @@
                 <div class="span12">
                     <div class="grid simple ">
                         <div class="grid-title">
-                            <h4><b>New Employee Form</b></h4>
+                            <h4><b>New User Form</b></h4>
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
@@ -33,25 +33,25 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserTitle" id="UserTitle" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Title --</option>
-                                                        <option value="Mrs">Mrs</option>
-                                                        <option value="Mrs">Mrs</option>
-                                                        <option value="Miss">Miss</option>
-                                                        <option value="Dr">Dr</option>
-                                                        <option value="Prof">Prof</option>
+                                                        <option value="Mr.">Mrs</option>
+                                                        <option value="Mrs.">Mrs</option>
+                                                        <option value="Ms.">Miss</option>
+                                                        <option value="Dr.">Dr</option>
+                                                        <option value="Prof.">Prof</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="UserFirstName">First Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name">
+                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name" >
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserFirstName">Last Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name">
+                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name" >
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserMiddleName">Middle Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserMiddleName" id="UserMiddleName" type="text" class="form-control" placeholder="Middle Name">
+                                                    <input name="UserMiddleName" id="UserMiddleName" type="text" class="form-control" placeholder="Middle Name" >
                                                 </div>
                                             </div>
 
@@ -418,31 +418,6 @@
                                             </div>
 
                                         </div>
-                                        <!--div class="row ">
-                                            <div class="form-group col-md-4">
-                                                <label for="UserType">User Type <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="UserType" id="UserType" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- User Type --</option>
-                                                        <option value="ADMIN">System Admin</option>
-                                                        <option value="MANAGER">Manager</option>
-                                                        <option value="OPERATOR">Operator</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-4">
-                                                <label for="UserStatus">Status <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="UserStatus" id="UserStatus" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Status --</option>
-                                                        <option value="ACTIVE">Active</option>
-                                                        <option value="DEACTIVATED">Deactivated</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div-->
-
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -485,7 +460,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/employees/create",
+                url:"/api/user",
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -510,17 +485,18 @@
                 UserType:               { required: true },
                 UserFirstName:          { required: true },
                 UserLastName:           { required: true },
-                UserPassword:           {
-                    required: true,
-                    minlength:8
-                },
-                UserConfirmPassword:    { equalTo: "#UserPassword" },
                 UserPhoneNumber:        { required: true },
                 UserGender:             { required: true },
-                UserEmail:              {
-                    required: true,
-                    email: true
-                }
+                UserNationality:        { required: true },
+                UserIdNumber:           { required: true },
+                UserAddressSuburb:      { required: true },
+                UserAddressCity:        { required: true },
+                UserAddressProvince:    { required: true },
+                UserCellPhone:          { required: true },
+                UserUIFNumber:          { required: true },
+                UserEmail:              { required: true, email: true },
+                UserPassword:           {required: true, minlength:8},
+                UserConfirmPassword:    { equalTo: "#UserPassword" }
             },
 
             invalidHandler: function (event, validator) {

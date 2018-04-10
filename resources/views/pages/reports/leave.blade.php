@@ -41,9 +41,9 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <select name="Reason" id="Reason" class="select2 form-control" data-init-plugin="select2">
-                                        <option value="" >-- Reason --</option>
-                                        @if(isset($leave_types) && count($leave_type) > 0)
+                                    <select name="LeaveType" id="LeaveType" class="select2 form-control" data-init-plugin="select2">
+                                        <option value="" >-- Leave Type --</option>
+                                        @if(isset($leave_types) && count($leave_types) > 0)
                                             @foreach($leave_types as $leave_type)
                                                 <option value="{{$leave_type['id']}}" >{{$leave_type['name']}}</option>
                                             @endforeach
@@ -133,18 +133,12 @@
                 var from_date  = $('#FromDate').val();
                 var to_date    = $('#ToDate').val();
                 var department = $('#Department').val();
-                var reason     = $('#Reason').val();
+                var leave_type = $('#LeaveType').val();
 
-                if(from_date === ""){
-                    toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
-                }
-                else if(to_date === ""){
-                    toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
-                }
+                if(from_date === "") toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
+                else if(to_date === "")toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
                 else {
-
                     table.destroy();
-
                     table = $('#report_table').DataTable({
                         ajax: {
                             url: "/api/reports/leave",
@@ -154,7 +148,7 @@
                                 from_date: from_date,
                                 to_date: to_date,
                                 department: department,
-                                reason: reason
+                                leave_type: leave_type
                             }
                         },
                         language: {
@@ -197,7 +191,7 @@
                                 defaultContent: ''
                             },
                             {   //LEAVE TYPE
-                                data: 'leave_type',
+                                data: 'leave_type.name',
                                 defaultContent: ''
                             },
                             {   //FROM DATE

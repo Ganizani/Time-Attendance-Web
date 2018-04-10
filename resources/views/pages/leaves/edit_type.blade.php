@@ -8,13 +8,11 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Leave</li>
                 <li>Type</li>
                 <li><a href="#" class="active">Edit</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">local_hospital</i><h3>Leave Type</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -25,7 +23,6 @@
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="edit_form" >
                                 <input name="LeaveTypeId" id="LeaveTypeId" class="form-control" type="hidden" value="{{$leave_type['id']}}" >
-
                                 <div class="row column-seperation">
                                     <div class="col-md-6">
                                         <div class="row ">
@@ -56,7 +53,7 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;UPDATE</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;UPDATE</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
                                     </div>
                                 </div>
@@ -82,8 +79,8 @@
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
             $.ajax({
-                type:"POST",
-                url:"/api/leaves/type/update/" + id,
+                type:"PUT",
+                url:"/api/leave_types/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){

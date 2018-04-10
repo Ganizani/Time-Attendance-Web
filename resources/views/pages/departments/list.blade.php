@@ -28,8 +28,8 @@
                                         <th style="width:10%">NAME</th>
                                         <th style="width:20%">DESCRIPTION</th>
                                         <th style="width:10%">LOCATION</th>
-                                        <th style="width:10%">EMPLOYEE COUNT</th>
-                                        <th style="width:10%">DEVICE COUNT</th>
+                                        <th style="width:10%">EMPLOYEES</th>
+                                        <th style="width:10%">DEVICES</th>
                                         <th style="width:10%">MANAGER</th>
                                         <th style="width:10%">ACTIONS</th>
                                     </tr>
@@ -77,7 +77,7 @@
                         defaultContent: ''
                     },
                     {   //EMPLOYEE COUNT
-                        data: 'employees',
+                        data: 'users',
                         defaultContent: ''
                     },
                     {   //DEVICE COUNT
@@ -92,7 +92,7 @@
                         data: null,
                         defaultContent: '',
                         render : function ( data, type, row, meta ) {
-                            return '<a href = "/departments/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
+                            return '<a href = "/departments/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
                         }
 
                     }

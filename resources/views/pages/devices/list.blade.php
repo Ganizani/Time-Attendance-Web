@@ -21,7 +21,11 @@
                                 <div class="col-md-4 col-md-offset-3">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" >-- Department --</option>
-
+                                        @if(isset($departments) && count($departments) > 0)
+                                            @foreach($departments as $department)
+                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                                 <div class="col-md-2">
@@ -141,7 +145,7 @@
                             },
                             {   //LAST SYNC
                                 data: 'last_sync',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //ACTIONS
                                 data: null,
@@ -176,7 +180,7 @@
                         buttons: [
                             {
                                 text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
-                                className: 'btn',
+                                className: 'btn'
                             },
                             {
                                 text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',

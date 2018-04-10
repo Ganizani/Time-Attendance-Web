@@ -38,6 +38,7 @@
                                                 <option value="{{$department['id']}}" >{{$department['name']}}</option>
                                             @endforeach
                                         @endif
+
                                     </select>
                                 </div>
                                 <div class="col-md-1"></div>
@@ -169,7 +170,7 @@
                                 data: null,
                                 defaultContent: '',
                                 render : function ( data, type, row, meta ) {
-                                    return '<a href = "/reports/map?rid'+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; Map </a>';
+                                    return '<a target="_blank" href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; Map </a>';
                                 }
 
                             }

@@ -8,12 +8,10 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOU ARE HERE:</p></li>
                 <li>Devices</li>
-                <li><a href="#" class="active">Add</a> </li>
+                <li><a href="#" class="active">Edit</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">dock</i><h3>Devices</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -23,21 +21,22 @@
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="edit_form">
-                                <input name="DeviceId" id="DeviceId" type="hidden" class="form-control" value="{{$device['id']}}" >
+                                <input name="DeviceId" id="DeviceId" type="hidden" class="form-control" value="{{isset($device['id']) ? $device['id'] : ""}}" >
+
                                 <div class="row column-seperation">
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="form-group col-md-6">
                                                 <label for="Name">Device Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DeviceName" id="DeviceName" type="text" class="form-control" placeholder="Device Name" value="{{$device['device_name']}}">
+                                                    <input name="DeviceName" id="DeviceName" type="text" class="form-control" placeholder="Device Name" value="{{isset($device['name']) ? $device['name'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceImeiNumber">IMEI Number <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DeviceImeiNumber" id="DeviceImeiNumber" type="number" class="form-control" placeholder="IMEI Number" value="{{$device['imei_number']}}">
+                                                    <input name="DeviceImeiNumber" id="DeviceImeiNumber" type="number" class="form-control" placeholder="IMEI Number" value="{{isset($device['imei_number']) ? $device['imei_number'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -45,14 +44,14 @@
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceSerialNumber">Serial Number <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DeviceSerialNumber" id="DeviceSerialNumber" type="text" class="form-control" placeholder="Device Serial Number" >
+                                                    <input name="DeviceSerialNumber" id="DeviceSerialNumber" type="text" class="form-control" placeholder="Device Serial Number" value="{{isset($device['serial_number']) ? $device['serial_number'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceAllocationDate">Allocation Date <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <div class="input-append info col-lg-10 no-padding">
+                                                    <div class="input-append warning col-lg-10 no-padding">
                                                         <input name="DeviceAllocationDate" id="DeviceAllocationDate" type="text" class="form-control datepicker" placeholder="Device Allocation Date">
                                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
@@ -65,21 +64,42 @@
                                     <div class="col-md-6">
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red">*</span></label>
+                                                <label for="DeviceDepartment">Department Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number"  value="{{$device['phone_number']}}" >
+                                                    <select name="DeviceDepartment" id="DeviceDepartment" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Department --</option>
+                                                        @if(isset($departments) && count($departments) > 0)
+                                                            @foreach($departments as $department)
+                                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceSupervisor">Supervisor Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DeviceSupervisor" id="DeviceSupervisor" type="text" class="form-control" placeholder="Supervisor Name"  value="{{$device['supervisor']}}">
+                                                    <select name="DeviceSupervisor" id="DeviceSupervisor" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Supervisor Name --</option>
+                                                        @if(isset($users) && count($users) > 0)
+                                                            @foreach($users as $user)
+                                                                <option value="{{$user['id']}}" >{{$user['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number"  value="{{isset($device) ? $device['phone_number'] : ""}}" >
+                                                </div>
+                                            </div>
+
                                             <div class="form-group col-md-6">
                                                 <label for="DeviceStatus">Status <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
@@ -91,17 +111,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group col-md-6">
-                                                <label for="DeviceSite">Site <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="DeviceSite" id="DeviceSite" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Site --</option>
-                                                        @foreach ($sites as $site)
-                                                            <option value="{{$site['id']}}">{{$site['name']}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -114,7 +123,7 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
                                     </div>
                                 </div>
@@ -131,8 +140,9 @@
     @parent
     <script>
         $(document).ready(function() {
-            $('#DeviceSite').select2({minimumResultsForSearch: -1}).select2('val', '{{$device['site']['id']}}');
-            $('#DeviceStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{$device['status']}}');
+            $('#DeviceDepartment').select2('val', '{{isset($user['department']['id']) ? $device['department']['id'] : "" }}');
+            $('#DeviceSupervisor').select2('val', '{{isset($user['supervisor']['id']) ? $device['supervisor']['id'] : "" }}');
+            $('#DeviceStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['status']) ? $device['status'] : ""}}');
         });
 
         $("#edit_form").submit(function(event){
@@ -145,7 +155,7 @@
 
             $.ajax({
                 type:"PUT",
-                url:"/api/devices/update/" + id,
+                url:"/api/devices/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -174,7 +184,8 @@
                 DevicePhoneNumber:      { required: true },
                 DeviceAllocationDate:   { required: true },
                 DeviceSupervisor:       { required: true },
-                DeviceName:             { required: true }
+                DeviceName:             { required: true },
+                DeviceDepartment:       { required: true }
             },
 
             invalidHandler: function (event, validator) {
