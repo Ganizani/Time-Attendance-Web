@@ -61,25 +61,27 @@
                 buttons: [
                     {
                         extend: 'collection',
-                        className: 'btn',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                        className: 'btn',
                         buttons: [
                             {
                                 extend: 'excel',
-                                text: 'Excel',
-                                title: '{{env('APP_NAME')}} - Learners List',
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                className: 'btn',
+                                title: 'Leave Types',
                                 exportOptions: {
-                                    columns: [0,1,2]
+                                    columns: [0,1]
                                 }
                             },
                             {
                                 extend: 'pdf',
-                                text: 'PDF',
-                                title: '{{env('APP_NAME')}}  - Learners List',
+                                text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                className: 'btn',
+                                title: 'Leave Types',
                                 orientation: 'landscape',
                                 pageSize: 'LEGAL',
                                 exportOptions: {
-                                    columns: [0,1,2]
+                                    columns: [0,1]
                                 }
                             }
                         ]

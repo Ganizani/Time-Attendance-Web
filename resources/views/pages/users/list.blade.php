@@ -19,9 +19,9 @@
                         <div class="grid-title">
                             <form  id="search_form">
                                 <div class="col-md-3">
-                                    <input class="form-control" type="text" id="InputText" name="InputText" placeholder="Search Text ...">
+                                    <!--input class="form-control" type="text" id="InputText" name="InputText" placeholder="Search Text ..."-->
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <select name="Department" id="Department" class="select2 form-control" data-init-plugin="select2">
                                         <option value="" > - Department - </option>
                                         @if(isset($departments) && count($departments) > 0)
@@ -79,20 +79,16 @@
             $("#search_form").submit(function(event) {
                 event.preventDefault();
 
-                var company = $('#Company').val();
-                var site    = $('#Site').val();
-                var input   = $('#InputText').val();
+                var department = $('#Department').val();
 
                 table.destroy();
                 table = $('#_table').DataTable({
                     ajax: {
-                        url: "/api/learners/search",
-                        type: "POST",
+                        url: "/api/users",
+                        type: "GET",
                         dataSrc: "",
                         data: {
-                            input_txt: input,
-                            site: site,
-                            company: company
+                            department: department
                         }
                     },
                     language: {
@@ -107,21 +103,27 @@
                     buttons: [
                         {
                             extend: 'collection',
-                            className: 'btn btn-cons',
                             text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                            className: 'btn',
                             buttons: [
                                 {
-                                    text: '<i class="fa fa-file-excel-o"></i> &nbsp;Excel',
+                                    extend: 'excel',
+                                    text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
                                     className: 'btn',
-                                    action: function ( e, dt, node, config ) {
-                                        export_report("excel");
+                                    title: 'Users',
+                                    exportOptions: {
+                                        columns: [0,1,2,3,4,5,7]
                                     }
                                 },
                                 {
+                                    extend: 'pdf',
                                     text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
                                     className: 'btn',
-                                    action: function ( e, dt, node, config ) {
-                                        export_report("pdf");
+                                    title: 'Users',
+                                    orientation: 'landscape',
+                                    pageSize: 'LEGAL',
+                                    exportOptions: {
+                                        columns: [0,1,2,3,4,5,7]
                                     }
                                 }
                             ]
@@ -186,21 +188,27 @@
                 buttons: [
                     {
                         extend: 'collection',
-                        className: 'btn btn-cons',
                         text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                        className: 'btn',
                         buttons: [
                             {
-                                text: '<i class="fa fa-file-excel-o"></i> &nbsp;Excel',
+                                extend: 'excel',
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
                                 className: 'btn',
-                                action: function ( e, dt, node, config ) {
-                                    export_report("excel");
+                                title: 'Users',
+                                exportOptions: {
+                                    columns: [0,1,2,3,4,5,7]
                                 }
                             },
                             {
+                                extend: 'pdf',
                                 text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
                                 className: 'btn',
-                                action: function ( e, dt, node, config ) {
-                                    export_report("pdf");
+                                title: 'Users',
+                                orientation: 'landscape',
+                                pageSize: 'LEGAL',
+                                exportOptions: {
+                                    columns: [0,1,2,3,4,5,7]
                                 }
                             }
                         ]

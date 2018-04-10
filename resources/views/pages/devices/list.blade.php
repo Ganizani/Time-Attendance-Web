@@ -97,16 +97,28 @@
                         buttons: [
                             {
                                 extend: 'collection',
-                                className: 'btn',
                                 text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                                className: 'btn',
                                 buttons: [
                                     {
+                                        extend: 'excel',
                                         text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
-                                        className: 'btn'
+                                        className: 'btn',
+                                        title: 'Devices',
+                                        exportOptions: {
+                                            columns: [0,1,2,3,4,5,7]
+                                        }
                                     },
                                     {
+                                        extend: 'pdf',
                                         text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
-                                        className: 'btn'
+                                        className: 'btn',
+                                        title: 'Devices',
+                                        orientation: 'landscape',
+                                        pageSize: 'LEGAL',
+                                        exportOptions: {
+                                            columns: [0,1,2,3,4,5,7]
+                                        }
                                     }
                                 ]
                             }

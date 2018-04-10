@@ -38,10 +38,12 @@ class UserController extends Controller
 
         if(Helpers::hasValidSession()) {
             $users       = Helpers::callAPI("GET", "/users");
+            $supervisors = Helpers::callAPI("GET", "/users");
             $departments = Helpers::callAPI("GET", "/departments");
 
             return view('pages.users.add', [
                 'users'       => $users['data'],
+                'supervisors' => $supervisors['data'],
                 'departments' => $departments['data'],
             ]);
         }
@@ -53,9 +55,14 @@ class UserController extends Controller
         if(Helpers::hasValidSession()) {
 
             $user = Helpers::callAPI("GET", "/users/{$id}");
+            $supervisors = Helpers::callAPI("GET", "/users");
+            $departments = Helpers::callAPI("GET", "/departments");
 
             return view('pages.users.edit',[
-                'user' => $user['data']
+                'user'        => $user['data'],
+                'supervisors' => $supervisors['data'],
+                'departments' => $departments['data'],
+
             ]);
         }
         else return view('pages.login');
@@ -139,11 +146,11 @@ class UserController extends Controller
         return json_encode($data);
     }
 
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $r_user = Helpers::callAPI('GET', "/users", "");
+        $r_user = Helpers::callAPI('GET', "/users", $this->get_search_array($request));
 
-        return response()->json(["data" => $r_user['data']], 200);
+        return response()->json($r_user['data'], 200);
     }
 
     public function get_one($id)
@@ -170,7 +177,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/users/" . $id , $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/users/{$id}"  , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> User Information Successfully Updated!</div>";
@@ -194,8 +201,18 @@ class UserController extends Controller
         }
     }
 
-    public function get_array($request){
+    public function get_search_array($request){
 
+        $data = [
+            'department' => $request->department,
+        ];
+
+        return $data;
+    }
+
+    public function get_array($request){
+        //$request->UserStatus,
+        //$request->UserType,
         $data = [
             'title'             => $request->UserTitle,
             'first_name'        => $request->UserFirstName,
@@ -203,13 +220,14 @@ class UserController extends Controller
             'preferred_name'    => $request->UserPreferredName,
             'maiden_name'       => $request->UserMaidenName,
             'middle_name'       => $request->UserMiddleName,
-            'status'            => $request->UserStatus,
-            'user_type'         => $request->UserType,
-            'phone_number'      => $request->UserPhoneNumber,
+            'status'            => "ACTIVE",
+            'user_type'         => 1,
+            'phone_number'      => $request->UserCellPhone,
             'gender'            => $request->UserGender,
             'nationality'       => $request->UserNationality,
             'id_number'         => $request->UserIdNumber,
             'email'             => $request->UserEmail,
+            'work_location'     => $request->UserWorkLocation,
             'uif_number'        => $request->UserUIFNumber,
             'payment_number'    => $request->UserPaymentNumber,
             'work_email'        => $request->UserWorkEmail,
@@ -242,6 +260,7 @@ class UserController extends Controller
                 'relationship'  => $request->UserEmergencyRelationship,
                 'email'         => $request->UserEmergencyEmail,
                 'cell_phone'    => $request->UserEmergencyCellPhone,
+                'home_phone'    => $request->UserEmergencyHomePhone,
                 'middle_name'   => $request->UserEmergencyMiddleName,
                 'first_name'    => $request->UserEmergencyFirstName,
                 'last_name'     => $request->UserEmergencySurname,

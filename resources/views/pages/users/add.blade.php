@@ -113,6 +113,11 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserMaritalStatus" id="UserMaritalStatus" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Marital Status --</option>
+                                                        <option value="Married">Married</option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Divorced">Divorced</option>
+                                                        <option value="Widowed">Widowed</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -227,9 +232,9 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="UserHomePhone">Job Title<span class="txt-red">*</span></label>
+                                                <label for="UserJobTitle">Job Title<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserHomePhone" id="UserHomePhone" type="text" class="form-control" placeholder="Home Phone">
+                                                    <input name="UserJobTitle" id="UserJobTitle" type="text" class="form-control" placeholder="Home Phone">
                                                 </div>
                                             </div>
 
@@ -243,7 +248,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserDepartment">Area/Department <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserDepartment" id="UserDepartment" type="text" class="form-control" placeholder="Area/Department">
+                                                    <select name="UserDepartment" id="UserDepartment" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Area/Department --</option>
+                                                        @if(isset($departments) && count($departments) > 0)
+                                                            @foreach($departments as $department)
+                                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +264,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserReportingTo">Reporting To<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserReportingTo" id="UserReportingTo" type="text" class="form-control" placeholder="Reporting To">
+                                                    <select name="UserReportingTo" id="UserReportingTo" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Supervisor --</option>
+                                                        @if(isset($supervisors) && count($supervisors) > 0)
+                                                            @foreach($supervisors as $supervisor)
+                                                                <option value="{{$supervisor['id']}}" >{{$supervisor['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -395,6 +414,15 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserEmergencyRelationship" id="UserEmergencyRelationship" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Relationship --</option>
+                                                        <option value="Spouse">Spouse</option>
+                                                        <option value="Children">Children</option>
+                                                        <option value="Parent">Parent</option>
+                                                        <option value="Sibling">Sibling</option>
+                                                        <option value="Niece/Nephew">Niece/Nephew</option>
+                                                        <option value="Aunt/Uncle">Aunt/Uncle</option>
+                                                        <option value="Cousin">Cousin</option>
+                                                        <option value="Grand Parent">Grand Parent</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -460,7 +488,7 @@
 
             $.ajax({
                 type:"POST",
-                url:"/api/user",
+                url:"/api/users",
                 cache: false,
                 data: var_form_data,
                 success: function(response){

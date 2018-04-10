@@ -46,14 +46,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserFirstName">First Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name" value="{{isset($user['first_name']) ? $user['first_name'] : "" }}">
+                                                    <input name="UserFirstName" id="UserFirstName" type="text" class="form-control" placeholder="First Name" value="{{ isset($user['first_name']) ? $user['first_name'] : "" }}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserFirstName">Last Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name" value="{{isset($user['last_name']) ? $user['last_name'] : "" }}">
+                                                    <input name="UserLastName" id="UserLastName" type="text" class="form-control" placeholder="Last Name" value="{{ isset($user['last_name']) ? $user['last_name'] : "" }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -115,6 +115,11 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserMaritalStatus" id="UserMaritalStatus" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Marital Status --</option>
+                                                        <option value="Married">Married</option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Divorced">Divorced</option>
+                                                        <option value="Widowed">Widowed</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -204,7 +209,7 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="UserHomePhone">Home Phone<span class="txt-red">*</span></label>
+                                                <label for="UserHomePhone">Home Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserHomePhone" id="UserHomePhone" type="text" class="form-control" placeholder="Home Phone" value="{{isset($user['home_phone']) ? $user['home_phone'] : "" }}">
                                                 </div>
@@ -245,7 +250,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserDepartment">Area/Department <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserDepartment" id="UserDepartment" type="text" class="form-control" placeholder="Area/Department">
+                                                    <select name="UserDepartment" id="UserDepartment" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Area/Department --</option>
+                                                        @if(isset($departments) && count($departments) > 0)
+                                                            @foreach($departments as $department)
+                                                                <option value="{{$department['id']}}" >{{$department['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,21 +266,30 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserReportingTo">Reporting To<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserReportingTo" id="UserReportingTo" type="text" class="form-control" placeholder="Reporting To">
+                                                    <select name="UserReportingTo" id="UserReportingTo" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Supervisor --</option>
+                                                        @if(isset($supervisors) && count($supervisors) > 0)
+                                                            @foreach($supervisors as $supervisor)
+                                                                @if($supervisor['id'] != $user['id'])
+                                                                    <option value="{{$supervisor['id']}}" >{{$supervisor['name']}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserWorkLocation">Work Location <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserWorkLocation" id="UserWorkLocation" type="text" class="form-control" placeholder="Work Location">
+                                                    <input name="UserWorkLocation" id="UserWorkLocation" type="text" class="form-control" placeholder="Work Location" value="{{isset($user['work_location']) ? $user['work_location'] : "" }}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserStartDate">Start Date <span class="txt-red">*</span></label>
                                                 <div class="input-append warning col-lg-11 no-padding">
-                                                    <input name="UserStartDate" id="UserStartDate" type="text" class="form-control datepicker" placeholder="Start Date">
+                                                    <input name="UserStartDate" id="UserStartDate" type="text" class="form-control datepicker" placeholder="Start Date" value="{{isset($user['start_date']) ? $user['start_date'] : "" }}">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -278,21 +299,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserWorkPhone">Work Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserWorkPhone" id="UserWorkPhone" type="text" class="form-control" placeholder="Work Phone">
+                                                    <input name="UserWorkPhone" id="UserWorkPhone" type="text" class="form-control" placeholder="Work Phone" value="{{isset($user['work_phone']) ? $user['work_phone'] : "" }}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="UserWorkCellPhone">Work Cell Phone<span class="txt-red">*</span></label>
+                                                <label for="UserWorkCellPhone">Work Cell Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserWorkCellPhone" id="UserWorkCellPhone" type="text" class="form-control" placeholder="Work Cell Phone">
+                                                    <input name="UserWorkCellPhone" id="UserWorkCellPhone" type="text" class="form-control" placeholder="Work Cell Phone" value="{{isset($user['work_cell_phone']) ? $user['work_cell_phone'] : "" }}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserWorkEmail"> Work Email Address <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserWorkEmail" id="UserWorkEmail" type="text" class="form-control" placeholder="Work Email Address">
+                                                    <input name="UserWorkEmail" id="UserWorkEmail" type="text" class="form-control" placeholder="Work Email Address" value="{{isset($user['work_email']) ? $user['work_email'] : "" }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -303,21 +324,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencySurname">Surname<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencySurname" id="UserEmergencySurname" type="text" class="form-control" placeholder="Emergency Contact Surname">
+                                                    <input name="UserEmergencySurname" id="UserEmergencySurname" type="text" class="form-control" placeholder="Emergency Contact Surname" value="{{isset($user['next_of_kin']['last_name']) ? $user['next_of_kin']['last_name'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyFirstName">Frist Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyFirstName" id="UserEmergencyFirstName" type="text" class="form-control" placeholder="Emergency Contact First Name">
+                                                    <input name="UserEmergencyFirstName" id="UserEmergencyFirstName" type="text" class="form-control" placeholder="Emergency Contact First Name" value="{{isset($user['next_of_kin']['first_name']) ? $user['next_of_kin']['first_name'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyMiddleName">Middle Name<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right">
-                                                    <input name="UserEmergencyMiddleName" id="UserEmergencyMiddleName" type="text" class="form-control" placeholder="Emergency Contact Middle Name">
+                                                    <input name="UserEmergencyMiddleName" id="UserEmergencyMiddleName" type="text" class="form-control" placeholder="Emergency Contact Middle Name" value="{{isset($user['next_of_kin']['middle_name']) ? $user['next_of_kin']['middle_name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -326,21 +347,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyHouseNo">ERF/House No <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyHouseNo" id="UserEmergencyHouseNo" type="text" class="form-control" placeholder="Emergency Contact ERF/House No">
+                                                    <input name="UserEmergencyHouseNo" id="UserEmergencyHouseNo" type="text" class="form-control" placeholder="Emergency Contact ERF/House No" value="{{isset($user['next_of_kin']['address']['house_no']) ? $user['next_of_kin']['address']['house_no'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyStreetNo">Street No <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyStreetNo" id="UserEmergencyStreetNo" type="text" class="form-control" placeholder="Emergency Contact Street Number">
+                                                    <input name="UserEmergencyStreetNo" id="UserEmergencyStreetNo" type="text" class="form-control" placeholder="Emergency Contact Street Number" value="{{isset($user['next_of_kin']['address']['street_no']) ? $user['next_of_kin']['address']['street_no'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyStreetName">Street Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyStreetName" id="UserEmergencyStreetName" type="text" class="form-control" placeholder="Emergency Contact Street Name">
+                                                    <input name="UserEmergencyStreetName" id="UserEmergencyStreetName" type="text" class="form-control" placeholder="Emergency Contact Street Name" value="{{isset($user['next_of_kin']['address']['street_name']) ? $user['next_of_kin']['address']['street_name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -349,21 +370,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencySuburb">Suburb<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencySuburb" id="UserEmergencySuburb" type="text" class="form-control" placeholder="Emergency Contact Suburb">
+                                                    <input name="UserEmergencySuburb" id="UserEmergencySuburb" type="text" class="form-control" placeholder="Emergency Contact Suburb" value="{{isset($user['next_of_kin']['address']['suburb']) ? $user['next_of_kin']['address']['suburb'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyCity">City<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyCity" id="UserEmergencyCity" type="text" class="form-control" placeholder=" Emergency Contact City">
+                                                    <input name="UserEmergencyCity" id="UserEmergencyCity" type="text" class="form-control" placeholder=" Emergency Contact City" value="{{isset($user['next_of_kin']['address']['city']) ? $user['next_of_kin']['address']['city'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyProvince">Province <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyProvince" id="UserEmergencyProvince" type="text" class="form-control" placeholder="Emergency Contact Province">
+                                                    <input name="UserEmergencyProvince" id="UserEmergencyProvince" type="text" class="form-control" placeholder="Emergency Contact Province" value="{{isset($user['next_of_kin']['address']['province']) ? $user['next_of_kin']['address']['province'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -372,21 +393,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyHomePhone">Home Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyHomePhone" id="UserEmergencyHomePhone" type="text" class="form-control" placeholder="Emergency Contact Home Phone">
+                                                    <input name="UserEmergencyHomePhone" id="UserEmergencyHomePhone" type="text" class="form-control" placeholder="Emergency Contact Home Phone" value="{{isset($user['next_of_kin']['home_phone']) ? $user['next_of_kin']['home_phone'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyCellPhone">Cell Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyCellPhone" id="UserEmergencyCellPhone" type="text" class="form-control" placeholder="Emergency Contact Cell Phone">
+                                                    <input name="UserEmergencyCellPhone" id="UserEmergencyCellPhone" type="text" class="form-control" placeholder="Emergency Contact Cell Phone" value="{{isset($user['next_of_kin']['cell_phone']) ? $user['next_of_kin']['cell_phone'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyEmail">Email Address <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyEmail" id="UserEmergencyEmail" type="text" class="form-control" placeholder="Emergency Contact Email Address">
+                                                    <input name="UserEmergencyEmail" id="UserEmergencyEmail" type="text" class="form-control" placeholder="Emergency Contact Email Address" value="{{isset($user['next_of_kin']['email']) ? $user['next_of_kin']['email'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -397,6 +418,15 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserEmergencyRelationship" id="UserEmergencyRelationship" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Relationship --</option>
+                                                        <option value="Spouse">Spouse</option>
+                                                        <option value="Children">Children</option>
+                                                        <option value="Parent">Parent</option>
+                                                        <option value="Sibling">Sibling</option>
+                                                        <option value="Niece/Nephew">Niece/Nephew</option>
+                                                        <option value="Aunt/Uncle">Aunt/Uncle</option>
+                                                        <option value="Cousin">Cousin</option>
+                                                        <option value="Grand Parent">Grand Parent</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -408,14 +438,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserPaymentNumber">PAY Number<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserPaymentNumber" id="UserPaymentNumber" type="text" class="form-control" placeholder="Payment Number">
+                                                    <input name="UserPaymentNumber" id="UserPaymentNumber" type="text" class="form-control" placeholder="Payment Number" value="{{isset($user['payment_number']) ? $user['payment_number'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserUIFNumber">UIF Number<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserUIFNumber" id="UserUIFNumber" type="text" class="form-control" placeholder="UIF Number">
+                                                    <input name="UserUIFNumber" id="UserUIFNumber" type="text" class="form-control" placeholder="UIF Number" value="{{isset($user['uif_number']) ? $user['uif_number'] : ""}}">
                                                 </div>
                                             </div>
 
@@ -427,7 +457,7 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Create</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Update</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
@@ -444,25 +474,29 @@
     @parent
     <script>
         $(document).ready(function() {
-            $('#UserTitle').select2({minimumResultsForSearch: -1});
-            $('#UserStatus').select2({minimumResultsForSearch: -1});
-            $('#UserType').select2({minimumResultsForSearch: -1});
-            $('#UserGender').select2({minimumResultsForSearch: -1});
-
+            $('#UserTitle').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['title']) ? $user['title'] : ""}}');
+            $('#UserStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['status']) ? $user['status'] : ""}}');
+            $('#UserType').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['user_type']) ? $user['user_type'] : ""}}');
+            $('#UserReportingTo').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['supervisor']['id']) ? $user['supervisor']['id'] : ""}}');
+            $('#UserDepartment').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['department']['id']) ? $user['department']['id'] : ""}}');
+            $('#UserGender').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['gender']) ? $user['gender'] : ""}}');
+            $('#UserMaritalStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['marital_status']) ? $user['marital_status'] : ""}}');
+            $('#UserEmergencyRelationship').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['relationship'] : ""}}');
         });
 
 
 
-        $("#add_form").submit(function(event){
+        $("#edit_form").submit(function(event){
 
             event.preventDefault();
+            var id = $("#UserId").val();
             var_form_data = $(this).serialize();
 
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
             $.ajax({
-                type:"POST",
-                url:"/api/user",
+                type:"PUT",
+                url:"/api/users/" + id,
                 cache: false,
                 data: var_form_data,
                 success: function(response){
@@ -472,11 +506,11 @@
         });
 
         //Iconic form validation sample
-        $('.select2', "#add_form").change(function () {
-            $('#add_form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+        $('.select2', "#edit_form").change(function () {
+            $('#edit_form').validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
         });
 
-        $("#add_form").validate({
+        $("#edit_form").validate({
             errorElement: 'span',
             errorClass: 'error',
             focusInvalid: false,
@@ -487,9 +521,15 @@
                 UserType:               { required: true },
                 UserFirstName:          { required: true },
                 UserLastName:           { required: true },
-                UserPhoneNumber:        { required: true },
                 UserGender:             { required: true },
                 UserNationality:        { required: true },
+                UserDepartment:         { required: true },
+                UserPaymentNumber:      { required: true },
+                UserEmployeeCode:       { required: true },
+                UserJobTitle:           { required: true },
+                UserReportingTo:        { required: true },
+                UserWorkLocation:       { required: true },
+                UserStartDate:          { required: true },
                 UserIdNumber:           { required: true },
                 UserAddressSuburb:      { required: true },
                 UserAddressCity:        { required: true },

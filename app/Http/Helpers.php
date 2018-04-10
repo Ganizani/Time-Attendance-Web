@@ -102,6 +102,21 @@ class Helpers
         elseif(isset($response['error']['department'])) $error = $response['error']['department'][0];
         elseif(isset($response['error']['department_id'])) $error = $response['error']['department_id'][0];
         elseif(isset($response['error']['name'])) $error = $response['error']['name'][0];
+        elseif(isset($response['error']['uif_number'])) $error = $response['error']['uif_number'][0];
+        elseif(isset($response['error']['payment_number'])) $error = $response['error']['payment_number'][0];
+        elseif(isset($response['error']['work_location'])) $error = $response['error']['work_location'][0];
+        elseif(isset($response['error']['work_cell_phone'])) $error = $response['error']['work_cell_phone'][0];
+        elseif(isset($response['error']['work_phone'])) $error = $response['error']['work_phone'][0];
+        elseif(isset($response['error']['work_email'])) $error = $response['error']['work_email'][0];
+        elseif(isset($response['error']['maiden_name'])) $error = $response['error']['maiden_name'][0];
+        elseif(isset($response['error']['middle_name'])) $error = $response['error']['middle_name'][0];
+        elseif(isset($response['error']['nationality'])) $error = $response['error']['nationality'][0];
+        elseif(isset($response['error']['employee_code'])) $error = $response['error']['employee_code'][0];
+        elseif(isset($response['error']['email'])) $error = $response['error']['email'][0];
+        elseif(isset($response['error']['start_date'])) $error = $response['error']['start_date'][0];
+        elseif(isset($response['error']['job_title'])) $error = $response['error']['job_title'][0];
+        elseif(isset($response['error']['employer'])) $error = $response['error']['employer'][0];
+        elseif(isset($response['error']['cell_phone'])) $error = $response['error']['cell_phone'][0];
         //Devices
         elseif(isset($response['error']['imei_number'])) $error = $response['error']['imei_number'][0];
         elseif(isset($response['error']['supervisor'])) $error = $response['error']['supervisor'][0];
@@ -109,6 +124,15 @@ class Helpers
         //Holiday
         elseif(isset($response['error']['date'])) $error = $response['error']['date'][0];
         elseif(isset($response['error']['description'])) $error = $response['error']['description'][0];
+        //Address
+        elseif(isset($response['error']['house_no'])) $error = $response['error']['house_no'][0];
+        elseif(isset($response['error']['street_no'])) $error = $response['error']['street_no'][0];
+        elseif(isset($response['error']['street_name'])) $error = $response['error']['street_name'][0];
+        elseif(isset($response['error']['suburb'])) $error = $response['error']['suburb'][0];
+        elseif(isset($response['error']['city'])) $error = $response['error']['city'][0];
+        elseif(isset($response['error']['province'])) $error = $response['error']['province'][0];
+        //Next of Kin
+        elseif(isset($response['error']['relationship'])) $error = $response['error']['relationship'][0];
         //Leave
         elseif(isset($response['error']['attachment'])) $error = $response['error']['attachment'][0];
         elseif(isset($response['error']['comments'])) $error = $response['error']['comments'][0];

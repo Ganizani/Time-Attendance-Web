@@ -59,10 +59,39 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 pageLength:  25,
+                buttons: [
+                    {
+                        extend: 'collection',
+                        text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                        className: 'btn',
+                        buttons: [
+                            {
+                                extend: 'excel',
+                                text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                                className: 'btn',
+                                title: 'Department List',
+                                exportOptions: {
+                                    columns: [0,1,2,3,4,5]
+                                }
+                            },
+                            {
+                                extend: 'pdf',
+                                text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                                className: 'btn',
+                                title: 'Department List',
+                                orientation: 'landscape',
+                                pageSize: 'LEGAL',
+                                exportOptions: {
+                                    columns: [0,1,2,3,4,5]
+                                }
+                            }
+                        ]
+                    }
+                ],
                 columns: [
                     {   //NAME
                         data: 'name',
