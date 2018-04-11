@@ -40,7 +40,7 @@
                         <button class="btn btn-warning btn-cons btn-block" type="submit">Clock</button>
                     </div>
                     <div class="form-group col-md-2">
-                        <button class="btn btn-white btn-cons " type="submit">Back</button>
+                        <a href="/" class="btn btn-white btn-cons " type="submit">Back</a>
                     </div>
                 </div>
             </form>
