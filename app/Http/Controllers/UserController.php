@@ -81,10 +81,12 @@ class UserController extends Controller
         if(Helpers::hasValidSession()) {
             $user = Helpers::callAPI("GET", "/users/{$this->user_id}");
             $departments = Helpers::callAPI("GET", "/departments");
+            $supervisors = Helpers::callAPI("GET", "/users");
 
             return view('pages.users.my_account', [
                 'user' => $user['data'],
                 'departments' => $departments['data'],
+                'supervisors' => $supervisors['data'],
             ]);
         }
         else return view('pages.login');
@@ -205,7 +207,7 @@ class UserController extends Controller
 
     public function update_my_account(Request $request)
     {
-        $response = Helpers::callAPI( "PUT", "/users/{user_id}" , $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/users/{$this->user_id}" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> User Information Successfully Updated!</div>";

@@ -21,7 +21,7 @@ Route::post('/users/login', 'UserController@login');
 Route::get('/users/verify/{token}', 'UserController@verify_data');
 Route::post('/users/password/forgot', 'UserController@forgot_password_data');
 Route::post('/users/password/reset', 'UserController@reset_password_data');
-Route::put('/my_account', 'UserController@reset_password_data');
+Route::put('/my_account', 'UserController@update_my_account');
 Route::post('/users/clock', 'UserController@clock');
 
 
