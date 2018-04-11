@@ -169,14 +169,14 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserAddressStreetNo">Street No <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserAddressStreetNo" id="UserAddressStreetNo" type="text" class="form-control" placeholder="Street Number" value="{{isset($user['address']) ? $user['address']['street_no'] : ""}}">
+                                                    <input name="UserAddressStreetNo" id="UserAddressStreetNo" type="text" class="form-control" placeholder="Street Number" value="{{isset($user['address']['street_no']) ? $user['address']['street_no'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserAddressStreetName">Street Name <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserAddressStreetName" id="UserAddressStreetName" type="text" class="form-control" placeholder="Street Name" value="{{isset($user['address']) ? $user['address']['street_name'] : ""}}">
+                                                    <input name="UserAddressStreetName" id="UserAddressStreetName" type="text" class="form-control" placeholder="Street Name" value="{{isset($user['address']['street_name']) ? $user['address']['street_name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -184,21 +184,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserAddressSuburb">Suburb<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserAddressSuburb" id="UserAddressSuburb" type="text" class="form-control" placeholder="Suburb" value="{{isset($user['address']) ? $user['address']['suburb'] : ""}}">
+                                                    <input name="UserAddressSuburb" id="UserAddressSuburb" type="text" class="form-control" placeholder="Suburb" value="{{isset($user['address']['suburb']) ? $user['address']['suburb'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserAddressCity">City<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserAddressCity" id="UserAddressCity" type="text" class="form-control" placeholder="City" value="{{isset($user['address']) ? $user['address']['city'] : ""}}">
+                                                    <input name="UserAddressCity" id="UserAddressCity" type="text" class="form-control" placeholder="City" value="{{isset($user['address']['city']) ? $user['address']['city'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserAddressProvince">Province <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserAddressProvince" id="UserAddressProvince" type="text" class="form-control" placeholder="Province" value="{{isset($user['address']) ? $user['address']['province'] : ""}}">
+                                                    <input name="UserAddressProvince" id="UserAddressProvince" type="text" class="form-control" placeholder="Province" value="{{isset($user['address']['province']) ? $user['address']['province'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -304,21 +304,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencySurname">Surname<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencySurname" id="UserEmergencySurname" type="text" class="form-control" placeholder="Emergency Contact Surname" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['last_name'] : ""}}">
+                                                    <input name="UserEmergencySurname" id="UserEmergencySurname" type="text" class="form-control" placeholder="Emergency Contact Surname" value="{{isset($user['next_of_kin']['last_name']) ? $user['next_of_kin']['last_name'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyFirstName">Frist Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyFirstName" id="UserEmergencyFirstName" type="text" class="form-control" placeholder="Emergency Contact First Name" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['first_name'] : ""}}">
+                                                    <input name="UserEmergencyFirstName" id="UserEmergencyFirstName" type="text" class="form-control" placeholder="Emergency Contact First Name" value="{{isset($user['next_of_kin']['first_name']) ? $user['next_of_kin']['first_name'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyMiddleName">Middle Name<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right">
-                                                    <input name="UserEmergencyMiddleName" id="UserEmergencyMiddleName" type="text" class="form-control" placeholder="Emergency Contact Middle Name" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['middle_name'] : ""}}">
+                                                    <input name="UserEmergencyMiddleName" id="UserEmergencyMiddleName" type="text" class="form-control" placeholder="Emergency Contact Middle Name" value="{{isset($user['next_of_kin']['middle_name']) ? $user['next_of_kin']['middle_name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -326,21 +326,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyHouseNo">ERF/House No <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyHouseNo" id="UserEmergencyHouseNo" type="text" class="form-control" placeholder="Emergency Contact ERF/House No" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['house_no'] : ""}}">
+                                                    <input name="UserEmergencyHouseNo" id="UserEmergencyHouseNo" type="text" class="form-control" placeholder="Emergency Contact ERF/House No" value="{{isset($user['next_of_kin']['address']['house_no']) ? $user['next_of_kin']['address']['house_no'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyStreetNo">Street No <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyStreetNo" id="UserEmergencyStreetNo" type="text" class="form-control" placeholder="Emergency Contact Street Number" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['stree_number'] : ""}}">
+                                                    <input name="UserEmergencyStreetNo" id="UserEmergencyStreetNo" type="text" class="form-control" placeholder="Emergency Contact Street Number" value="{{isset($user['next_of_kin']['address']['street_no']) ? $user['next_of_kin']['address']['street_no'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyStreetName">Street Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyStreetName" id="UserEmergencyStreetName" type="text" class="form-control" placeholder="Emergency Contact Street Name" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['street_name'] : ""}}">
+                                                    <input name="UserEmergencyStreetName" id="UserEmergencyStreetName" type="text" class="form-control" placeholder="Emergency Contact Street Name" value="{{isset($user['next_of_kin']['address']['street_name']) ? $user['next_of_kin']['address']['street_name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -348,21 +348,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencySuburb">Suburb<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencySuburb" id="UserEmergencySuburb" type="text" class="form-control" placeholder="Emergency Contact Suburb" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['suburb'] : ""}}">
+                                                    <input name="UserEmergencySuburb" id="UserEmergencySuburb" type="text" class="form-control" placeholder="Emergency Contact Suburb" value="{{isset($user['next_of_kin']['address']['suburb']) ? $user['next_of_kin']['address']['suburb'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyCity">City<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyCity" id="UserEmergencyCity" type="text" class="form-control" placeholder=" Emergency Contact City" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['city'] : ""}}">
+                                                    <input name="UserEmergencyCity" id="UserEmergencyCity" type="text" class="form-control" placeholder=" Emergency Contact City" value="{{isset($user['next_of_kin']['address']['city']) ? $user['next_of_kin']['address']['city'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyProvince">Province <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyProvince" id="UserEmergencyProvince" type="text" class="form-control" placeholder="Emergency Contact Province" value="{{isset($user['next_of_kin']['address']['id']) ? $user['next_of_kin']['address']['province'] : ""}}">
+                                                    <input name="UserEmergencyProvince" id="UserEmergencyProvince" type="text" class="form-control" placeholder="Emergency Contact Province" value="{{isset($user['next_of_kin']['address']['province']) ? $user['next_of_kin']['address']['province'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -370,21 +370,21 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyHomePhone">Home Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyHomePhone" id="UserEmergencyHomePhone" type="text" class="form-control" placeholder="Emergency Contact Home Phone" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['home_phone'] : ""}}">
+                                                    <input name="UserEmergencyHomePhone" id="UserEmergencyHomePhone" type="text" class="form-control" placeholder="Emergency Contact Home Phone" value="{{isset($user['next_of_kin']['home_phone']) ? $user['next_of_kin']['home_phone'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyCellPhone">Cell Phone<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyCellPhone" id="UserEmergencyCellPhone" type="text" class="form-control" placeholder="Emergency Contact Cell Phone" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['cell_phone'] : ""}}">
+                                                    <input name="UserEmergencyCellPhone" id="UserEmergencyCellPhone" type="text" class="form-control" placeholder="Emergency Contact Cell Phone" value="{{isset($user['next_of_kin']['cell_phone']) ? $user['next_of_kin']['cell_phone'] : ""}}">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
                                                 <label for="UserEmergencyEmail">Email Address <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserEmergencyEmail" id="UserEmergencyEmail" type="text" class="form-control" placeholder="Emergency Contact Email Address" value="{{isset($user['next_of_kin']['id']) ? $user['next_of_kin']['email'] : ""}}">
+                                                    <input name="UserEmergencyEmail" id="UserEmergencyEmail" type="text" class="form-control" placeholder="Emergency Contact Email Address" value="{{isset($user['next_of_kin']['email']) ? $user['next_of_kin']['email'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
