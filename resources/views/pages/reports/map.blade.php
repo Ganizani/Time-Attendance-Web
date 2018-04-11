@@ -71,34 +71,23 @@
     </script>
     <script>
         $(document).ready(function() {
-
-            <?php
-                if(isset($_GET['Department']) && $_GET['Department'] != ""){ ?>
-                    $('#Department').select2().select2('val','{{$_GET['Department']}}');
-                <? }
-            ?>
-
+            @if(isset($_GET['Department']) && $_GET['Department'] != "")
+                $('#Department').select2().select2('val','{{$_GET['Department']}}');
+            @endif
             $("#search_form").submit(function(event) {
                 event.preventDefault();
-
                 var from_date  = $('#FromDate').val();
                 var to_date    = $('#ToDate').val();
                 var department = $('#Department').val();
-
-                if(from_date === ""){
-                    toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
-                }
-                else if(to_date === ""){
-                    toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
-                }
+                if(from_date === "")toastr.error("<b>Error:</b>  Please Select <b>Start Date</b>");
+                else if(to_date === "")toastr.error("<b>Error:</b> Please Select <b>End Date</b>");
                 else {
                    window.location.href = "/reports/map?FromDate="+ from_date +"&ToDate="+to_date +"&Department="+ department;
                 }
-
             });
         });
     </script>
-    @if(isset($record) && count($record) > 0 ){
+    @if(isset($record) && count($record) > 0 )
         <script>
             function myMap() {
                 var coordenates = {lat:{{$record['latitude']}}, lng: {{$record['longitude']}}};
@@ -106,7 +95,6 @@
                     zoom: 7,
                     center: coordenates
                 });
-
                 var contentString = '<b>Name: </b>{{$record['user']['name']}}'+
                     '<br><b>Employee Code: </b>{{$record['user']['employee_code']}}'+
                 '<br><b>Department: </b>{{$record['user']['department']['name']}}' +
@@ -127,10 +115,9 @@
                 marker.addListener('click', function() {
                     infowindow.open(map, marker);
                 });
-
             }
         </script>
-    @elseif(isset($records) && count($records) > 0){
+    @elseif(isset($records) && count($records) > 0)
         <script>
             function myMap() {
                 var coordenates = {lat: {{$records[0]['latitude']}} , lng: {{$records[0]['longitude']}} };
@@ -140,7 +127,6 @@
                 });
 
                 @foreach($records as $item){
-
                     var contentString{{$item['id']}} = '<b>Name: </b>{{$item['user']['name']}}'+
                         '<br><b>Employee Code: </b>{{$item['user']['employee_code']}}'+
                         '<br><b>Department: </b>{{$item['user']['department']['name']}}' +
@@ -165,8 +151,7 @@
                 @endforeach
             }
         </script>
-    }
-    @else{
+    @else
         <script>
             function myMap() {
                 var coordenates = {lat:-25.758038, lng: 28.205585};
@@ -174,14 +159,11 @@
                     zoom: 12,
                     center: coordenates
                 });
-
                 var contentString = '';
-
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString
                 });
             }
         </script>
-    }
     @endif
 @endsection
