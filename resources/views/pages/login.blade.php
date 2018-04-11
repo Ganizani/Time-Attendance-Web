@@ -34,6 +34,16 @@
                         <button class="btn btn-warning btn-cons pull-right" type="submit">Login</button>
                     </div>
                 </div>
+                <div class="row" >
+                    <div class="form-group col-md-12">
+                        <label> ================================== OR =================================</label>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <div class="form-group">
+                            <a href="/records/clock"class="btn btn-info btn-cons pull-right btn-block" type="submit">Clock</a>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="col-md-1"></div>

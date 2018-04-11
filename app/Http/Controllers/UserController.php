@@ -160,6 +160,21 @@ class UserController extends Controller
         return response()->json(["data" => $r_user['data']], 200);
     }
 
+    public function clock(Request $request)
+    {
+        $response = Helpers::callAPI( "POST", "/records/clock" , $this->get_clock_array($request));
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Clock For: <b>{$request->txt_username}</b> Have Successfully Been Registered!</div>";
+        }
+        else{
+            $error = Helpers::getError($response);
+            $message =  "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return $message;
+    }
+
     public function create(Request $request)
     {
         $response = Helpers::callAPI( "POST", "/users" , $this->get_array($request));
@@ -209,6 +224,18 @@ class UserController extends Controller
 
         return $data;
     }
+
+    public function get_clock_array($request){
+
+        $data = [
+            'status'   => $request->txt_status,
+            'email'    => $request->txt_username,
+            'password' => $request->txt_password,
+        ];
+
+        return $data;
+    }
+
 
     public function get_array($request){
         //$request->UserStatus,

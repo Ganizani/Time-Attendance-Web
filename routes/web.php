@@ -66,5 +66,7 @@ Route::get('/users/add', 'UserController@add');
 Route::get('/users/upload', 'UserController@upload');
 Route::get('/users/edit/{id?}', 'UserController@edit');
 
+
 //MyAccount
 Route::get('/my-account/{id?}', 'UserController@myAccount');
+Route::get('/records/clock', 'HomeController@clock_in_out');

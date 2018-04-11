@@ -41,6 +41,12 @@ class HomeController extends Controller
         return view('pages.login');
     }
 
+    public function clock_in_out()
+    {
+        return view('pages.clock');
+    }
+
+
     public function logout()
     {
         session_start();
