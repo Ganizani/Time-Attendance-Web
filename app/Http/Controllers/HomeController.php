@@ -72,6 +72,7 @@ class HomeController extends Controller
     //API CALLS
     public function recent_records(Request $request)
     {
+
         $response = Helpers::callAPI('GET', "/records/recently");
 
         return response()->json(["data" => $response['data']], 200);

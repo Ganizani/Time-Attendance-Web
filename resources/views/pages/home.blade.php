@@ -86,7 +86,7 @@
                                                 <th style="width:20%">EMPLOYEE CODE</th>
                                                 <th style="width:20%">NAME</th>
                                                 <th style="width:20%">DEPARTMENT</th>
-                                                <th style="width:10%">TIME</th>
+                                                <th style="width:20%">TIME</th>
                                                 <th style="width:10%">STATUS</th>
                                                 <th style="width:10%">MAP</th>
                                             </tr>
@@ -159,47 +159,74 @@
                 $("#absent_count").html(response.absent);
             }
         });
-        $(document).ready(function() {
-            var table = $('#_table').DataTable({
-                ajax: "/api/records/recently",
-                dom: "<'row'>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'>",
-                pageLength: 25,
-                columns: [
-                    {   //EMPLOYEE CODE
-                        data: 'user.employee_code',
-                        defaultContent: ''
-                    },
-                    {   //EMPLOYEE NAME
-                        data: 'user.name',
-                        defaultContent: ''
-                    },
-                    {   //DEPARTMENT
-                        data: 'user.department.name',
-                        defaultContent: ''
-                    },
-                    {   //DEVICE
-                        data: 'device.name',
-                        defaultContent: ''
-                    },
-                    {   //TIME
-                        data: 'time',
-                        defaultContent: ''
-                    },
-                    {   //STATUS
-                        data: 'status',
-                        defaultContent: ''
-                    },
-                    {   //MAP
-                        data: null,
-                        defaultContent: '',
-                        'render': function (data, type, row, meta) {
-                            return '<a href = "/reports/map?rid=' + data.id + '" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; View </a>';
+        var table = $('#_table').DataTable({
+            ajax: "/api/records/recently",
+            dom: "<'row'>" +
+            "<'row'<'col-sm-12'tr>>" +
+            "<'row'>",
+            pageLength:  25,
+            buttons: [
+                {
+                    extend: 'collection',
+                    text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
+                    className: 'btn',
+                    buttons: [
+                        {
+                            extend: 'excel',
+                            text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
+                            className: 'btn',
+                            title: 'Department List',
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5]
+                            }
+                        },
+                        {
+                            extend: 'pdf',
+                            text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
+                            className: 'btn',
+                            title: 'Department List',
+                            orientation: 'landscape',
+                            pageSize: 'LEGAL',
+                            exportOptions: {
+                                columns: [0,1,2,3,4,5]
+                            }
                         }
+                    ]
+                }
+            ],
+            columns: [
+                {   //NAME
+                    data: 'user.employee_code',
+                    defaultContent: ''
+                },
+                {   //DESCRIPTION
+                    data: 'user.name',
+                    defaultContent: ''
+                },
+                {   //Location
+                    data: 'user.department.name',
+                    defaultContent: ''
+                },
+                {   //EMPLOYEE COUNT
+                    data: 'time',
+                    defaultContent: ''
+                },
+                {   //DEVICE COUNT
+                    data: 'status',
+                    defaultContent: ''
+                },
+                {   //ACTION
+                    data: null,
+                    defaultContent: '',
+                    render : function ( data, type, row, meta ) {
+                        return '<a href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; Map </a>';
                     }
-                ]
-            });
+
+                }
+            ]
+        });
+        $(document).ready(function() {
+
         });
     </script>
 @endsection
