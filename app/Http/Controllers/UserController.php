@@ -230,9 +230,11 @@ class UserController extends Controller
     public function get_clock_array($request){
 
         $data = [
-            'status'   => $request->txt_status,
-            'email'    => $request->txt_username,
-            'password' => $request->txt_password,
+            'status'    => $request->Status,
+            'email'     => $request->Username,
+            'latitude'  => (isset($request->Latitude) && $request->Latitude != null) ? $request->Latitude : 0,
+            'longitude' => (isset($request->Longitude) && $request->Longitude != null) ? $request->Longitude : 0,
+            'password'  => $request->Password,
         ];
 
         return $data;
@@ -282,8 +284,8 @@ class UserController extends Controller
                 'city'          => $request->UserAddressCity,
                 'suburb'        => $request->UserAddressSuburb,
                 'street_name'   => $request->UserAddressStreetName,
-                'street_no'     => $request->UserAddressStreetNo,
-                'house_no'      => $request->UserAddressHouseNo,
+                'street_number' => $request->UserAddressStreetNo,
+                'house_number'  => $request->UserAddressHouseNo,
             ],
             'next_of_kin'       => [
                 'relationship'  => $request->UserEmergencyRelationship,
@@ -298,8 +300,8 @@ class UserController extends Controller
                     'city'          => $request->UserEmergencyCity,
                     'suburb'        => $request->UserEmergencySuburb,
                     'street_name'   => $request->UserEmergencyStreetName,
-                    'street_no'     => $request->UserEmergencyStreetNo,
-                    'house_no'      => $request->UserEmergencyHouseNo,
+                    'street_number' => $request->UserEmergencyStreetNo,
+                    'house_number'  => $request->UserEmergencyHouseNo,
                 ]
             ]
         ];

@@ -74,13 +74,9 @@
             cache: false,
             data: var_form_data,
             success: function(response){
-
                 var obj = $.parseJSON(response);
-
                 if(obj.status === "success") window.location.href = '/dashboard';
-                else{
-                    $('#Results').html(obj.message);
-                }
+                else $('#Results').html(obj.message);
             }
         });
     });

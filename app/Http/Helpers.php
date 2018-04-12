@@ -125,8 +125,8 @@ class Helpers
         elseif(isset($response['error']['date'])) $error = $response['error']['date'][0];
         elseif(isset($response['error']['description'])) $error = $response['error']['description'][0];
         //Address
-        elseif(isset($response['error']['house_no'])) $error = $response['error']['house_no'][0];
-        elseif(isset($response['error']['street_no'])) $error = $response['error']['street_no'][0];
+        elseif(isset($response['error']['house_number'])) $error = $response['error']['house_number'][0];
+        elseif(isset($response['error']['street_number'])) $error = $response['error']['street_number'][0];
         elseif(isset($response['error']['street_name'])) $error = $response['error']['street_name'][0];
         elseif(isset($response['error']['suburb'])) $error = $response['error']['suburb'][0];
         elseif(isset($response['error']['city'])) $error = $response['error']['city'][0];
@@ -139,6 +139,9 @@ class Helpers
         elseif(isset($response['error']['leave_type'])) $error = $response['error']['leave_type'][0];
         elseif(isset($response['error']['from_date'])) $error = $response['error']['from_date'][0];
         elseif(isset($response['error']['to_date'])) $error = $response['error']['to_date'][0];
+        //Clocking
+        elseif(isset($response['error']['latitude'])) $error = $response['error']['latitude'][0];
+        elseif(isset($response['error']['longitude'])) $error = $response['error']['longitude'][0];
         //ELSE
         else $error =  $response['error'];
 
