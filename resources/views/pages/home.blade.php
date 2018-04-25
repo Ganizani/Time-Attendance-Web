@@ -165,35 +165,6 @@
             "<'row'<'col-sm-12'tr>>" +
             "<'row'>",
             pageLength:  25,
-            buttons: [
-                {
-                    extend: 'collection',
-                    text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
-                    className: 'btn',
-                    buttons: [
-                        {
-                            extend: 'excel',
-                            text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
-                            className: 'btn',
-                            title: 'Department List',
-                            exportOptions: {
-                                columns: [0,1,2,3,4,5]
-                            }
-                        },
-                        {
-                            extend: 'pdf',
-                            text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
-                            className: 'btn',
-                            title: 'Department List',
-                            orientation: 'landscape',
-                            pageSize: 'LEGAL',
-                            exportOptions: {
-                                columns: [0,1,2,3,4,5]
-                            }
-                        }
-                    ]
-                }
-            ],
             columns: [
                 {   //NAME
                     data: 'user.employee_code',
@@ -224,9 +195,6 @@
 
                 }
             ]
-        });
-        $(document).ready(function() {
-
         });
     </script>
 @endsection
