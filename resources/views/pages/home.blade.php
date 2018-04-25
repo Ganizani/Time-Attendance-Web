@@ -197,15 +197,15 @@
             columns: [
                 {   //NAME
                     data: 'user.employee_code',
-                    defaultContent: ''
+                    defaultContent: 'N/a'
                 },
                 {   //DESCRIPTION
                     data: 'user.name',
-                    defaultContent: ''
+                    defaultContent: 'N/a'
                 },
                 {   //Location
                     data: 'user.department.name',
-                    defaultContent: ''
+                    defaultContent: 'N/a'
                 },
                 {   //EMPLOYEE COUNT
                     data: 'time',
@@ -213,7 +213,7 @@
                 },
                 {   //DEVICE COUNT
                     data: 'status',
-                    defaultContent: ''
+                    defaultContent: 'N/a'
                 },
                 {   //ACTION
                     data: null,

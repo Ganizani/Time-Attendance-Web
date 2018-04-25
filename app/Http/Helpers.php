@@ -147,6 +147,8 @@ class Helpers
         //ELSE
         else $error =  $response['error'];
 
+        $error = ($error == "") ? "An internal server error occurred, please try again later." : $error;
+
         return $error;
     }
 
