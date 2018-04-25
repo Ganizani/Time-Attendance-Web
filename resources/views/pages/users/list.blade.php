@@ -43,14 +43,13 @@
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:20%">Name</th>
+                                        <th style="width:15%">Name</th>
                                         <th style="width:15%">Email</th>
+                                        <th style="width:10%">Department</th>
                                         <th style="width:10%">Gender</th>
                                         <th style="width:10%">Phone Number</th>
-                                        <th style="width:10%">User Type</th>
                                         <th style="width:10%">Verified</th>
                                         <th style="width:10%">Status</th>
-                                        <th style="width:15%">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -132,43 +131,44 @@
                     columns: [
                         {   //Name
                             data: 'name',
-                            defaultContent: ''
+                            defaultContent: 'N/a'
                         },
                         {   //Email
                             data: 'email',
-                            defaultContent: ''
+                            defaultContent: 'N/a'
+                        },
+                        {   //Department
+                            data: 'department.name',
+                            defaultContent: 'N/a'
                         },
                         {   //Gender
                             data: 'gender',
-                            defaultContent: ''
+                            defaultContent: 'N/a'
                         },
                         {   //Phone Number
                             data: 'phone_number',
-                            defaultContent: ''
-                        },
-                        {   //User Type
-                            data: 'user_type',
-                            defaultContent: ''
+                            defaultContent: 'N/a'
                         },
                         {   //Verified
                             data: 'verified',
-                            defaultContent: ''
+                            defaultContent: 'N/a'
                         },
                         {   //Status
                             data : null,
                             defaultContent: '',
-                            'render' : function ( data, type, row, meta ) {
+                            render : function ( data, type, row, meta ) {
                                 var labelClass = (data.status === 'ACTIVE') ? "label-success" : "label-important";
                                 return '<span class="label '+ labelClass +'">' + data.status +'</span>';
                             }
-                        },
-                        {   //Actions
+                        }
+                        /*{   //Actions
                             data : null,
                             defaultContent: '',
-                            'render' : function ( data, type, row, meta ) {
-                                return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+                            render : function ( data, type, row, meta ) {
+                                return '';
+                                //return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
                             }
-                        }
+                        }*/
                     ]
                 });
 

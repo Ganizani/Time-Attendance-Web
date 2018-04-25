@@ -180,35 +180,35 @@
                         columns: [
                             {   //EMPLOYEE CODE
                                 data: 'user.employee_code',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //NAME
                                 data: 'user.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEPARTMENT
                                 data: 'user.department.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //LEAVE TYPE
                                 data: 'leave_type.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //FROM DATE
                                 data: 'from_date',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //TO DATE
                                 data: 'to_date',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //LEAVE DAYS
                                 data: 'leave_days',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //COMMENTS
                                 data: 'comments',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //ACTION
                                 data: null,

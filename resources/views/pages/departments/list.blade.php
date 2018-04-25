@@ -99,19 +99,19 @@
                     },
                     {   //DESCRIPTION
                         data: 'description',
-                        defaultContent: ''
+                        defaultContent: 'N/a'
                     },
                     {   //Location
                         data: 'location',
-                        defaultContent: ''
+                        defaultContent: 'N/a'
                     },
                     {   //EMPLOYEE COUNT
-                        data: 'users',
-                        defaultContent: ''
+                        data: 'employees',
+                        defaultContent: '0'
                     },
                     {   //DEVICE COUNT
                         data: 'devices',
-                        defaultContent: ''
+                        defaultContent: '0'
                     },
                     {   //MANAGER
                         data: null,

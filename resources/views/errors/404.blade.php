@@ -29,7 +29,7 @@
                 <div class="error-main">
                     <div class="error-number" style="color:#dc9758 !important;"> 404 </div>
                     <div class="error-description"> We seem to have lost you in the clouds. </div>
-                    <div class="error-description-mini"> The page your looking for is not here </div>
+                    <div class="error-description-mini"> The page your looking for is not here. </div>
                     <br>
                     <button class="btn btn-orange btn-cons" type="button" onclick="window.history.back();return false;"> <i class="fa fa-backward"></i> &nbsp; BACK</button>
                 </div>

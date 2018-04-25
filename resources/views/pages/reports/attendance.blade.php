@@ -61,8 +61,7 @@
                                         <th style="width:10%">DATE</th>
                                         <th style="width:10%">CLOCK IN</th>
                                         <th style="width:10%">CLOCK OUT</th>
-                                        <th style="width:10%">NORMAL HOURS</th>
-                                        <th style="width:10%">EXTRA HOURS</th>
+                                        <th style="width:10%">HOURS WORKED</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -142,35 +141,31 @@
                         columns: [
                             {   //EMPLOYEE CODE
                                 data: 'user.employee_code',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //NAME
                                 data: 'user.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEPARTMENT
                                 data: 'user.department.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DATE
                                 data: 'record.in.date',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //CLOCK IN
                                 data: 'record.in.time',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //CLOCK OUT
                                 data: 'record.out.time',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //NORMAL HOURS
-                                data: null,
-                                defaultContent: ''
-                            },
-                            {   //EXTRA HOURS
-                                data: null,
-                                defaultContent: ''
+                                data: 'normal_hours',
+                                defaultContent: '0.0'
                             }
                         ]
                     });

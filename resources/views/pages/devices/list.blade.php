@@ -126,27 +126,27 @@
                         columns: [
                             {   //NAME
                                 data: 'name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //IMEI NUMBER
                                 data: 'imei_number',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //SERIAL NUMBER
                                 data: 'serial_number',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //PHONE NUMBER
                                 data: 'phone_number',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //SUPERVISOR
                                 data: 'supervisor.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEPARTMENT
                                 data: 'department.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //STATUS
                                 data: null,

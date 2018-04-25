@@ -140,31 +140,31 @@
                         columns: [
                             {   //EMPLOYEE CODE
                                 data: 'user.employee_code',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //NAME
                                 data: 'user.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEPARTMENT
                                 data: 'user.department.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DATE
                                 data: 'date',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //TIME
                                 data: 'time',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //STATUS
                                 data: 'status',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEVICE
                                 data: 'device.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //ACTION
                                 data: null,

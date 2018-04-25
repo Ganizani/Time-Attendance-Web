@@ -54,8 +54,14 @@ class Handler extends ExceptionHandler
         }
 
         if($exception instanceof \BadMethodCallException){
-            //return response()->view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
+
+        if($exception instanceof \InvalidArgumentException){
+
+            return response()->view('errors.404', [], 404);
+        }
+
 
         return parent::render($request, $exception);
     }

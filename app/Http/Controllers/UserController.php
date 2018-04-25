@@ -52,6 +52,8 @@ class UserController extends Controller
 
     public function edit($id){
 
+        return view('errors.401');
+
         if(Helpers::hasValidSession()) {
 
             $user = Helpers::callAPI("GET", "/users/{$id}");

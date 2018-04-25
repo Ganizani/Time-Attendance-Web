@@ -135,23 +135,23 @@
                         columns: [
                             {   //DATE
                                 data: 'date',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //WEEKDAY
                                 data: 'weekday',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //EMPLOYEE CODE
                                 data: 'user.employee_code',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //NAME
                                 data: 'user.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //DEPARTMENT
                                 data: 'user.department.name',
-                                defaultContent: ''
+                                defaultContent: 'N/a'
                             },
                             {   //REASON
                                 data: 'reason',

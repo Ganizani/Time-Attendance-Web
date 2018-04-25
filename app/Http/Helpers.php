@@ -133,6 +133,8 @@ class Helpers
         elseif(isset($response['error']['province'])) $error = $response['error']['province'][0];
         //Next of Kin
         elseif(isset($response['error']['relationship'])) $error = $response['error']['relationship'][0];
+        //Department
+        elseif(isset($response['error']['location'])) $error = $response['error']['location'][0];
         //Leave
         elseif(isset($response['error']['attachment'])) $error = $response['error']['attachment'][0];
         elseif(isset($response['error']['comments'])) $error = $response['error']['comments'][0];
