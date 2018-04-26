@@ -21,7 +21,7 @@
                         </div>
                         <div class="grid-body ">
 
-                            <form class="form-no-horizontal-spacing" id="add_form" >
+                            <form class="form-no-horizontal-spacing" name="add_form" id="add_form" method="post" action="/api/leaves" enctype="multipart/form-data">
                                 <div class="row ">
                                     <div class="col-md-6">
                                         <h5 class="info-section"><b>Employee Information</b></h5>
@@ -61,6 +61,14 @@
                                                 <label for="LeavePhoneNumber">Tel.  <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="LeavePhoneNumber" id="LeavePhoneNumber" type="text" class="form-control" placeholder="Phone Number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label for="LeaveAttachment">Attachment  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveAttachment" id="LeaveAttachment" type="file" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -145,24 +153,16 @@
 @section('footer')
     @parent
     <script>
+        var options = {
+            target:   '#Results'     // target element(s) to be updated with server response
+        };
 
-        $("#add_form").submit(function(event){
-
-            event.preventDefault();
-            var_form_data = $(this).serialize();
-
+        $("#add_form").submit(function() {
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
-            $.ajax({
-                type:"POST",
-                url:"/api/leaves",
-                cache: false,
-                data: var_form_data,
-                success: function(response){
-                    $("#Results").html(response);
-                }
-            });
-
+            $(this).ajaxSubmit(options);
+            // always return false to prevent standard browser submit and page navigation
+            return false;
         });
 
         //Iconic form validation sample

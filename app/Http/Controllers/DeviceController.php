@@ -40,6 +40,8 @@ class DeviceController extends Controller
 
     public function upload(){
 
+        return view('errors.404');
+
         if(Helpers::hasValidSession()) {
 
             return view('pages.devices.upload');

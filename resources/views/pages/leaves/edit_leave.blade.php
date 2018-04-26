@@ -21,8 +21,9 @@
                         </div>
                         <div class="grid-body ">
 
-                            <form class="form-no-horizontal-spacing" id="edit_form" >
+                            <form class="form-no-horizontal-spacing" id="edit_form" name="edit_form" method="post" action="/api/leaves/update/{{isset($leave['id']) ? $leave['id'] : ""}}}}" enctype="multipart/form-data">
                                 <input name="LeaveId" id="LeaveId" type="hidden" class="form-control" value="{{isset($leave['id']) ? $leave['id'] : ""}}">
+                                <input name="LeaveOldAttachment" id="LeaveOldAttachment" type="hidden" class="form-control" value="{{isset($leave['attachment']) ? $leave['attachment'] : ""}}">
 
                                 <div class="row ">
                                     <div class="col-md-6">
@@ -63,6 +64,15 @@
                                                 <label for="LeavePhoneNumber">Tel.  <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="LeavePhoneNumber" id="LeavePhoneNumber" type="text" class="form-control" placeholder="Phone Number" value="{{isset($leave['phone_on_leave']) ? $leave['phone_on_leave'] : ""}}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label for="LeaveAttachment">Attachment  <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <input name="LeaveAttachment" id="LeaveAttachment" type="file" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -121,6 +131,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row ">
+                                            <div class="form-group col-md-12">
+                                                <label><b>Current Attachment</b> (Select a new file to update attachment or leave blank to remain the same)</label>
+                                                @if(isset($leave['attachment']) && $leave['attachment'] != "")
+                                                    <a class="btn btn-white btn-cons btn-medium" href="{{$leave['attachment']}}" target="_blank" > <i class="fa fa-binoculars"></i>&nbsp; View Attachment</a>
+                                                @else
+                                                    <a class="btn btn-white btn-cons btn-medium"  disabled> &nbsp; N/a</a>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -153,22 +173,16 @@
             $('#LeaveType').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($leave['leave_type']['id']) ? $leave['leave_type']['id'] : ""}}');
         });
 
-        $("#edit_form").submit(function(event){
+        var options = {
+            target:   '#Results'     // target element(s) to be updated with server response
+        };
 
-            event.preventDefault();
-            var_form_data = $(this).serialize();
-            var id = $("#LeaveId").val();
+        $("#edit_form").submit(function() {
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
-            $.ajax({
-                type:"PUT",
-                url:"/api/leaves/" + id,
-                cache: false,
-                data: var_form_data,
-                success: function(response){
-                    $("#Results").html(response);
-                }
-            });
 
+            $(this).ajaxSubmit(options);
+            // always return false to prevent standard browser submit and page navigation
+            return false;
         });
 
         //Iconic form validation sample

@@ -36,7 +36,7 @@
                 <ul class="sub-menu">
                     <li> <a href="/departments"> List</a> </li>
                     <li> <a href="/departments/add" > Add </a> </li>
-                    <li> <a href="/departments/upload" > Upload </a> </li>
+                    <!--li> <a href="/departments/upload" > Upload </a> </li-->
                 </ul>
             </li>
 
@@ -45,7 +45,7 @@
                 <ul class="sub-menu">
                     <li> <a href="/devices">   List</a> </li>
                     <li> <a href="/devices/add">    Add </a> </li>
-                    <li> <a href="/devices/upload"> Upload </a> </li>
+                    <!--li> <a href="/devices/upload"> Upload </a> </li-->
                 </ul>
             </li>
 
@@ -64,7 +64,7 @@
                 <ul class="sub-menu">
                     <li> <a href="/holidays">   List</a> </li>
                     <li> <a href="/holidays/add" >   Add </a> </li>
-                    <li> <a href="/holidays/upload"> Upload </a> </li>
+                    <!--li> <a href="/holidays/upload"> Upload </a> </li-->
                 </ul>
             </li>
 
@@ -73,7 +73,7 @@
                 <ul class="sub-menu">
                     <li> <a href="/users"> List</a> </li>
                     <li> <a href="/users/add">  Add </a> </li>
-                    <li> <a href="/users/upload"> Upload </a> </li>
+                    <!--li> <a href="/users/upload"> Upload </a> </li-->
                 </ul>
             </li>
 

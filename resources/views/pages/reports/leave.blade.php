@@ -121,10 +121,10 @@
             $('#ViewAttachmentModal').on('show.bs.modal', function (event) {
                 var button     = $(event.relatedTarget); // Button that triggered the modal
                 var source     = button.data('src');     // Extract info from data-* attributes
-                var leave_type = button.data('leave');   // Extract info from data-* attributes
+                var leave_name = button.data('leave');   // Extract info from data-* attributes
 
                 $('#file_source').attr('src', source);
-                $('#leave_name').html(leave_type + " Attachment");
+                $('#leave_name').html(leave_name + " Attachment");
             });
 
             $("#search_form").submit(function(event) {
@@ -216,7 +216,7 @@
                                 render : function ( data, type, row, meta ) {
                                     var attachment = "";
                                     if(data.attachment !== null){
-                                        attachment = '<a class="btn btn-white btn-cons btn-block btn-small" data-leave="' +  data.user.employee_code + '" data-src="' +  data.attachment + '" data-toggle="modal" data-target="#ViewAttachmentModal"><i class="fa fa-files-o"></i> &nbsp; Attachment </a>';
+                                        attachment = '<a class="btn btn-white btn-cons btn-block btn-small" data-leave="' +  data.user.name + '" data-src="' +  data.attachment + '" data-toggle="modal" data-target="#ViewAttachmentModal"><i class="fa fa-paperclip"></i> &nbsp; Attachment </a>';
                                     }
                                     return attachment + '<a href = "/leaves/edit/' + data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
                                 }

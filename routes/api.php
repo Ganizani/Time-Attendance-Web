@@ -35,9 +35,9 @@ Route::get('/devices', 'DeviceController@get_all');
 Route::put('/devices/{id}', 'DeviceController@update');
 Route::post('/devices', 'DeviceController@create');
 
-//Leave Type
+//Leaves
 Route::post('/leaves', 'LeaveController@create');
-Route::put('/leaves/{id}', 'LeaveController@update');
+Route::post('/leaves/update/{id}', 'LeaveController@update');
 
 //Leave Type
 Route::get('/leave_types', 'LeaveController@get_all_leave_type');

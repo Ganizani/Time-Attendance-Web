@@ -10,6 +10,7 @@ namespace App\Http;
 use \GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Http\Request;
 
 class Helpers
 {
@@ -157,6 +158,25 @@ class Helpers
         $data = true;
         if(!isset($_SESSION['GANIZANI-EMPLG-ID']) || $_SESSION['GANIZANI-EMPLG-ID'] == ""){
             $data = false;
+        }
+
+        return $data;
+    }
+
+    public static function getFileContent(Request $request, $file_name){
+        $data = [
+            'extension' => '',
+            'data_url'  => ''
+        ];
+
+        if($request->file($file_name)) {
+            $file = $request->file($file_name);
+            if ($file->isValid()) {
+                $data = [
+                    'extension' => $file->getClientOriginalExtension(),
+                    'data_url'  => 'data:' . $file->getClientOriginalExtension() . ';base64,' . base64_encode(file_get_contents($file)),
+                ];
+            }
         }
 
         return $data;

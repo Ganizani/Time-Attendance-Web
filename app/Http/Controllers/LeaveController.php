@@ -169,10 +169,10 @@ class LeaveController extends Controller
         }
     }
 
-    public function get_leave_array($request){
+    public function get_leave_array(Request $request){
+
         $data = [
             'user'             => $request->LeaveUser,
-            'attachment'       => $request->LeaveAttachment,
             'last_day_of_work' => $request->LeaveLastWorkingDay,
             'from_date'        => $request->LeaveFromDate,
             'to_date'          => $request->LeaveToDate,
@@ -180,11 +180,13 @@ class LeaveController extends Controller
             'leave_type'       => $request->LeaveType,
             'address_on_leave' => $request->LeaveAddress,
             'email_on_leave'   => $request->LeaveEmail,
-            'phone_on_leave'   => $request->LeavePhoneNumber
+            'phone_on_leave'   => $request->LeavePhoneNumber,
+            'old_attachment'   => $request->LeaveOldAttachment,
+            'attachment'       => Helpers::getFileContent($request, "LeaveAttachment"),
         ];
-
-
 
         return $data;
     }
+
+
 }
