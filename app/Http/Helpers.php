@@ -12,47 +12,24 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 
-class Helpers
-{
+class Helpers {
 
     public static function passwordRegex($password, $confirm_password){
 
-
-        $uppercase      = preg_match('@[A-Z]@', $password);
-        $lowercase      = preg_match('@[a-z]@', $password);
-        $number         = preg_match('@[0-9]@', $password);
-        $special_symbol = preg_match('@[\W]@',  $password);
-
-        if($password != $confirm_password){
-            $response = "Passwords Do Not Match";
-        }
-        elseif(strlen($password) < 8){
-            $response = "Password Must Contain At Least 8 Characters";
-        }
-        elseif(!$uppercase ) {
-            $response = "Password Must Contain At Least 1 Upper Case Character [A-Z]";
-        }
-        elseif(!$lowercase){
-            $response = "Password Must Contain At Least 1 Lower Case Character [a-z]";
-        }
-        elseif(!$number){
-            $response = "Password Must Contain At Least 1 Number [0-9]";
-        }
-        elseif(!$special_symbol){
-            $response = "Password Must Contain At Least 1 Special Character";
-        }
-        else{
-            $response = "";
-        }
+        if($password != $confirm_password) $response = "Passwords Do Not Match";
+        elseif(strlen($password) < 8)      $response = "Password Must Contain At Least 8 Characters";
+        elseif(!preg_match('@[A-Z]@', $password)) $response = "Password Must Contain At Least 1 Upper Case Character [A-Z]";
+        elseif(!preg_match('@[a-z]@', $password)) $response = "Password Must Contain At Least 1 Lower Case Character [a-z]";
+        elseif(!preg_match('@[0-9]@', $password)) $response = "Password Must Contain At Least 1 Number [0-9]";
+        elseif(!preg_match('@[\W]@',  $password)) $response = "Password Must Contain At Least 1 Special Character";
+        else $response = "";
 
         return $response;
     }
 
     public static function formatDate($date, $format = "Y-m-d H:i:s"){
 
-        if($date != null){
-            return date($format, strtotime($date));
-        }
+        if($date != null) return date($format, strtotime($date));
         else return "";
     }
 

@@ -159,6 +159,7 @@
                 $("#absent_count").html(response.absent);
             }
         });
+
         var table = $('#_table').DataTable({
             ajax: "/api/records/recently",
             dom: "<'row'>" +

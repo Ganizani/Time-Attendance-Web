@@ -133,7 +133,7 @@
                                         </div>
                                         <div class="row ">
                                             <div class="form-group col-md-12">
-                                                <label><b>Current Attachment</b> (Select a new file to update attachment or leave blank to remain the same)</label>
+                                                <label><b>Current Attachment</b></label>
                                                 @if(isset($leave['attachment']) && $leave['attachment'] != "")
                                                     <a class="btn btn-white btn-cons btn-medium" href="{{$leave['attachment']}}" target="_blank" > <i class="fa fa-binoculars"></i>&nbsp; View Attachment</a>
                                                 @else
@@ -144,7 +144,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <span class="txt-red">* Required Fields</span>
+                                    <div class="col-md-6">
+                                        <span class="txt-red">* Required Fields</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="txt-red">* Select a new file to update attachment or leave blank to remain the same</span>
+                                    </div>
                                 </div>
                                 <div class="form-actions">
                                     <div class="pull-left">
