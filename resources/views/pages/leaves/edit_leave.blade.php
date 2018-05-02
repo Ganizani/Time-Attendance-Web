@@ -95,14 +95,14 @@
                                                     </select>
                                                 </div>
                                             </div>
-
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveLastWorkingDay">Last Date of Working <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-md-11 no-padding">
-                                                    <input name="LeaveLastWorkingDay" id="LeaveLastWorkingDay" type="text" class="form-control datepicker" placeholder="Last Day Of Work" value="{{isset($leave['last_day_of_work']) ? $leave['last_day_of_work'] : ""}}">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <label for="LeaveTypeSpecific">Specify Other <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right">
+                                                    <input name="LeaveTypeSpecific" id="LeaveTypeSpecific" type="text" class="form-control" placeholder="Specify Other" disabled>
                                                 </div>
                                             </div>
+
+
                                         </div>
 
                                         <div class="row ">
@@ -118,6 +118,15 @@
                                                 <label for="LeaveToDate">Last Date <span class="txt-red">*</span></label>
                                                 <div class="input-append warning col-md-11 no-padding">
                                                     <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date" value="{{isset($leave['to_date']) ? $leave['to_date'] : ""}}">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveLastWorkingDay">Last Date of Working <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-md-11 no-padding">
+                                                    <input name="LeaveLastWorkingDay" id="LeaveLastWorkingDay" type="text" class="form-control datepicker" placeholder="Last Day Of Work" value="{{isset($leave['last_day_of_work']) ? $leave['last_day_of_work'] : ""}}">
                                                     <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
@@ -173,19 +182,23 @@
     @parent
     <script>
 
+        $( "#LeaveType" ).change( function  (event) {
+            event.preventDefault();
+            //var id = $(this).find("option:selected").text();
+            var id = $(this).val();
+            if(id === '6') $("#LeaveTypeSpecific").removeAttr("disabled");
+            else $('#LeaveTypeSpecific').prop("disabled", true);
+        });
+
         $(document).ready(function() {
             $('#LeaveUser').select2('val', '{{isset($leave['user']['id']) ? $leave['user']['id'] : "" }}');
             $('#LeaveType').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($leave['leave_type']['id']) ? $leave['leave_type']['id'] : ""}}');
         });
 
-        var options = {
-            target:   '#Results'     // target element(s) to be updated with server response
-        };
-
         $("#edit_form").submit(function() {
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
-            $(this).ajaxSubmit(options);
+            $(this).ajaxSubmit({target: '#Results'});
             // always return false to prevent standard browser submit and page navigation
             return false;
         });

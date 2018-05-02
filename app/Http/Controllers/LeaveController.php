@@ -172,17 +172,18 @@ class LeaveController extends Controller
     public function get_leave_array(Request $request){
 
         $data = [
-            'user'             => $request->LeaveUser,
-            'last_day_of_work' => $request->LeaveLastWorkingDay,
-            'from_date'        => $request->LeaveFromDate,
-            'to_date'          => $request->LeaveToDate,
-            'comments'         => $request->LeaveNotes,
-            'leave_type'       => $request->LeaveType,
-            'address_on_leave' => $request->LeaveAddress,
-            'email_on_leave'   => $request->LeaveEmail,
-            'phone_on_leave'   => $request->LeavePhoneNumber,
-            'old_attachment'   => $request->LeaveOldAttachment,
-            'attachment'       => Helpers::getFileContent($request, "LeaveAttachment"),
+            'user'                => $request->LeaveUser,
+            'last_day_of_work'    => $request->LeaveLastWorkingDay,
+            'from_date'           => $request->LeaveFromDate,
+            'to_date'             => $request->LeaveToDate,
+            'comments'            => $request->LeaveNotes,
+            'leave_type'          => $request->LeaveType,
+            'specific_leave_type' => $request->LeaveTypeSpecific,
+            'address_on_leave'    => $request->LeaveAddress,
+            'email_on_leave'      => $request->LeaveEmail,
+            'phone_on_leave'      => $request->LeavePhoneNumber,
+            'old_attachment'      => $request->LeaveOldAttachment,
+            'attachment'          => Helpers::getFileContent($request, "LeaveAttachment"),
         ];
 
         return $data;

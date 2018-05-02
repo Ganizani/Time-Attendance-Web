@@ -93,10 +93,9 @@
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="LeaveLastWorkingDay">Last Date of Working <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-md-11 no-padding">
-                                                    <input name="LeaveLastWorkingDay" id="LeaveLastWorkingDay" type="text" class="form-control datepicker" placeholder="From Date">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <label for="LeaveTypeSpecific">Specify Other <span class="txt-red"></span></label>
+                                                <div class="input-with-icon  right">
+                                                    <input name="LeaveTypeSpecific" id="LeaveTypeSpecific" type="text" class="form-control" placeholder="Specify Other" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -104,17 +103,33 @@
                                         <div class="row ">
                                             <div class="form-group col-md-6">
                                                 <label for="LeaveFromDate">Start Date <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-md-11 no-padding">
-                                                    <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <div class="input-with-icon  right">
+                                                    <div class="input-append warning col-md-11 no-padding">
+                                                        <input name="LeaveFromDate" id="LeaveFromDate" type="text" class="form-control datepicker" placeholder="From Date">
+                                                        <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
                                                 <label for="LeaveToDate">Last Date <span class="txt-red">*</span></label>
-                                                <div class="input-append warning col-md-11 no-padding">
-                                                    <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date">
-                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                <div class="input-with-icon  right">
+                                                    <div class="input-append warning col-md-11 no-padding">
+                                                        <input name="LeaveToDate" id="LeaveToDate" type="text" class="form-control datepicker" placeholder="To Date">
+                                                        <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row ">
+                                            <div class="form-group col-md-6">
+                                                <label for="LeaveLastWorkingDay">Last Date of Working <span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right">
+                                                    <div class="input-append warning col-md-11 no-padding">
+                                                        <input name="LeaveLastWorkingDay" id="LeaveLastWorkingDay" type="text" class="form-control datepicker" placeholder="From Date">
+                                                        <span class="add-on"><i class="fa fa-calendar"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,14 +168,19 @@
 @section('footer')
     @parent
     <script>
-        var options = {
-            target:   '#Results'     // target element(s) to be updated with server response
-        };
+
+        $( "#LeaveType" ).change( function  (event) {
+            event.preventDefault();
+            //var id = $(this).find("option:selected").text();
+            var id = $(this).val();
+            if(id === '6') $("#LeaveTypeSpecific").removeAttr("disabled");
+            else $('#LeaveTypeSpecific').prop("disabled", true);
+        });
 
         $("#add_form").submit(function() {
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
-            $(this).ajaxSubmit(options);
+            $(this).ajaxSubmit({target:'#Results'});
             // always return false to prevent standard browser submit and page navigation
             return false;
         });

@@ -191,8 +191,15 @@
                                 defaultContent: 'N/a'
                             },
                             {   //LEAVE TYPE
-                                data: 'leave_type.name',
-                                defaultContent: 'N/a'
+                                data: null,
+                                defaultContent: 'N/a',
+                                render : function ( data, type, row, meta ) {
+                                    var leave_type = data.leave_type.name;
+                                    if(data.leave_type.id === '6' || data.leave_type.name === 'Other'){
+                                        leave_type = data.leave_type_text;
+                                    }
+                                    return leave_type ;
+                                }
                             },
                             {   //FROM DATE
                                 data: 'from_date',
