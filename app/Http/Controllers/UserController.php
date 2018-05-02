@@ -18,7 +18,7 @@ class UserController extends Controller
         if(Helpers::hasValidSession()){
             $this->user_id = $_SESSION['GANIZANI-EMPLG-ID'];
         }
-        else $this->user_id = -1;
+        else $this->user_id = 100;
     }
 
     //WEB CALLS
@@ -149,7 +149,7 @@ class UserController extends Controller
             ];
         }
 
-        return json_encode($data);
+        return response()->json($data, 200);
     }
 
     public function get_all(Request $request)
