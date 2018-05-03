@@ -42,7 +42,7 @@
                                         </div>
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="DeviceSerialNumber">Serial Number <span class="txt-red">*</span></label>
+                                                <label for="DeviceSerialNumber">Serial Number <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="DeviceSerialNumber" id="DeviceSerialNumber" type="text" class="form-control" placeholder="Device Serial Number" value="{{isset($device['serial_number']) ? $device['serial_number'] : ""}}">
                                                 </div>
@@ -52,7 +52,7 @@
                                                 <label for="DeviceAllocationDate">Allocation Date <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <div class="input-append warning col-lg-10 no-padding">
-                                                        <input name="DeviceAllocationDate" id="DeviceAllocationDate" type="text" class="form-control datepicker" placeholder="Device Allocation Date">
+                                                        <input name="DeviceAllocationDate" id="DeviceAllocationDate" type="text" class="form-control datepicker" placeholder="Device Allocation Date" value="{{isset($device['created_at']) ? $device['created_at'] : ""}}">
                                                         <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                     </div>
                                                 </div>
@@ -94,9 +94,9 @@
 
                                         <div class="row ">
                                             <div class="form-group col-md-6">
-                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red">*</span></label>
+                                                <label for="DevicePhoneNumber">Phone Number <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number"  value="{{isset($device) ? $device['phone_number'] : ""}}" >
+                                                    <input name="DevicePhoneNumber" id="DevicePhoneNumber" type="text" class="form-control" placeholder="Device Phone Number"  value="{{isset($device['phone_number']) ? $device['phone_number'] : ""}}" >
                                                 </div>
                                             </div>
 
@@ -123,8 +123,8 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;CREATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Update</button>
+                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -140,9 +140,9 @@
     @parent
     <script>
         $(document).ready(function() {
-            $('#DeviceDepartment').select2('val', '{{isset($user['department']['id']) ? $device['department']['id'] : "" }}');
-            $('#DeviceSupervisor').select2('val', '{{isset($user['supervisor']['id']) ? $device['supervisor']['id'] : "" }}');
-            $('#DeviceStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($user['status']) ? $device['status'] : ""}}');
+            $('#DeviceDepartment').select2('val', '{{isset($device['department']['id']) ? $device['department']['id'] : "" }}');
+            $('#DeviceSupervisor').select2('val', '{{isset($device['supervisor']['id']) ? $device['supervisor']['id'] : "" }}');
+            $('#DeviceStatus').select2({minimumResultsForSearch: -1}).select2('val', '{{isset($device['status']) ? $device['status'] : ""}}');
         });
 
         $("#edit_form").submit(function(event){
@@ -180,8 +180,6 @@
                 DeviceSite:             { required: true },
                 DeviceStatus:           { required: true },
                 DeviceImeiNumber:       { required: true },
-                DeviceSerialNumber:     { required: true },
-                DevicePhoneNumber:      { required: true },
                 DeviceAllocationDate:   { required: true },
                 DeviceSupervisor:       { required: true },
                 DeviceName:             { required: true },

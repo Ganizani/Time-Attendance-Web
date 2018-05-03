@@ -29,10 +29,12 @@ class DeviceController extends Controller
 
         if(Helpers::hasValidSession()) {
             $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users");
+            $r_user       = Helpers::callAPI('GET', "/users/list/all");
 
             return view('pages.devices.add', [
-                'departments' => $r_department['data']
+                'departments' => $r_department['data'],
+                'users'       => $r_user['data']
+
             ]);
         }
         else return view('pages.login');
@@ -53,7 +55,7 @@ class DeviceController extends Controller
     {
         if(Helpers::hasValidSession()) {
             $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users");
+            $r_user       = Helpers::callAPI('GET', "/users/list/all");
             $r_device     = Helpers::callAPI('GET', "/devices/{$id}");
 
             return view('pages.devices.edit', [
