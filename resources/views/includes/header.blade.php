@@ -11,7 +11,6 @@
             </ul>
             <!-- BEGIN LOGO -->
             <a href="/" >
-                <img src="{{URL::asset("theme/img/logo")}}"  alt="Logo" class="logo" data-src="{{URL::asset("theme/img/")}}"   data-src-retina="{{URL::asset("theme/img/")}}" width="21" height="21" >
             </a>
             <!-- END LOGO -->
         </div>

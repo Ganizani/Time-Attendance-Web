@@ -2,7 +2,7 @@
 
 @section('title', 'Login')
 @section('content')
-    <div class="row login-container column-seperation">
+    <div class="row login-container ">
         <div class="col-md-6" >
             <h2 class="txt-orange"> <b>Sign In</b></h2>
             <form class="login-form validate" id="login-form"  name="login-form">
@@ -46,14 +46,13 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <img src="{{URL::asset("theme/img/")}}" width="450" height="400" alt="Logo 450x450">
+        <div class="col-md-6">
+            <img src="{{URL::asset("theme/img/ness-logo.jpg")}}" width="100%" height="400" alt="Logo">
         </div>
         <div class="clearfix"></div>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#" style="color: #dc9758;">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" style="color: #dc9758;">{{env('COMPANY')}}</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>

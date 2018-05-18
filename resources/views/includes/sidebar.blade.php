@@ -83,6 +83,6 @@
 </div>
 <a href="#" class="scrollup">Scroll</a>
 <div class="footer-widget">
-    <p><b>Time and Attendance&nbsp;</b>  v1.0</p>
+    <p><b>{{env('COMPANY')}} &nbsp;</b>  v1.0</p>
 </div>
 <!-- END SIDEBAR -->
