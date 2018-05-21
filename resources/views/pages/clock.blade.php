@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         <a href="/" class="btn btn-white btn-cons btn-block " type="submit">Back</a>
-                    </div>s
+                    </div>
                     <div class="form-group col-md-5"></div>
                     <div class="form-group col-md-4">
                         <button class="btn btn-warning btn-cons btn-block" type="submit"> <i class="fa fa-check"></i> &nbsp; Register Clock</button>
