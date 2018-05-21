@@ -52,7 +52,7 @@
         <div class="clearfix"></div>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#" style="color: #dc9758;">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" style="color: #dc9758;">{{env('COMPANY')}}</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>

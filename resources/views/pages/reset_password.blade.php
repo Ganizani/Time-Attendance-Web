@@ -42,7 +42,7 @@
         <br><br><br>
         <div id="footer">
             <div class="error-container">
-                <div class="copyright error-number"> <a href="#" class="txt-orange">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+                <div class="copyright error-number"> <a href="#" class="txt-orange">{{env('COMPANY')}}</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
             </div>
         </div>
     </div>

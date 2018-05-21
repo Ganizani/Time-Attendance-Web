@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <meta charset="utf-8" />
-    <title> Internal Server Error | SETA</title>
+    <title> Internal Server Error | {{env('APP_NAME')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="" name="description" />
     <meta content="" name="author" />
@@ -40,7 +40,7 @@
 </div>
 <div id="footer">
     <div class="error-container">
-        <div class="copyright error-number"> <a href="#" style="color:#dc9758 !important;">Ganizani</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
+        <div class="copyright error-number"> <a href="#" style="color:#dc9758 !important;">{{env('COMPANY')}}</a> Copyright &copy; {{date('Y')}} - All Rights Reserved</div>
     </div>
 </div>
 <!-- END CONTAINER -->
