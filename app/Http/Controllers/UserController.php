@@ -52,7 +52,7 @@ class UserController extends Controller
 
     public function edit($id){
 
-        return view('errors.401');
+        //return view('errors.401');
 
         if(Helpers::hasValidSession()) {
 
@@ -256,7 +256,7 @@ class UserController extends Controller
             'maiden_name'       => $request->UserMaidenName,
             'middle_name'       => $request->UserMiddleName,
             'status'            => "ACTIVE",
-            'user_type'         => 1,
+            'user_type'         => $request->UserType,
             'phone_number'      => $request->UserCellPhone,
             'gender'            => $request->UserGender,
             'nationality'       => $request->UserNationality,

@@ -445,6 +445,17 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group col-md-4">
+                                                <label for="UserType">User Type<span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <select name="UserType" id="UserType" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- User Type --</option>
+                                                        <option value="1">Manager</option>
+                                                        <option value="2">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

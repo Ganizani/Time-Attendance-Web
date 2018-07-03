@@ -51,6 +51,7 @@
                                         <th style="width:10%">Verified</th>
                                         <th style="width:10%">Status</th>
                                         <th style="width:10%">Remaining Leave Days</th>
+                                        <th style="width:10%">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -165,15 +166,15 @@
                         {   //Leave Days
                             data : null,
                             defaultContent: 'N/a'
-                        }
-                        /*{   //Actions
+                        },
+                        {   //Actions
                             data : null,
                             defaultContent: '',
                             render : function ( data, type, row, meta ) {
-                                return '';
-                                //return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+
+                                return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" target="_blank"><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
                             }
-                        }*/
+                        }
                     ]
                 });
 
