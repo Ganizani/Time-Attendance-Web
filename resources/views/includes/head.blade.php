@@ -5,7 +5,8 @@
 <meta content="" name="description" />
 <meta content="" name="author" />
 
-<link rel="icon" href={{URL::asset("theme/img/favicon.ico")}}>
+<link rel="shortcut icon" href="{{URL::asset("theme/img/favicon.ico")}}" type="image/x-icon">
+<link rel="icon" href="{{URL::asset("theme/img/favicon.ico")}}" type="image/x-icon">
 
 <!-- BEGIN PLUGIN CSS -->
 <link href={{ URL::asset("theme/plugins/font-awesome/css/font-awesome.css") }} rel="stylesheet" type="text/css" />

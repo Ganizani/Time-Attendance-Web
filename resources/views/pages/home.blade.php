@@ -78,7 +78,7 @@
                                         <a href="javascript:;" class="collapse"></a>
                                     </div>
                                 </div>
-                                <div class="grid-body ">
+                                <div class="grid-body scroll-div">
                                     <div class="table-responsive">
                                         <table class="table table-striped dataTable" id="_table" width="100%">
                                             <thead>
@@ -101,14 +101,14 @@
                         </div>
 
                         <div class="col-md-4">
-                            <div class="grid simple ">
+                            <div class="grid simple">
                                 <div class="grid-title">
                                     <h4> Recently Added Users</h4>
                                     <div class="tools">
                                         <a href="javascript:;" class="collapse"></a>
                                     </div>
                                 </div>
-                                <div class="grid-body ">
+                                <div class="grid-body scroll-div">
                                     @if(isset($users) && count($users) > 0)
                                         @foreach($users as $user)
                                             <div class="post comments-section">

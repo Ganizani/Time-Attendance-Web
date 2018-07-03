@@ -50,6 +50,7 @@
                                         <th style="width:10%">Phone Number</th>
                                         <th style="width:10%">Verified</th>
                                         <th style="width:10%">Status</th>
+                                        <th style="width:10%">Remaining Leave Days</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -160,6 +161,10 @@
                                 var labelClass = (data.status === 'ACTIVE') ? "label-success" : "label-important";
                                 return '<span class="label '+ labelClass +'">' + data.status +'</span>';
                             }
+                        },
+                        {   //Leave Days
+                            data : null,
+                            defaultContent: 'N/a'
                         }
                         /*{   //Actions
                             data : null,

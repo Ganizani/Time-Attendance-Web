@@ -98,7 +98,7 @@
                                             <div class="form-group col-md-6">
                                                 <label for="LeaveTypeSpecific">Specify Other <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right">
-                                                    <input name="LeaveTypeSpecific" id="LeaveTypeSpecific" type="text" class="form-control" placeholder="Specify Other" disabled>
+                                                    <input name="LeaveTypeSpecific" id="LeaveTypeSpecific" type="text" class="form-control" placeholder="Specify Other" value="{{(isset($leave['leave_type_text']) && $leave['leave_type_text'] != "")? $leave['leave_type_text'] : ""}}" {{(isset($leave['leave_type_text']) && $leave['leave_type_text'] != ""  )? "" : "disabled"}} >
                                                 </div>
                                             </div>
 

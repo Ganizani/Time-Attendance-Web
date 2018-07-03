@@ -10228,3 +10228,16 @@ div#_table_filterWrapper
   line-height: 35px;
   padding-left: 15px;
 }
+
+.scroll-div {
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height:475px;
+}
+.scroll-div-lg {
+  display: block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height:600px;
+}
