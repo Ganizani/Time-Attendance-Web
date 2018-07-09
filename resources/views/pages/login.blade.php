@@ -36,7 +36,7 @@
                 </div>
                 <div class="row" >
                     <div class="form-group col-md-12">
-                        <label> ================================== OR =================================</label>
+                        <label class="center-text"> =============================== OR ============================= </label>
                     </div>
                     <div class="form-group col-md-12">
                         <div class="form-group">

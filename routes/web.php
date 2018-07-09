@@ -12,7 +12,7 @@
 */
 
 //Home Controller
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@clock_in_out');
 Route::get('/dashboard', 'HomeController@index');
 
 //Login

@@ -3,7 +3,7 @@
 @section('title', 'Clock')
 @section('content')
     <div class="row login-container column-seperation">
-        <div class="col-md-7" >
+        <div class="col-md-6" >
             <h2 class="txt-orange"> <b>Manual Clock</b></h2>
             <form class="login-form validate" id="clock-form"  name="clock-form">
                 <input class="form-control" id="Latitude" name="Latitude" type="hidden">
@@ -40,7 +40,7 @@
 
                 <div class="row">
                     <div class="form-group col-md-3">
-                        <a href="/" class="btn btn-white btn-cons btn-block " type="submit">Back</a>
+                        <a href="/login" class="btn btn-info btn-cons btn-block " type="submit">Login</a>
                     </div>
                     <div class="form-group col-md-5"></div>
                     <div class="form-group col-md-4">
@@ -48,6 +48,9 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="col-md-6">
+            <img src="{{URL::asset("theme/img/ness-logo.jpg")}}" width="100%" height="400" alt="Logo">
         </div>
         <div class="clearfix"></div>
         <div id="footer">
