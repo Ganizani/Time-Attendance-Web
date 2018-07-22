@@ -83,12 +83,13 @@
                                         <table class="table table-striped dataTable" id="_table" width="100%">
                                             <thead>
                                             <tr>
-                                                <th style="width:20%">EMPLOYEE CODE</th>
-                                                <th style="width:20%">NAME</th>
-                                                <th style="width:20%">DEPARTMENT</th>
-                                                <th style="width:20%">TIME</th>
+                                                <th style="width:15%">EMPLOYEE CODE</th>
+                                                <th style="width:15%">NAME</th>
+                                                <th style="width:15%">DEPARTMENT</th>
+                                                <th style="width:15%">TIME</th>
                                                 <th style="width:10%">STATUS</th>
-                                                <th style="width:10%">MAP</th>
+                                                <th style="width:20%">ADDRESS</th>
+                                                <th style="width:5%">MAP</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -167,31 +168,38 @@
             "<'row'>",
             pageLength:  25,
             columns: [
-                {   //NAME
+                {   //EMPLOYEE CODE
                     data: 'user.employee_code',
                     defaultContent: 'N/a'
                 },
-                {   //DESCRIPTION
+                {   //EMPLOYEE NAME
                     data: 'user.name',
                     defaultContent: 'N/a'
                 },
-                {   //Location
+                {   //EMPLOYEE DEPARTMENT
                     data: 'user.department.name',
                     defaultContent: 'N/a'
                 },
-                {   //EMPLOYEE COUNT
-                    data: 'time',
-                    defaultContent: ''
+                {   //CLOCK DATE
+                    data: null,
+                    defaultContent: '',
+                    render : function ( data, type, row, meta ) {
+                        return data.date + ' ' + data.time;
+                    }
                 },
-                {   //DEVICE COUNT
+                {   //CLOCK STATUS
                     data: 'status',
+                    defaultContent: 'N/a'
+                },
+                {   //ADDRESS
+                    data: 'address',
                     defaultContent: 'N/a'
                 },
                 {   //ACTION
                     data: null,
                     defaultContent: '',
                     render : function ( data, type, row, meta ) {
-                        return '<a href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-cons btn-block btn-small" ><i class="fa fa-map-marker"></i> &nbsp; Map </a>';
+                        return '<a href = "/reports/map?rid='+ data.id +'" class="btn btn-white btn-small" ><i class="fa fa-map-marker"></i> </a>';
                     }
 
                 }

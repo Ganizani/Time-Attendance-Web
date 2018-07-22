@@ -63,6 +63,7 @@
                                         <th style="width:10%">TIME</th>
                                         <th style="width:10%">STATUS</th>
                                         <th style="width:10%">DEVICE</th>
+                                        <th style="width:10%">ADDRESS</th>
                                         <th style="width:10%">ACTIONS</th>
                                     </tr>
                                     </thead>
@@ -164,6 +165,10 @@
                             },
                             {   //DEVICE
                                 data: 'device.name',
+                                defaultContent: 'N/a'
+                            },
+                            {   //ADDRESS
+                                data: 'address',
                                 defaultContent: 'N/a'
                             },
                             {   //ACTION

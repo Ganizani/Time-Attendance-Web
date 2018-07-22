@@ -67,7 +67,7 @@
 @section('footer')
     @parent
     <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXBx8qVdzwEBBh5Lx7WGKtwbGEQ9vk65U&callback=myMap">
+            src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_KEY')}}&callback=myMap">
     </script>
     <script>
         $(document).ready(function() {
@@ -102,7 +102,8 @@
                 '<br><b>Date: </b>{{$record['date']}}'+
                 '<br><b>Time: </b>{{$record['time']}}'+
                 '<br><b>Status: </b>{{$record['status']}}'+
-                '<br><b>Device: </b>{{$record['device']['name']}}';
+                '<br><b>Device: </b>{{$record['device']['name']}}'+
+                '<br><b>Address: </b>{{$record['address']}}';
 
                 var infowindow = new google.maps.InfoWindow({
                     content: contentString

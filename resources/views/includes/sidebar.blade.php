@@ -17,7 +17,7 @@
         <p class="menu-title sm">MENU <span class="pull-right"></span></p>
         <ul>
             <li @if(Request::is('/')) class="open active" @endif>
-                <a href="/"> <i class="material-icons">home</i> <span class="title">Dashboard</span> <span class="selected"></span> </a>
+                <a href="/dashboard"> <i class="material-icons">home</i> <span class="title">Dashboard</span> <span class="selected"></span> </a>
             </li>
 
             <li @if(Request::is('reports/*')) class="open active" @endif>
