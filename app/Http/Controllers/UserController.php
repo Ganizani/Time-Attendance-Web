@@ -200,6 +200,7 @@ class UserController extends Controller
     {
         $response = Helpers::callAPI( "PUT", "/users/{$id}"  , $this->get_array($request));
 
+        //die(json_encode($this->get_array($request)));
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> User Information Successfully Updated!</div>";
         }
@@ -211,6 +212,7 @@ class UserController extends Controller
 
     public function update_my_account(Request $request)
     {
+        //die(json_encode($this->get_array($request)));
         $response = Helpers::callAPI( "PUT", "/users/{$this->user_id}" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
@@ -277,6 +279,7 @@ class UserController extends Controller
             'home_phone'        => $request->UserHomePhone,
             'marital_status'    => $request->UserMaritalStatus,
             'spouse'            => [
+                'id'            => isset($request->UserSpouseId) ? $request->UserSpouseId : null,
                 'name'          => $request->UserSpouseName,
                 'employer'      => $request->UserSpouseEmployer,
                 'work_location' => $request->UserSpouseEmployer,
@@ -284,6 +287,7 @@ class UserController extends Controller
                 'cell_phone'    => $request->UserSpouseCellNumber
             ],
             'address'           => [
+                'id'            => isset($request->UserAddressId) ? $request->UserAddressId : null,
                 'province'      => $request->UserAddressProvince,
                 'city'          => $request->UserAddressCity,
                 'suburb'        => $request->UserAddressSuburb,
@@ -292,6 +296,7 @@ class UserController extends Controller
                 'house_number'  => $request->UserAddressHouseNo,
             ],
             'next_of_kin'       => [
+                'id'            => isset($request->UserEmergencyId) ? $request->UserEmergencyId : null,
                 'relationship'  => $request->UserEmergencyRelationship,
                 'email'         => $request->UserEmergencyEmail,
                 'cell_phone'    => $request->UserEmergencyCellPhone,
@@ -300,6 +305,7 @@ class UserController extends Controller
                 'first_name'    => $request->UserEmergencyFirstName,
                 'last_name'     => $request->UserEmergencySurname,
                 'address'       => [
+                    'id'            => isset($request->UserEmergencyAddressId) ? $request->UserEmergencyAddressId : null,
                     'province'      => $request->UserEmergencyProvince,
                     'city'          => $request->UserEmergencyCity,
                     'suburb'        => $request->UserEmergencySuburb,

@@ -168,14 +168,14 @@
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="UserAddressStreetNo">Street No <span class="txt-red">*</span></label>
+                                                <label for="UserAddressStreetNo">Street No <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserAddressStreetNo" id="UserAddressStreetNo" type="text" class="form-control" placeholder="Street Number">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="UserAddressStreetName">Street Name <span class="txt-red">*</span></label>
+                                                <label for="UserAddressStreetName">Street Name <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserAddressStreetName" id="UserAddressStreetName" type="text" class="form-control" placeholder="Street Name">
                                                 </div>
@@ -184,21 +184,21 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="UserAddressSuburb">Suburb<span class="txt-red">*</span></label>
+                                                <label for="UserAddressSuburb">Suburb<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserAddressSuburb" id="UserAddressSuburb" type="text" class="form-control" placeholder="Suburb">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="UserAddressCity">City<span class="txt-red">*</span></label>
+                                                <label for="UserAddressCity">City<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserAddressCity" id="UserAddressCity" type="text" class="form-control" placeholder="City">
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-4">
-                                                <label for="UserAddressProvince">Province <span class="txt-red">*</span></label>
+                                                <label for="UserAddressProvince">Province <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <input name="UserAddressProvince" id="UserAddressProvince" type="text" class="form-control" placeholder="Province">
                                                 </div>
@@ -262,7 +262,7 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="UserReportingTo">Reporting To<span class="txt-red">*</span></label>
+                                                <label for="UserReportingTo">Reporting To<span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserReportingTo" id="UserReportingTo" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Supervisor --</option>
@@ -528,12 +528,8 @@
                 UserGender:             { required: true },
                 UserNationality:        { required: true },
                 UserIdNumber:           { required: true },
-                UserAddressSuburb:      { required: true },
-                UserAddressCity:        { required: true },
-                UserAddressProvince:    { required: true },
                 UserCellPhone:          { required: true },
                 UserWorkLocation:       { required: true },
-                UserReportingTo:        { required: true },
                 UserDepartment:         { required: true },
                 UserJobTitle:           { required: true },
                 UserEmail:              { required: true, email: true },
