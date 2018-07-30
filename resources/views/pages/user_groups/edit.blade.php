@@ -493,7 +493,8 @@
                 cache: false,
                 data: {},
                 success: function (response) {
-                    var data = response.access_control;
+                    var data = response.data.access_control;
+
                     //System
                    $("#acheckSystemLogin").prop('checked',data.login);
                    $("#acheckSystemAdmin").prop('checked',data.system_admin);
