@@ -18,7 +18,7 @@ class UserController extends Controller
         if(Helpers::hasValidSession()){
             $this->user_id = $_SESSION['GANIZANI-EMPLG-ID'];
         }
-        else $this->user_id = 100;
+        else $this->user_id = -100;
     }
 
     //WEB CALLS
@@ -26,9 +26,11 @@ class UserController extends Controller
 
         if(Helpers::hasValidSession()) {
             $departments = Helpers::callAPI("GET", "/departments");
+            $user_groups = Helpers::callAPI("GET", "/user_groups");
 
             return view('pages.users.list', [
                 'departments' => $departments['data'],
+                'user_groups' => $user_groups['data'],
             ]);
         }
         else return view('pages.login');
@@ -40,11 +42,13 @@ class UserController extends Controller
             $users       = Helpers::callAPI("GET", "/users");
             $supervisors = Helpers::callAPI("GET", "/users");
             $departments = Helpers::callAPI("GET", "/departments");
+            $user_groups = Helpers::callAPI("GET", "/user_groups");
 
             return view('pages.users.add', [
                 'users'       => $users['data'],
                 'supervisors' => $supervisors['data'],
                 'departments' => $departments['data'],
+                'user_groups' => $user_groups['data'],
             ]);
         }
         else return view('pages.login');
@@ -59,11 +63,13 @@ class UserController extends Controller
             $user = Helpers::callAPI("GET", "/users/{$id}");
             $supervisors = Helpers::callAPI("GET", "/users");
             $departments = Helpers::callAPI("GET", "/departments");
+            $user_groups = Helpers::callAPI("GET", "/user_groups");
 
             return view('pages.users.edit',[
                 'user'        => $user['data'],
                 'supervisors' => $supervisors['data'],
                 'departments' => $departments['data'],
+                'user_groups' => $user_groups['data'],
 
             ]);
         }
@@ -86,11 +92,24 @@ class UserController extends Controller
             $user = Helpers::callAPI("GET", "/users/{$this->user_id}");
             $departments = Helpers::callAPI("GET", "/departments");
             $supervisors = Helpers::callAPI("GET", "/users");
+            $user_groups = Helpers::callAPI("GET", "/user_groups");
 
             return view('pages.users.my_account', [
                 'user' => $user['data'],
                 'departments' => $departments['data'],
                 'supervisors' => $supervisors['data'],
+                'user_groups' => $user_groups['data'],
+            ]);
+        }
+        else return view('pages.login');
+    }
+
+    public function updatePassword(){
+        if(Helpers::hasValidSession()) {
+            $user = Helpers::callAPI("GET", "/users/{$this->user_id}");
+
+            return view('pages.users.password', [
+                'user' => $user['data']
             ]);
         }
         else return view('pages.login');
@@ -114,7 +133,8 @@ class UserController extends Controller
 
         $response = Helpers::callAPI("POST","/users/login", $data);
 
-        if($response['code'] == 201 || $response['code'] == 200) {
+        if($response['code'] == "201" || $response['code'] == "200"
+         || $response['code'] == 201 || $response['code'] == 200) {
 
             if (session_status() == PHP_SESSION_NONE) session_start();
             else{
@@ -130,25 +150,29 @@ class UserController extends Controller
             $_SESSION['GANIZANI-EMPLG-GENDER']           = $response['data']['gender'];
             $_SESSION['GANIZANI-EMPLG-PHONE-NUMBER']     = $response['data']['phone_number'];
             $_SESSION['GANIZANI-EMPLG-USER-TYPE']        = $response['data']['user_type'];
-            $_SESSION['GANIZANI-EMPLG-USER-TYPE-NAME']   = "Admin";
+            $_SESSION['GANIZANI-EMPLG-USER-TYPE-NAME']   = isset($response['data']['user_group']['name']) ? $response['data']['user_group']['name'] : "";
             $_SESSION['GANIZANI-EMPLG-EMAIL']            = $response['data']['email'];
             $_SESSION['GANIZANI-EMPLG-STATUS']           = $response['data']['status'];
             $_SESSION['GANIZANI-EMPLG-ACCESS-TOKEN']     = $response['data']['token'];
             $_SESSION['GANIZANI-EMPLG-PROFILE-PICTURE']  = $response['data']['profile_picture'];
+            $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']   = isset($response['data']['user_group']['access_control']) ? $response['data']['user_group']['access_control'] : [];
 
             $data = [
                 'status'  => 'success',
-                'message' => ''
+                'message' => '',
+                'url'     => (isset($response['data']['user_group']['access_control']['system_admin']) && $response['data']['user_group']['access_control']['system_admin'] == 1)  ? '/dashboard' : '/my-account'
             ];
         }
         else{
             $error = Helpers::getError($response);
             $data = [
                 'status'  => 'error',
-                'message' => "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>"
+                'message' => "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>",
+                'url'     => ''
             ];
         }
 
+        //die(json_encode($data));
         return response()->json($data, 200);
     }
 
@@ -210,6 +234,21 @@ class UserController extends Controller
         }
     }
 
+
+    public function update_password(Request $request, $id)
+    {
+        $response = Helpers::callAPI( "POST", "/users/update_password/{$id}" , $this->get_password_array($request));
+
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Password Successfully Updated!</div>";
+        }
+        else{
+            $error = Helpers::getError($response);
+            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+    }
+
     public function update_my_account(Request $request)
     {
         //die(json_encode($this->get_array($request)));
@@ -246,6 +285,14 @@ class UserController extends Controller
         return $data;
     }
 
+    public function get_password_array($request){
+        $data = [
+            'password'              => $request->UserPassword,
+            'password_confirmation' => $request->UserConfirmPassword
+        ];
+
+        return $data;
+    }
 
     public function get_array($request){
         //$request->UserStatus,

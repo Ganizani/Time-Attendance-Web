@@ -16,7 +16,10 @@ class DepartmentController extends Controller
     public function index()
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.departments.list');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else return view('pages.departments.list');
         }
         else return view('pages.login');
     }
@@ -24,7 +27,10 @@ class DepartmentController extends Controller
     public function add()
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.departments.add');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else return view('pages.departments.add');
         }
         else return view('pages.login');
     }
@@ -32,11 +38,16 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments/" . $id, "");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments/" . $id, "");
 
-            return view('pages.departments.edit',[
-                'department' => $r_department['data']
-            ]);
+                return view('pages.departments.edit', [
+                    'department' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }

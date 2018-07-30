@@ -17,7 +17,15 @@ class HolidayController extends Controller
     public function index(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.holidays.list');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+                return view('pages.holidays.list', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -25,7 +33,16 @@ class HolidayController extends Controller
     public function add(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.holidays.add');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+
+                return view('pages.holidays.add', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
 
@@ -34,11 +51,18 @@ class HolidayController extends Controller
     public function edit($id){
 
         if(Helpers::hasValidSession()) {
-            $r_holiday = Helpers::callAPI('GET', "/departments/" . $id, "");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+                $r_holiday     = Helpers::callAPI('GET', "/holidays/{$id}");
 
-            return view('pages.holidays.edit', [
-                'holiday' => $r_holiday['data']
-            ]);
+                return view('pages.holidays.edit', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                    'holiday'     => isset($r_holiday['data']) ? $r_holiday['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
     }

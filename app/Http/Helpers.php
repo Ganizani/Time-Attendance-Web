@@ -122,6 +122,42 @@ class Helpers {
         //Clocking
         elseif(isset($response['error']['latitude'])) $error = $response['error']['latitude'][0];
         elseif(isset($response['error']['longitude'])) $error = $response['error']['longitude'][0];
+        //User Permission
+        elseif(isset($response['error']['user_group_id'])) $error = $response['error']['user_group_id'][0];
+        elseif(isset($response['error']['access_control_id'])) $error = $response['error']['access_control_id'][0];
+        elseif(isset($response['error']['view_reports'])) $error = $response['error']['view_reports'][0];
+        elseif(isset($response['error']['print_reports'])) $error = $response['error']['print_reports'][0];
+        elseif(isset($response['error']['add_departments'])) $error = $response['error']['add_departments'][0];
+        elseif(isset($response['error']['edit_departments'])) $error = $response['error']['edit_departments'][0];
+        elseif(isset($response['error']['list_departments'])) $error = $response['error']['list_departments'][0];
+        elseif(isset($response['error']['print_departments'])) $error = $response['error']['print_departments'][0];
+        elseif(isset($response['error']['add_users'])) $error = $response['error']['add_users'][0];
+        elseif(isset($response['error']['edit_users'])) $error = $response['error']['edit_users'][0];
+        elseif(isset($response['error']['list_users'])) $error = $response['error']['list_users'][0];
+        elseif(isset($response['error']['print_users'])) $error = $response['error']['print_users'][0];
+        elseif(isset($response['error']['delete_users'])) $error = $response['error']['delete_users'][0];
+        elseif(isset($response['error']['add_devices'])) $error = $response['error']['add_devices'][0];
+        elseif(isset($response['error']['edit_devices'])) $error = $response['error']['edit_devices'][0];
+        elseif(isset($response['error']['list_devices'])) $error = $response['error']['list_devices'][0];
+        elseif(isset($response['error']['print_devices'])) $error = $response['error']['print_devices'][0];
+        elseif(isset($response['error']['delete_devices'])) $error = $response['error']['delete_devices'][0];
+        elseif(isset($response['error']['add_holidays'])) $error = $response['error']['add_holidays'][0];
+        elseif(isset($response['error']['edit_holidays'])) $error = $response['error']['edit_holidays'][0];
+        elseif(isset($response['error']['list_holidays'])) $error = $response['error']['list_holidays'][0];
+        elseif(isset($response['error']['print_holidays'])) $error = $response['error']['print_holidays'][0];
+        elseif(isset($response['error']['delete_holidays'])) $error = $response['error']['delete_holidays'][0];
+        elseif(isset($response['error']['add_leaves'])) $error = $response['error']['add_leaves'][0];
+        elseif(isset($response['error']['edit_leaves'])) $error = $response['error']['edit_leaves'][0];
+        elseif(isset($response['error']['print_leaves'])) $error = $response['error']['print_leaves'][0];
+        elseif(isset($response['error']['list_leaves'])) $error = $response['error']['list_leaves'][0];
+        elseif(isset($response['error']['delete_leaves'])) $error = $response['error']['delete_leaves'][0];
+        elseif(isset($response['error']['add_leave_types'])) $error = $response['error']['add_leave_types'][0];
+        elseif(isset($response['error']['edit_leave_types'])) $error = $response['error']['edit_leave_types'][0];
+        elseif(isset($response['error']['list_leave_types'])) $error = $response['error']['list_leave_types'][0];
+        elseif(isset($response['error']['print_leave_types'])) $error = $response['error']['print_leave_types'][0];
+        elseif(isset($response['error']['delete_leave_types'])) $error = $response['error']['delete_leave_types'][0];
+        elseif(isset($response['error']['update_user_type'])) $error = $response['error']['update_user_type'][0];
+
         //ELSE
         else $error =  $response['error'];
 

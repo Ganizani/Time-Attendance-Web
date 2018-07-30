@@ -44,6 +44,9 @@
                             <li>
                                 <a href="/my-account"> My Account</a>
                             </li>
+                            <li>
+                                <a href="/password/update"> Update Password</a>
+                            </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="/logout"><i class="material-icons">power_settings_new</i>&nbsp;&nbsp;Log Out</a>

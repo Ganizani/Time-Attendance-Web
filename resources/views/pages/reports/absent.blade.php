@@ -111,10 +111,17 @@
                             search: "",
                             searchPlaceholder: "Search ..."
                         },
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
                         dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @else
+                        dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @endif
                         pageLength: 25,
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
                         buttons: [
                             {
                                 extend: 'collection',
@@ -132,6 +139,7 @@
                                 ]
                             }
                         ],
+                        @endif
                         columns: [
                             {   //DATE
                                 data: 'date',
@@ -175,10 +183,17 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                dom: "<'row'<'col-sm-1'l><'col-sm-3 text-center'B><'col-sm-8'f>>" +
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
+                dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @else
+                dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @endif
                 pageLength:  25,
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
                 buttons: [
                     {
                         extend: 'collection',
@@ -196,6 +211,7 @@
                         ]
                     }
                 ]
+                @endif
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});

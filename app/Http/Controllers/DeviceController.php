@@ -16,26 +16,35 @@ class DeviceController extends Controller
     public function index(){
 
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-
-            return view('pages.devices.list',[
-                'departments' => $r_department['data']
-            ]);
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                return view('pages.devices.list', [
+                    'departments' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
 
     public function add(){
 
+
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users/list/all");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                $r_user = Helpers::callAPI('GET', "/users/list/all");
 
-            return view('pages.devices.add', [
-                'departments' => $r_department['data'],
-                'users'       => $r_user['data']
-
-            ]);
+                return view('pages.devices.add', [
+                    'departments' => $r_department['data'],
+                    'users' => $r_user['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -54,15 +63,20 @@ class DeviceController extends Controller
     public function edit($id)
     {
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users/list/all");
-            $r_device     = Helpers::callAPI('GET', "/devices/{$id}");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                $r_user = Helpers::callAPI('GET', "/users/list/all");
+                $r_device = Helpers::callAPI('GET', "/devices/{$id}");
 
-            return view('pages.devices.edit', [
-                'departments' => $r_department['data'],
-                'device'      => $r_device['data'],
-                'users'       => $r_user['data']
-            ]);
+                return view('pages.devices.edit', [
+                    'departments' => $r_department['data'],
+                    'device' => $r_device['data'],
+                    'users' => $r_user['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }

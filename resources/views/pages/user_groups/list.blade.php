@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Departments')
+@section('title', 'Access Control')
 
 @section('content')
     <!-- BEGIN PAGE CONTAINER-->
@@ -8,7 +8,8 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li>Departments</li>
+                <li>Users</li>
+                <li>User Groups</li>
                 <li><a href="#" class="active">List</a> </li>
             </ul>
             <div class="page-title">
@@ -25,13 +26,10 @@
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:10%">NAME</th>
-                                        <th style="width:20%">DESCRIPTION</th>
-                                        <th style="width:10%">LOCATION</th>
-                                        <th style="width:10%">EMPLOYEES</th>
-                                        <th style="width:10%">DEVICES</th>
-                                        <th style="width:10%">MANAGER</th>
-                                        <th style="width:10%">ACTIONS</th>
+                                        <th style="width:25%">NAME</th>
+                                        <th style="width:30%">DESCRIPTION</th>
+                                        <th style="width:30%">USERS</th>
+                                        <th style="width:15%">ACTIONS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -53,14 +51,14 @@
     <script>
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
-                ajax: "/api/departments",
+                ajax: "/api/user-groups",
                 language : {
                     sLengthMenu: "_MENU_",
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_departments'] == 1)
-                dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_user_groups']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_user_groups'] == 1)
+                dom: "<'row'<'col-sm-1'l><'col-sm-3 text-center'B><'col-sm-8'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 @else
@@ -69,32 +67,20 @@
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 @endif
                 pageLength:  25,
-                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_departments'] == 1)
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_user_groups']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_user_groups'] == 1)
                 buttons: [
                     {
                         extend: 'collection',
-                        text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         className: 'btn',
+                        text: '&nbsp; <i class="fa fa-cloud-download"></i> &nbsp; Download',
                         buttons: [
                             {
-                                extend: 'excel',
                                 text: '<i class="fa fa-file-excel-o"></i> &nbsp; Excel',
-                                className: 'btn',
-                                title: 'Department List',
-                                exportOptions: {
-                                    columns: [0,1,2,3,4,5]
-                                }
+                                className: 'btn'
                             },
                             {
-                                extend: 'pdf',
                                 text: '<i class="fa fa-file-pdf-o"></i> &nbsp; PDF',
-                                className: 'btn',
-                                title: 'Department List',
-                                orientation: 'landscape',
-                                pageSize: 'LEGAL',
-                                exportOptions: {
-                                    columns: [0,1,2,3,4,5]
-                                }
+                                className: 'btn'
                             }
                         ]
                     }
@@ -109,39 +95,26 @@
                         data: 'description',
                         defaultContent: 'N/a'
                     },
-                    {   //Location
-                        data: 'location',
+                    {   //Users
+                        data: 'user_count',
                         defaultContent: 'N/a'
-                    },
-                    {   //EMPLOYEE COUNT
-                        data: 'employees',
-                        defaultContent: '0'
-                    },
-                    {   //DEVICE COUNT
-                        data: 'devices',
-                        defaultContent: '0'
-                    },
-                    {   //MANAGER
-                        data: null,
-                        defaultContent: ''
                     },
                     {   //ACTION
                         data: null,
                         defaultContent: '',
                         render : function ( data, type, row, meta ) {
-                            var str_edit   = "";
-                            var str_delete = "";
-                            @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_departments'] == 1)
+                            var str_delete = '&nbsp;';
+                            var str_edit   = '&nbsp;';
+
+                            @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_user_groups']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_user_groups'] == 1)
                                 str_delete = '<a href = "" class="btn btn-danger btn-small" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
                             @endif
-
-                            @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments'] == 1)
-                                str_edit = '<a href = "/departments/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
+                            @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_user_groups']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_user_groups'] == 1)
+                                str_edit = '<a href = "/user-groups/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
                             @endif
 
                             return str_edit + str_delete;
                         }
-
                     }
                 ]
             });

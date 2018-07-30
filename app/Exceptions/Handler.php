@@ -49,17 +49,15 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if($exception instanceof \ReflectionException){
-
-             return response()->view('errors.404', [], 404);
+            //return response()->view('errors.404', [], 404);
         }
 
         if($exception instanceof \BadMethodCallException){
-            return response()->view('errors.404', [], 404);
+            //return response()->view('errors.404', [], 404);
         }
 
         if($exception instanceof \InvalidArgumentException){
-
-            return response()->view('errors.404', [], 404);
+           // return response()->view('errors.404', [], 404);
         }
 
         if($exception instanceof \ErrorException){

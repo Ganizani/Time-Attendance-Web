@@ -23,7 +23,7 @@ Route::post('/users/password/forgot', 'UserController@forgot_password_data');
 Route::post('/users/password/reset', 'UserController@reset_password_data');
 Route::put('/my_account', 'UserController@update_my_account');
 Route::post('/users/clock', 'UserController@clock');
-
+Route::post('/password/update/{id}', 'UserController@update_password');
 
 //Department
 Route::get('/departments', 'DepartmentController@get_all');
@@ -55,3 +55,9 @@ Route::get('/reports/attendance', 'ReportController@attendance_data');
 Route::get('/reports/base', 'ReportController@base_data');
 Route::get('/reports/leave', 'ReportController@leave_data');
 Route::get('/reports/map', 'ReportController@map_data');
+
+//Access Control
+Route::get('/user-groups', 'UserGroupController@get_all');
+Route::get('/user-groups/{id}', 'UserGroupController@get_one');
+Route::post('/user-groups', 'UserGroupController@create');
+Route::put('/user-groups/{id}', 'UserGroupController@update');

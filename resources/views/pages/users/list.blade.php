@@ -43,13 +43,14 @@
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:15%">Name</th>
+                                        <th style="width:10%">Name</th>
                                         <th style="width:15%">Email</th>
+                                        <th style="width:10%">User Group</th>
                                         <th style="width:10%">Department</th>
                                         <th style="width:10%">Gender</th>
                                         <th style="width:10%">Phone Number</th>
                                         <th style="width:10%">Verified</th>
-                                        <th style="width:10%">Status</th>
+                                        <th style="width:5%">Status</th>
                                         <th style="width:10%">Remaining Leave Days</th>
                                         <th style="width:10%">Actions</th>
                                     </tr>
@@ -97,10 +98,17 @@
                         search: "",
                         searchPlaceholder: "Search ..."
                     },
+                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                     dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    @else
+                    dom: "<'row' <'col-md-1'l> <'col-md-11'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    @endif
                     pageLength: 25,
+                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                     buttons: [
                         {
                             extend: 'collection',
@@ -130,6 +138,7 @@
                             ]
                         }
                     ],
+                    @endif
                     columns: [
                         {   //Name
                             data: 'name',
@@ -137,6 +146,10 @@
                         },
                         {   //Email
                             data: 'email',
+                            defaultContent: 'N/a'
+                        },
+                        {   //User Group
+                            data: 'user_group.name',
                             defaultContent: 'N/a'
                         },
                         {   //Department
@@ -171,8 +184,18 @@
                             data : null,
                             defaultContent: '',
                             render : function ( data, type, row, meta ) {
+                                var str_delete = '';
+                                var str_edit   = '';
 
-                                return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" target="_blank"><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+                                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_users'] == 1)
+                                    str_delete = '<a href = "" class="btn btn-danger btn-small" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                @endif
+
+                                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_users'] == 1)
+                                    str_edit = '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
+                                @endif
+
+                                return str_edit + str_delete;
                             }
                         }
                     ]
@@ -187,10 +210,17 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
+                    dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @else
+                    dom: "<'row' <'col-md-1'l> <'col-md-11'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @endif
                 pageLength:  25,
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                 buttons: [
                     {
                         extend: 'collection',
@@ -220,6 +250,7 @@
                         ]
                     }
                 ]
+                @endif
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});

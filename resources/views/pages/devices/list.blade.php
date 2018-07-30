@@ -90,10 +90,17 @@
                             search: "",
                             searchPlaceholder: "Search ..."
                         },
-                        dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices'] == 1)
+                        dom: "<'row'<'col-sm-1'l><'col-sm-3 text-center'B><'col-sm-8'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @else
+                        dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @endif
                         pageLength: 25,
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices'] == 1)
                         buttons: [
                             {
                                 extend: 'collection',
@@ -123,6 +130,7 @@
                                 ]
                             }
                         ],
+                        @endif
                         columns: [
                             {   //NAME
                                 data: 'name',
@@ -163,7 +171,18 @@
                                 data: null,
                                 defaultContent: '',
                                 render : function ( data, type, row, meta ) {
-                                    return '<a href = "/devices/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
+                                    var str_delete = '';
+                                    var str_edit   = '';
+
+                                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_devices'] == 1)
+                                        str_delete = '<a href = "" class="btn btn-danger btn-small" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                    @endif
+
+                                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices'] == 1)
+                                        str_edit = '<a href = "/devices/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
+                                    @endif
+
+                                    return str_edit + str_delete;
                                 }
                             }
                         ]
@@ -180,10 +199,17 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices'] == 1)
                 dom: "<'row'<'col-sm-1'l><'col-sm-3 text-center'B><'col-sm-8'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @else
+                dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @endif
                 pageLength:  25,
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_devices'] == 1)
                 buttons: [
                     {
                         extend: 'collection',
@@ -201,6 +227,7 @@
                         ]
                     }
                 ]
+                @endif
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});

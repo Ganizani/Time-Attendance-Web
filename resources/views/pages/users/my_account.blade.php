@@ -433,6 +433,24 @@
                                                 </div>
                                             </div>
 
+                                            @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['update_user_type']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['update_user_type'] == 1)
+                                            <div class="form-group col-md-4">
+                                                <label for="UserType">User Type<span class="txt-red">*</span></label>
+                                                <div class="input-with-icon  right"><i class=""></i>
+                                                    <select name="UserType" id="UserType" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- User Type --</option>
+                                                        @if(isset($user_groups) && count($user_groups) > 0)
+                                                            @foreach($user_groups as $user_group)
+                                                                <option value="{{$user_group['id']}}" >{{$user_group['name']}}</option>
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @else
+                                                <input name="UserType" id="UserType" type="hidden" class="form-control" value="{{isset($user['user_type']) ? $user['user_type'] : ""}}">
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
