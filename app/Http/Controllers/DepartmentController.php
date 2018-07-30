@@ -16,7 +16,10 @@ class DepartmentController extends Controller
     public function index()
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.departments.list');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else return view('pages.departments.list');
         }
         else return view('pages.login');
     }
@@ -24,7 +27,10 @@ class DepartmentController extends Controller
     public function add()
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.departments.add');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else return view('pages.departments.add');
         }
         else return view('pages.login');
     }
@@ -32,11 +38,16 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments/" . $id, "");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_departments'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments/" . $id, "");
 
-            return view('pages.departments.edit',[
-                'department' => $r_department['data']
-            ]);
+                return view('pages.departments.edit', [
+                    'department' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -61,9 +72,9 @@ class DepartmentController extends Controller
 
     public function get_one($id)
     {
-        $response = Helpers::callAPI('GET', "/departments/" . $id, "");
+        $response = Helpers::callAPI('GET', "/departments/{$id}");
 
-        return $response['data'];
+        return response()->json($response, 200);
     }
 
     public function create(Request $request)
@@ -83,7 +94,7 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/departments/" . $id, $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/departments/{$id}", $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Information  Successfully Updated!</div>";
@@ -95,6 +106,23 @@ class DepartmentController extends Controller
         }
 
         return $message;
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/departments/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_array($request)

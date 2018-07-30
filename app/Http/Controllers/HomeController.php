@@ -13,57 +13,98 @@ use App\Http\Helpers;
 
 class HomeController extends Controller
 {
-    private $today;
+    private $today, $user_id;
 
     public function __construct(){
 
         $this->today = date("Y-m-d");
+        if(Helpers::hasValidSession()){
+            $this->user_id = $_SESSION['GANIZANI-EMPLG-ID'];
+        }
+        else $this->user_id = -100;
     }
 
     public function index()
     {
         if(Helpers::hasValidSession()) {
-            //Recently Added
-            $users = Helpers::callAPI('GET', "/users/recently");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['system_admin']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['system_admin'] == 0){
+                $user = Helpers::callAPI("GET", "/users/{$this->user_id}");
+                $departments = Helpers::callAPI("GET", "/departments");
+                $supervisors = Helpers::callAPI("GET", "/users");
 
-            //die(json_encode($users['data']));
-            return view('pages.home', [
-                'users' => $users['data']
-            ]);
+                return view('pages.users.my_account', [
+                    'user' => $user['data'],
+                    'departments' => $departments['data'],
+                    'supervisors' => $supervisors['data'],
+                ]);
+            }
+            else {
+                //Recently Added
+                $users = Helpers::callAPI('GET', "/users/recently");
+
+                //die(json_encode($users['data']));
+                return view('pages.home', [
+                    'users' => $users['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
 
     public function login()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         session_destroy();
         return view('pages.login');
     }
 
     public function clock_in_out()
     {
-        return view('pages.clock');
+        if(Helpers::hasValidSession()) {
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['system_admin']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['system_admin'] == 0){
+                $user = Helpers::callAPI("GET", "/users/{$this->user_id}");
+                $departments = Helpers::callAPI("GET", "/departments");
+                $supervisors = Helpers::callAPI("GET", "/users");
+
+                return view('pages.users.my_account', [
+                    'user' => $user['data'],
+                    'departments' => $departments['data'],
+                    'supervisors' => $supervisors['data'],
+                ]);
+            }
+            else {
+                //Recently Added
+                $users = Helpers::callAPI('GET', "/users/recently");
+
+                //die(json_encode($users['data']));
+                return view('pages.home', [
+                    'users' => $users['data']
+                ]);
+            }
+        }
+        else {
+            return view('pages.clock');
+        }
     }
 
 
     public function logout()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         session_destroy();
         return view('pages.login');
     }
 
     public function forgot_password()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         session_destroy();
         return view('pages.forgot_password');
     }
 
     public function reset_password(Request $request)
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) session_start();
         session_destroy();
 
         $user['data'] = ['email' => '', 'token' => ''];

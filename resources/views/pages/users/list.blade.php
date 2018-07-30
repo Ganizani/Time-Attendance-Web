@@ -43,13 +43,14 @@
                                 <table class="table table-striped dataTable" id="_table" width="100%">
                                     <thead>
                                     <tr>
-                                        <th style="width:15%">Name</th>
+                                        <th style="width:10%">Name</th>
                                         <th style="width:15%">Email</th>
+                                        <th style="width:10%">User Group</th>
                                         <th style="width:10%">Department</th>
                                         <th style="width:10%">Gender</th>
                                         <th style="width:10%">Phone Number</th>
                                         <th style="width:10%">Verified</th>
-                                        <th style="width:10%">Status</th>
+                                        <th style="width:5%">Status</th>
                                         <th style="width:10%">Remaining Leave Days</th>
                                         <th style="width:10%">Actions</th>
                                     </tr>
@@ -66,15 +67,82 @@
         </div>
     </div>
     <!-- END PAGE CONTAINER-->
+    <!-- START DELETE MODAL -->
+    <div class="modal fade" id="DeleteUserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="myModalLabel" class="semi-bold">Delete User</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="delete_form">
+                        <input name="deleteUserId" id="deleteUserId" type="hidden" >
+                        <input name="deleteUserRowIndex" id="deleteUserRowIndex" type="hidden" >
+                        <h4>Are you sure You want to delete <b><span id="deleteUserName"></span></b>? After deletion, the operation cannot be reversed!</h4>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <div id="deleteResults"></div>
+                    </div>
+                    <button type="button"  class="btn btn-danger " onclick="delete_user()"> Delete</button>
+                    <button type="button" class="btn btn-white " data-dismiss="modal"> Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- END DELETE MODAL -->
 @endsection
 @section('footer')
     @parent
     <script>
+        function delete_user(){
+            var id        = $('#deleteUserId').val();
+            var row_index = $('#deleteUserRowIndex').val();
 
-        function export_report(type){
-            var val = "/api/site/export?type=" + type + "&input_search=" + + "&company" + company;
-            window.location.href = val;
+            $('#deleteResults').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
+
+            $.ajax({
+                type:"DELETE",
+                url: "/api/users/" + id,
+                cache: false,
+                data: {},
+                success: function(response){
+                    $('#deleteResults').html(response.message);
+
+                    if(response.code === "success"){
+                        $('#_table').DataTable().rows(row_index).remove().draw(true);
+                        $('#DeleteUserModal').modal('toggle');
+                    }
+                }
+            });
         }
+        //Delete Modal
+        $('#DeleteUserModal').on('show.bs.modal', function (event) {
+            $('#deleteResults').html('');
+            var button     = $(event.relatedTarget); // Button that triggered the modal
+            var id         = button.data('id'); // Extract info from data-* attributes
+            var row_index  = button.data('index'); // Extract info from data-* attributes
+            var modal      = $(this);
+
+            //get config
+            $.ajax({
+                type: "GET",
+                url: "/api/users/" + id,
+                cache: false,
+                data: {},
+                success: function (response) {
+                    var obj = response.data;
+
+                    modal.find("#deleteUserId").val(obj.id);
+                    modal.find("#deleteUserName").html(obj.name);
+                    modal.find("#deleteUserRowIndex").val(row_index);
+                }
+            });
+        });
+
 
         $(document).ready(function() {
             $("#search_form").submit(function(event) {
@@ -97,10 +165,17 @@
                         search: "",
                         searchPlaceholder: "Search ..."
                     },
+                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                     dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
                     "<'row'<'col-sm-12'tr>>" +
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    @else
+                    dom: "<'row' <'col-md-1'l> <'col-md-11'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                    @endif
                     pageLength: 25,
+                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                     buttons: [
                         {
                             extend: 'collection',
@@ -130,6 +205,7 @@
                             ]
                         }
                     ],
+                    @endif
                     columns: [
                         {   //Name
                             data: 'name',
@@ -137,6 +213,10 @@
                         },
                         {   //Email
                             data: 'email',
+                            defaultContent: 'N/a'
+                        },
+                        {   //User Group
+                            data: 'user_group.name',
                             defaultContent: 'N/a'
                         },
                         {   //Department
@@ -171,8 +251,18 @@
                             data : null,
                             defaultContent: '',
                             render : function ( data, type, row, meta ) {
+                                var str_delete = '';
+                                var str_edit   = '';
 
-                                return '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-cons btn-block btn-small" target="_blank"><i class="fa fa-paste"></i> &nbsp; EDIT </a>';
+                                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_users'] == 1)
+                                    str_delete = '<a href = "#" class="btn btn-danger btn-small" data-index="'+ meta.row + '" data-id="'+ data.id + '" data-toggle="modal" data-target="#DeleteUserModal" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                @endif
+
+                                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_users'] == 1)
+                                    str_edit = '<a href = "/users/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
+                                @endif
+
+                                return str_edit + str_delete;
                             }
                         }
                     ]
@@ -187,10 +277,17 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
-                dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
+                    dom: "<'row' <'col-md-1'l> <'col-md-1 text-center'B> <'col-md-10'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @else
+                    dom: "<'row' <'col-md-1'l> <'col-md-11'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @endif
                 pageLength:  25,
+                @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1)
                 buttons: [
                     {
                         extend: 'collection',
@@ -220,6 +317,7 @@
                         ]
                     }
                 ]
+                @endif
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});

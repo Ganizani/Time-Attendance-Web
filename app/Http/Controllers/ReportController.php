@@ -17,22 +17,32 @@ class ReportController extends Controller
     public function absent(){
 
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
 
-            return view('pages.reports.absent', [
-                'departments' => $r_department['data']
-            ]);
+                return view('pages.reports.absent', [
+                    'departments' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
 
     public function attendance(){
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
 
-            return view('pages.reports.attendance',[
-                'departments' => $r_department['data']
-            ]);
+                return view('pages.reports.attendance', [
+                    'departments' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -40,11 +50,16 @@ class ReportController extends Controller
     public function base(){
 
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
 
-            return view('pages.reports.base', [
-                'departments' => $r_department['data']
-            ]);
+                return view('pages.reports.base', [
+                    'departments' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -52,13 +67,18 @@ class ReportController extends Controller
     public function leave(){
 
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-            $r_leave_type = Helpers::callAPI('GET', "/leave_types");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                $r_leave_type = Helpers::callAPI('GET', "/leave_types");
 
-            return view('pages.reports.leave', [
-                'departments' => $r_department['data'],
-                'leave_types' => $r_leave_type['data'],
-            ]);
+                return view('pages.reports.leave', [
+                    'departments' => $r_department['data'],
+                    'leave_types' => $r_leave_type['data'],
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -66,38 +86,40 @@ class ReportController extends Controller
     public function map(Request $request){
 
         if(Helpers::hasValidSession()) {
-            //Clockings
-            $r_record = $r_records = [];
-            if(isset($request->sid) && $request->sid != ""){
-                $id = $request->sid;
-                $r_department = Helpers::callAPI('GET', "/departments/{$id}");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['view_reports'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                //Clockings
+                $r_record = $r_records = [];
+                if (isset($request->sid) && $request->sid != "") {
+                    $id = $request->sid;
+                    $r_department = Helpers::callAPI('GET', "/departments/{$id}");
+                    return view('pages.reports.map', [
+                        'department' => $r_department['data']
+                    ]);
+                } elseif (isset($request->rid) && $request->rid != "") {
+                    $id = $request->rid;
+                    $r_record = Helpers::callAPI('GET', "/records/{$id}");
+                } elseif (isset($request->FromDate) && $request->FromDate != "" && isset($request->ToDate) && $request->ToDate) {
+                    $data = [
+                        'from_date' => $request->FromDate,
+                        'to_date' => $request->ToDate,
+                        'department' => isset($request->Department) ? $request->Department : ""
+                    ];
+
+                    $r_records = Helpers::callAPI('GET', "/records", $data);
+                } else $r_record = $r_records = [];
+
+                $r_department = Helpers::callAPI('GET', "/departments");
+
                 return view('pages.reports.map', [
-                    'department' => $r_department['data']
+                    'departments' => $r_department['data'],
+                    'records' => (count($r_records) > 0) ? $r_records['data'] : [],
+                    'record' => (count($r_record) > 0) ? $r_record['data'] : [],
+
                 ]);
             }
-            elseif(isset($request->rid) && $request->rid != ""){
-                $id = $request->rid;
-                $r_record = Helpers::callAPI('GET', "/records/{$id}");
-            }
-            elseif(isset($request->FromDate) && $request->FromDate != "" && isset($request->ToDate) && $request->ToDate){
-                $data = [
-                    'from_date'  => $request->FromDate,
-                    'to_date'    => $request->ToDate,
-                    'department' => isset($request->Department)? $request->Department : ""
-                ];
-
-                $r_records = Helpers::callAPI('GET', "/records", $data);
-            }
-            else $r_record = $r_records = [];
-
-            $r_department = Helpers::callAPI('GET', "/departments");
-
-            return view('pages.reports.map', [
-                'departments' => $r_department['data'],
-                'records'     => (count($r_records) > 0)? $r_records['data'] : [],
-                'record'      => (count($r_record) > 0)?  $r_record['data']  : [],
-
-            ]);
         }
         else return view('pages.login');
     }

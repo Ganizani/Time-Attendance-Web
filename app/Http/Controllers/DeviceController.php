@@ -16,26 +16,35 @@ class DeviceController extends Controller
     public function index(){
 
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-
-            return view('pages.devices.list',[
-                'departments' => $r_department['data']
-            ]);
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                return view('pages.devices.list', [
+                    'departments' => $r_department['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
 
     public function add(){
 
+
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users/list/all");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                $r_user = Helpers::callAPI('GET', "/users/list/all");
 
-            return view('pages.devices.add', [
-                'departments' => $r_department['data'],
-                'users'       => $r_user['data']
-
-            ]);
+                return view('pages.devices.add', [
+                    'departments' => $r_department['data'],
+                    'users' => $r_user['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -54,15 +63,20 @@ class DeviceController extends Controller
     public function edit($id)
     {
         if(Helpers::hasValidSession()) {
-            $r_department = Helpers::callAPI('GET', "/departments");
-            $r_user       = Helpers::callAPI('GET', "/users/list/all");
-            $r_device     = Helpers::callAPI('GET', "/devices/{$id}");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_department = Helpers::callAPI('GET', "/departments");
+                $r_user = Helpers::callAPI('GET', "/users/list/all");
+                $r_device = Helpers::callAPI('GET', "/devices/{$id}");
 
-            return view('pages.devices.edit', [
-                'departments' => $r_department['data'],
-                'device'      => $r_device['data'],
-                'users'       => $r_user['data']
-            ]);
+                return view('pages.devices.edit', [
+                    'departments' => $r_department['data'],
+                    'device' => $r_device['data'],
+                    'users' => $r_user['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -82,9 +96,9 @@ class DeviceController extends Controller
 
     public function get_one($id)
     {
-        $r_device = Helpers::callAPI('GET', "/devices/" . $id, "");
+        $r_device = Helpers::callAPI('GET', "/devices/{$id}");
 
-        return $r_device['data'];
+        return response()->json($r_device, 200);
     }
 
     public function create(Request $request)
@@ -104,7 +118,7 @@ class DeviceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/devices/" . $id , $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/devices/{$id}" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Information Successfully Updated!</div>";
@@ -113,6 +127,23 @@ class DeviceController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/devices/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_array($request){

@@ -8,12 +8,10 @@
         <div class="clearfix"></div>
         <div class="content">
             <ul class="breadcrumb">
-                <li><p>YOUR ARE HERE:</p></li>
                 <li>Holidays</li>
-                <li><a href="#" class="active">Add</a> </li>
+                <li><a href="#" class="active">Edit</a> </li>
             </ul>
             <div class="page-title">
-                <i class="material-icons">event</i><h3>Holidays</h3>
             </div>
             <div class="row-fluid">
                 <div class="span12">
@@ -23,48 +21,34 @@
                         </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="edit_form" >
-                                <input name="HolidayId" id="HolidayId" type="hidden" class="form-control" value="{{$holiday['id']}}">
+                                <input name="HolidayId" id="HolidayId" type="hidden" class="form-control" value="{{isset($holiday['id']) ? $holiday['id'] : ""}}">
                                 <div class="row column-seperation">
                                     <div class="col-md-6">
                                         <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label for="HolidayName">Holiday Name<span class="txt-red"></span></label>
+                                            <div class="form-group col-md-12">
+                                                <label for="HolidayName">Name<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="HolidayName" id="HolidayName" type="text" class="form-control" placeholder="Holiday Name" value="{{$holiday['name']}}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-md-6">
-                                                <label for="HolidayDate">Holiday Date <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <div class="input-append info col-lg-10 no-padding">
-                                                        <input name="HolidayDate" id="HolidayDate" type="text" class="form-control datepicker" placeholder="Holiday Date, e.g: YYYY-MM-DD" value="{{$holiday['date']}}">
-                                                        <span class="add-on"><i class="fa fa-calendar"></i></span>
-                                                    </div>
+                                                    <input name="HolidayName" id="HolidayName" type="text" class="form-control" placeholder="Holiday Name" value="{{isset($holiday['name']) ? $holiday['name'] : ""}}">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="HolidayCompany">Company <span class="txt-red">*</span></label>
-                                                <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="HolidayCompany" id="HolidayCompany" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Company --</option>
-                                                        @foreach ($companies as $company)
-                                                            <option value="{{$company['id']}}">{{$company['name']}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                <label for="HolidayDate"> Date <span class="txt-red">*</span></label>
+                                                <div class="input-append warning col-lg-10 no-padding">
+                                                    <input name="HolidayDate" id="HolidayDate" type="text" class="form-control datepicker" placeholder="Holiday Date, e.g: YYYY-MM-DD" value="{{isset($holiday['date']) ? $holiday['date'] : ""}}">
+                                                    <span class="add-on"><i class="fa fa-calendar"></i></span>
                                                 </div>
                                             </div>
 
                                             <div class="form-group col-md-6">
-                                                <label for="HolidaySite">Site <span class="txt-red">*</span></label>
+                                                <label for="HolidayDepartment">Department <span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <select name="HolidaySite" id="HolidaySite" class="select2 form-control"  data-init-plugin="select2">
-                                                        <option value="">-- Site --</option>
-                                                        @foreach ($sites as $site)
-                                                            <option value="{{$site['id']}}">{{$site['name']}}</option>
+                                                    <select name="HolidayDepartment" id="HolidayDepartment" class="select2 form-control"  data-init-plugin="select2">
+                                                        <option value="">-- Department --</option>
+                                                        @foreach ($departments as $department)
+                                                            <option value="{{$department['id']}}">{{$department['name']}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -76,7 +60,7 @@
                                             <div class="form-group col-md-12">
                                                 <label for="HolidaySite">Description <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <textarea name="HolidayDescription" id="HolidayDescription"  rows="4" class="form-control" placeholder="Description ...">{{$holiday['description']}}</textarea>
+                                                    <textarea name="HolidayDescription" id="HolidayDescription"  rows="4" class="form-control" placeholder="Description ...">{{isset($holiday['description']) ? $holiday['description'] : ""}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -90,8 +74,8 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-primary btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;UPDATE</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">BACK</button>
+                                        <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp;UPDATE</button>
+                                        <button class="btn btn-white btn-cons btn-medium" onclick="window.history.back();return false;">BACK</button>
                                     </div>
                                 </div>
                             </form>
@@ -107,8 +91,7 @@
     @parent
     <script>
         $(document).ready(function() {
-            $('#HolidayCompany').select2().select2('val', '{{$holiday['company']['id']}}');
-            $('#HolidaySite').select2().select2('val', '{{$holiday['site']['id']}}');
+            $('#HolidayDepartment').select2().select2('val', '{{isset($holiday['department']['id']) ? $holiday['department']['id'] : ""}}');
 
             $('.datepicker').datepicker({
                 format: "yyyy-mm-dd",
@@ -119,17 +102,17 @@
         });
 
         $("#edit_form").submit(function(event){
-            var id = $('#HolidayId').val();
             event.preventDefault();
-            var_form_data = $(this).serialize();
+            var id = $('#HolidayId').val();
+            var form_data = $(this).serialize();
 
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
             $.ajax({
                 type:"PUT",
-                url:"/api/holidays/update/" + id,
+                url:"/api/holidays/" + id,
                 cache: false,
-                data: var_form_data,
+                data: form_data,
                 success: function(response){
                     $("#Results").html(response);
                 }
@@ -150,8 +133,8 @@
             rules: {
                 HolidayId:        { required: true },
                 HolidayDate:      { required: true },
-                HolidayCompany:   { required: true },
-                HolidaySite:      { required: true }
+                HolidayDepartmentId:   { required: true },
+                HolidayName:   { required: true }
             },
 
             invalidHandler: function (event, validator) {

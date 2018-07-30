@@ -450,8 +450,11 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserType" id="UserType" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- User Type --</option>
-                                                        <option value="1">Manager</option>
-                                                        <option value="2">Other</option>
+                                                        @if(isset($user_groups) && count($user_groups) > 0)
+                                                            @foreach($user_groups as $user_group)
+                                                                <option value="{{$user_group['id']}}" >{{$user_group['name']}}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -485,7 +488,6 @@
             $('#UserStatus').select2({minimumResultsForSearch: -1});
             $('#UserType').select2({minimumResultsForSearch: -1});
             $('#UserGender').select2({minimumResultsForSearch: -1});
-
         });
 
 

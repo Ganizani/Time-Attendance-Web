@@ -17,45 +17,39 @@ class LeaveController extends Controller
     public function add_leave(){
 
         if(Helpers::hasValidSession()) {
-            $r_leave_type = Helpers::callAPI("GET", "/leave_types");
-            $r_users = Helpers::callAPI('GET', "/users");
-
-            return view('pages.leaves.add_leave', [
-                'leave_types' => $r_leave_type['data'],
-                'users'       => $r_users['data']
-            ]);
-        }
-        else return view('pages.login');
-        /*if(Helpers::hasValidSession()) {
-
-            if($_SESSION['SETA-EMPLG-USER-TYPE'] < 3) {
-                $r_type    = Helpers::callAPI('GET', "/leave_types", "");
-                $r_learner = Helpers::callAPI('GET', "/learners", "");
-
-                return view('pages.leaves.add_leave',[
-                    'leave_types' => $r_type['data'],
-                    'learners'    => $r_learner['data']
-                ]);
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_leaves'] == 0){
+                return response()->view('errors.401', [], 404);
             }
             else {
-                return view('pages.errors.auth');
+                $r_leave_type = Helpers::callAPI("GET", "/leave_types");
+                $r_users = Helpers::callAPI('GET', "/users");
+
+                return view('pages.leaves.add_leave', [
+                    'leave_types' => $r_leave_type['data'],
+                    'users' => $r_users['data']
+                ]);
             }
         }
-        else return view('pages.login');*/
+        else return view('pages.login');
     }
 
     public function edit_leave($id)
     {
         if(Helpers::hasValidSession()) {
-            $r_leave = Helpers::callAPI('GET', "/leaves/{$id}");
-            $r_type  = Helpers::callAPI('GET', "/leave_types");
-            $r_users = Helpers::callAPI('GET', "/users");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leaves'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_leave = Helpers::callAPI('GET', "/leaves/{$id}");
+                $r_type = Helpers::callAPI('GET', "/leave_types");
+                $r_users = Helpers::callAPI('GET', "/users");
 
-            return view('pages.leaves.edit_leave', [
-                'leave'       => $r_leave['data'],
-                'leave_types' => $r_type['data'],
-                'users'       => $r_users['data']
-            ]);
+                return view('pages.leaves.edit_leave', [
+                    'leave' => $r_leave['data'],
+                    'leave_types' => $r_type['data'],
+                    'users' => $r_users['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -63,7 +57,12 @@ class LeaveController extends Controller
     public function upload_leave()
     {
         if(Helpers::hasValidSession()) {
-            return view('pages.leaves.upload_leave');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['upload_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['upload_leaves'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                return view('pages.leaves.upload_leave');
+            }
         }
         else return view('pages.login');
     }
@@ -71,19 +70,29 @@ class LeaveController extends Controller
     public function add_type(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.leaves.add_type');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_leave_types']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_leave_types'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                return view('pages.leaves.add_type');
+            }
         }
         else return view('pages.login');
     }
 
     public function edit_type($id)
     {
-        $r_type  = Helpers::callAPI('GET', "/leave_types/{$id}");
-
         if(Helpers::hasValidSession()) {
-            return view('pages.leaves.edit_type', [
-                'leave_type' => $r_type['data']
-            ]);
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leave_types']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leave_types'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_type  = Helpers::callAPI('GET', "/leave_types/{$id}");
+
+                return view('pages.leaves.edit_type', [
+                    'leave_type' => $r_type['data']
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -91,7 +100,12 @@ class LeaveController extends Controller
     public function list_type(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.leaves.list_type');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_leave_types']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_leave_types'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                return view('pages.leaves.list_type');
+            }
         }
         else return view('pages.login');
     }
@@ -99,9 +113,23 @@ class LeaveController extends Controller
     //API CALLS
     public function get_all_leave_type(Request $request)
     {
-        $r_type = Helpers::callAPI('GET', "/leave_types");
+        $response = Helpers::callAPI('GET', "/leave_types");
 
-        return $r_type;
+        return $response;
+    }
+
+    public function get_one_leave_type($id)
+    {
+        $response = Helpers::callAPI('GET', "/leave_types/{$id}");
+
+        return response()->json($response, 200);
+    }
+
+    public function get_one_leave($id)
+    {
+        $response = Helpers::callAPI('GET', "/leaves/{$id}");
+
+        return response()->json($response, 200);
     }
 
     public function create_type(Request $request)
@@ -121,7 +149,7 @@ class LeaveController extends Controller
 
     public function update_type(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/leave_types/" . $id , $this->get_type_array($request));
+        $response = Helpers::callAPI( "PUT", "/leave_types/{$id}", $this->get_type_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Leave Type Information Successfully Updated!</div>";
@@ -130,6 +158,23 @@ class LeaveController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete_type($id){
+
+        $response  = Helpers::callAPI('DELETE', "/leave_types/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Leave Type Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_type_array($request){
@@ -158,7 +203,7 @@ class LeaveController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/leaves/" . $id , $this->get_leave_array($request));
+        $response = Helpers::callAPI( "PUT", "/leaves/{$id}" , $this->get_leave_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Leave Information Successfully Updated!</div>";
@@ -167,6 +212,23 @@ class LeaveController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete_leave($id){
+
+        $response  = Helpers::callAPI('DELETE', "/leaves/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Leave Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_leave_array(Request $request){

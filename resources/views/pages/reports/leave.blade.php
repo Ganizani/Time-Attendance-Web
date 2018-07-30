@@ -71,7 +71,7 @@
                                         <th style="width:10%">TO DATE</th>
                                         <th style="width:10%">LEAVE DAYS</th>
                                         <th style="width:10%">COMMENTS</th>
-                                        <th style="width:10%">ACTIONS</th>
+                                        <th style="width:12%">ACTIONS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -111,11 +111,95 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- END VIEW ATTACHMENT MODAL -->
+
+    <!-- START DELETE MODAL -->
+    <div class="modal fade" id="DeleteLeaveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="myModalLabel" class="semi-bold">Delete Leave</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="delete_form">
+                        <input name="deleteLeaveId" id="deleteLeaveId" type="hidden" >
+                        <input name="deleteLeaveRowIndex" id="deleteLeaveRowIndex" type="hidden" >
+                        <h4>Are you sure You want to delete the bellow leave?:<br>
+                            Name: <b><span id="deleteLeaveName"></span></b><br>
+                            Type: <b><span id="deleteLeaveType"></span></b><br>
+                            From: <b><span id="deleteLeaveFrom"></span></b><br>
+                            To: <b><span id="deleteLeaveTo"></span></b><br>
+                            After deletion, the operation cannot be reversed!
+                        </h4>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <div id="deleteResults"></div>
+                    </div>
+                    <button type="button"  class="btn btn-danger " onclick="delete_leave()"> Delete</button>
+                    <button type="button" class="btn btn-white " data-dismiss="modal"> Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- END DELETE MODAL -->
 @endsection
 @section('footer')
     @parent
 
     <script>
+        function delete_leave(){
+            var id        = $('#deleteLeaveId').val();
+            var row_index = $('#deleteLeaveRowIndex').val();
+
+            $('#deleteResults').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
+
+            $.ajax({
+                type:"DELETE",
+                url: "/api/leaves/" + id,
+                cache: false,
+                data: {},
+                success: function(response){
+                    $('#deleteResults').html(response.message);
+
+                    if(response.code === "success"){
+                        $('#report_table').DataTable().rows(row_index).remove().draw(true);
+                        $('#DeleteLeaveModal').modal('toggle');
+                    }
+                }
+            });
+        }
+
+        //Delete Modal
+        $('#DeleteLeaveModal').on('show.bs.modal', function (event) {
+            $('#deleteResults').html('');
+            var button     = $(event.relatedTarget); // Button that triggered the modal
+            var id         = button.data('id'); // Extract info from data-* attributes
+            var row_index  = button.data('index'); // Extract info from data-* attributes
+            var leave_name = button.data('leave');
+            var modal      = $(this);
+
+            //get config
+            $.ajax({
+                type: "GET",
+                url: "/api/leaves/" + id,
+                cache: false,
+                data: {},
+                success: function (response) {
+                    var obj = response.data;
+
+                    modal.find("#deleteLeaveId").val(obj.id);
+                    modal.find("#deleteLeaveType").html(obj.leave_type.name);
+                    modal.find("#deleteLeaveName").html(obj.user.name);
+                    modal.find("#deleteLeaveFrom").html(obj.from_date);
+                    modal.find("#deleteLeaveTo").html(obj.to_date);
+                    modal.find("#deleteLeaveIndex").val(row_index);
+                }
+            });
+        });
+
         $(document).ready(function() {
 
             $('#ViewAttachmentModal').on('show.bs.modal', function (event) {
@@ -156,10 +240,19 @@
                             search: "",
                             searchPlaceholder: "Search ..."
                         },
+                        @if((isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
+                            || (isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves'] == 1))
                         dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
                         "<'row'<'col-sm-12'tr>>" +
                         "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @else
+                        dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                        @endif
                         pageLength: 25,
+                        @if((isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
+                            || (isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves'] == 1))
                         buttons: [
                             {
                                 extend: 'collection',
@@ -177,6 +270,7 @@
                                 ]
                             }
                         ],
+                        @endif
                         columns: [
                             {   //EMPLOYEE CODE
                                 data: 'user.employee_code',
@@ -221,11 +315,23 @@
                                 data: null,
                                 defaultContent: '',
                                 render : function ( data, type, row, meta ) {
-                                    var attachment = "";
+                                    var attachment = "&nbsp;";
+                                    var str_delete = '&nbsp;';
+                                    var str_edit   = '&nbsp;';
+
                                     if(data.attachment !== null){
-                                        attachment = '<a class="btn btn-white btn-cons btn-block btn-small" data-leave="' +  data.user.name + '" data-src="' +  data.attachment + '" data-toggle="modal" data-target="#ViewAttachmentModal"><i class="fa fa-paperclip"></i> &nbsp; Attachment </a>';
+                                        attachment = '<a class="btn btn-white btn-small" data-leave="' +  data.user.name + '" data-src="' +  data.attachment + '" data-toggle="modal" data-target="#ViewAttachmentModal"><i class="fa fa-paperclip"></i></a>&nbsp;&nbsp;';
                                     }
-                                    return attachment + '<a href = "/leaves/edit/' + data.id +'" class="btn btn-info btn-cons btn-block btn-small" ><i class="fa fa-paste"></i> &nbsp; Edit </a>';
+
+                                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_leaves'] == 1)
+                                        str_delete = '<a href = "#" class="btn btn-danger btn-small" data-leave="' +  data.user.name + '" data-index="'+ meta.row + '" data-id="'+ data.id + '" data-toggle="modal" data-target="#DeleteLeaveModal"  ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                    @endif
+
+                                    @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leaves'] == 1)
+                                        str_edit = '<a href = "/leaves/edit/'+ data.id +'" class="btn btn-info btn-small" ><i class="fa fa-paste"></i></a>&nbsp;&nbsp;';
+                                    @endif
+
+                                    return attachment + str_edit + str_delete;
                                 }
 
                             }
@@ -243,10 +349,19 @@
                     search:         "",
                     searchPlaceholder: "Search ..."
                 },
+                @if((isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
+                            || (isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves'] == 1))
                 dom: "<'row'<'col-sm-1'l><'col-sm-1 text-center'B><'col-sm-10'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @else
+                dom: "<'row'<'col-sm-1'l><'col-sm-11'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                @endif
                 pageLength:  25,
+                @if((isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_reports'] == 1)
+                            || (isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_leaves'] == 1))
                 buttons: [
                     {
                         extend: 'collection',
@@ -263,7 +378,8 @@
                             }
                         ]
                     }
-                ]
+                ],
+                @endif
             });
 
             $('div.dataTables_length select').select2({minimumResultsForSearch: -1});

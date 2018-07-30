@@ -17,7 +17,15 @@ class HolidayController extends Controller
     public function index(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.holidays.list');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+                return view('pages.holidays.list', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -25,7 +33,16 @@ class HolidayController extends Controller
     public function add(){
 
         if(Helpers::hasValidSession()) {
-            return view('pages.holidays.add');
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['add_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+
+                return view('pages.holidays.add', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
 
@@ -34,11 +51,18 @@ class HolidayController extends Controller
     public function edit($id){
 
         if(Helpers::hasValidSession()) {
-            $r_holiday = Helpers::callAPI('GET', "/departments/" . $id, "");
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_holidays']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_holidays'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $r_departments = Helpers::callAPI('GET', "/departments");
+                $r_holiday     = Helpers::callAPI('GET', "/holidays/{$id}");
 
-            return view('pages.holidays.edit', [
-                'holiday' => $r_holiday['data']
-            ]);
+                return view('pages.holidays.edit', [
+                    'departments' => isset($r_departments['data']) ? $r_departments['data'] : [],
+                    'holiday'     => isset($r_holiday['data']) ? $r_holiday['data'] : [],
+                ]);
+            }
         }
         else return view('pages.login');
     }
@@ -56,22 +80,23 @@ class HolidayController extends Controller
     //API CALLS
 
     //API CALLS
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $response = Helpers::callAPI('GET', "/departments", "");
+        $WHEREDepartment = "";
+        if(isset($request->department) && $request->department != ""){
+            $WHEREDepartment = "?department={$request->department}";
+        }
 
-        $val = ($response['data'] != "")? $response['data'] : [];
+        $response = Helpers::callAPI('GET', "/holidays{$WHEREDepartment}");
 
-        return response()->json(["data" => $val], 200);
+        return $response['data'];
     }
 
     public function get_one($id)
     {
-        $response = Helpers::callAPI('GET', "/departments/" . $id, "");
+        $response = Helpers::callAPI('GET', "/holidays/{$id}");
 
-        $val = ($response['data'] != "")? $response['data'] : [];
-
-        return response()->json(["data" => $val], 200);
+        return response()->json($response, 200);
     }
 
     public function create(Request $request)
@@ -91,7 +116,7 @@ class HolidayController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/holidays/" . $id, $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/holidays/{$id}", $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Holiday Information Successfully Updated!</div>";
@@ -105,12 +130,30 @@ class HolidayController extends Controller
         return $message;
     }
 
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/holidays/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Holiday Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
+    }
+
     public function get_array($request)
     {
         $data = [
-            'name'        => $request->DepartmentName,
-            'description' => $request->DepartmentDescription,
-            'location'    => $request->DepartmentLocation,
+            'name'        => isset($request->HolidayName) ? $request->HolidayName : "",
+            'date'        => isset($request->HolidayDate) ? $request->HolidayDate : "",
+            'description' => isset($request->HolidayDescription) ? $request->HolidayDescription : "",
+            'department'  => isset($request->HolidayDepartment) ? $request->HolidayDepartment : "",
         ];
 
         return $data;

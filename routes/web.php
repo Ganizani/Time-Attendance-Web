@@ -14,6 +14,8 @@
 //Home Controller
 Route::get('/', 'HomeController@clock_in_out');
 Route::get('/dashboard', 'HomeController@index');
+Route::get('/password/update', 'UserController@updatePassword');
+
 
 //Login
 Route::get('/login', 'HomeController@login');
@@ -66,6 +68,11 @@ Route::get('/users/add', 'UserController@add');
 Route::get('/users/upload', 'UserController@upload');
 Route::get('/users/edit/{id?}', 'UserController@edit');
 
+//Access Control
+Route::get('/user-groups', 'UserGroupController@index');
+Route::get('/user-groups/list', 'UserGroupController@index');
+Route::get('/user-groups/add', 'UserGroupController@add');
+Route::get('/user-groups/edit/{id?}', 'UserGroupController@edit');
 
 //MyAccount
 Route::get('/my-account/{id?}', 'UserController@myAccount');
