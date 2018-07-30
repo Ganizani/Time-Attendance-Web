@@ -52,7 +52,7 @@ class UserGroupController extends Controller
     {
         $r_user_group = Helpers::callAPI('GET', "/user_groups/{$id}");
 
-        return $r_user_group['data'];
+        return response()->json($r_user_group, 200);
     }
 
     public function create(Request $request)
@@ -82,6 +82,23 @@ class UserGroupController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/user_groups/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> User Group Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_array($request){

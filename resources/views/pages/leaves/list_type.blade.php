@@ -42,10 +42,83 @@
         </div>
     </div>
     <!-- END PAGE CONTAINER-->
+    <!-- START DELETE MODAL -->
+    <div class="modal fade" id="DeleteLeaveTypeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="myModalLabel" class="semi-bold">Delete Leave Type</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="delete_form">
+                        <input name="deleteLeaveTypeId" id="deleteLeaveTypeId" type="hidden" >
+                        <input name="deleteLeaveTypeRowIndex" id="deleteLeaveTypeRowIndex" type="hidden" >
+                        <h4>Are you sure You want to delete <b><span id="deleteLeaveTypeName"></span></b>? After deletion, the operation cannot be reversed!</h4>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <div id="deleteResults"></div>
+                    </div>
+                    <button type="button"  class="btn btn-danger " onclick="delete_leave_type()"> Delete</button>
+                    <button type="button" class="btn btn-white " data-dismiss="modal"> Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- END DELETE MODAL -->
 @endsection
 @section('footer')
     @parent
     <script>
+        function delete_leave_type(){
+            var id        = $('#deleteLeaveTypeId').val();
+            var row_index = $('#deleteLeaveTypeRowIndex').val();
+
+            $('#deleteResults').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
+
+            $.ajax({
+                type:"DELETE",
+                url: "/api/leave_types/" + id,
+                cache: false,
+                data: {},
+                success: function(response){
+                    $('#deleteResults').html(response.message);
+
+                    if(response.code === "success"){
+                        $('#_table').DataTable().rows(row_index).remove().draw(true);
+                        $('#DeleteLeaveTypeModal').modal('toggle');
+                    }
+                }
+            });
+        }
+
+        //Delete Modal
+        $('#DeleteLeaveTypeModal').on('show.bs.modal', function (event) {
+            $('#deleteResults').html('');
+            var button     = $(event.relatedTarget); // Button that triggered the modal
+            var id         = button.data('id'); // Extract info from data-* attributes
+            var row_index  = button.data('index'); // Extract info from data-* attributes
+            var modal      = $(this);
+
+            //get config
+            $.ajax({
+                type: "GET",
+                url: "/api/leave_types/" + id,
+                cache: false,
+                data: {},
+                success: function (response) {
+                    var obj = response.data;
+
+                    modal.find("#deleteLeaveTypeId").val(obj.id);
+                    modal.find("#deleteLeaveTypeName").html(obj.name);
+                    modal.find("#deleteLeaveTypeRowIndex").val(row_index);
+                }
+            });
+        });
+
         $(document).ready(function() {
             var table =  $('#_table').DataTable({
                 ajax:"/api/leave_types",
@@ -112,7 +185,7 @@
                             var str_edit   = '';
 
                             @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_leave_types']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_leave_types'] == 1)
-                                str_delete = '<a href = "" class="btn btn-danger btn-small" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                str_delete = '<a href = "#" class="btn btn-danger btn-small" data-index="'+ meta.row + '" data-id="'+ data.id + '" data-toggle="modal" data-target="#DeleteLeaveTypeModal"  ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
                             @endif
 
                             @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leave_types']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_leave_types'] == 1)

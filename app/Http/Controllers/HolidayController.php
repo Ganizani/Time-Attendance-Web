@@ -80,22 +80,23 @@ class HolidayController extends Controller
     //API CALLS
 
     //API CALLS
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $response = Helpers::callAPI('GET', "/departments", "");
+        $WHEREDepartment = "";
+        if(isset($request->department) && $request->department != ""){
+            $WHEREDepartment = "?department={$request->department}";
+        }
 
-        $val = ($response['data'] != "")? $response['data'] : [];
+        $response = Helpers::callAPI('GET', "/holidays{$WHEREDepartment}");
 
-        return response()->json(["data" => $val], 200);
+        return $response['data'];
     }
 
     public function get_one($id)
     {
-        $response = Helpers::callAPI('GET', "/departments/" . $id, "");
+        $response = Helpers::callAPI('GET', "/holidays/{$id}");
 
-        $val = ($response['data'] != "")? $response['data'] : [];
-
-        return response()->json(["data" => $val], 200);
+        return response()->json($response, 200);
     }
 
     public function create(Request $request)
@@ -115,7 +116,7 @@ class HolidayController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/holidays/" . $id, $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/holidays/{$id}", $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Holiday Information Successfully Updated!</div>";
@@ -129,12 +130,30 @@ class HolidayController extends Controller
         return $message;
     }
 
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/holidays/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Holiday Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
+    }
+
     public function get_array($request)
     {
         $data = [
-            'name'        => $request->DepartmentName,
-            'description' => $request->DepartmentDescription,
-            'location'    => $request->DepartmentLocation,
+            'name'        => isset($request->HolidayName) ? $request->HolidayName : "",
+            'date'        => isset($request->HolidayDate) ? $request->HolidayDate : "",
+            'description' => isset($request->HolidayDescription) ? $request->HolidayDescription : "",
+            'department'  => isset($request->HolidayDepartment) ? $request->HolidayDepartment : "",
         ];
 
         return $data;

@@ -16,10 +16,12 @@
             <div class="row-fluid">
                 <div class="span12">
                     <div class="grid simple ">
+                        <div class="grid-title">
+                            <h4><b>Holiday Information</b></h4>
+                        </div>
                         <div class="grid-body ">
                             <form class="form-no-horizontal-spacing" id="add_form" >
                                 <div class="row">
-                                    <h4 class="info-section"><b>Holiday Information</b></h4>
                                     <div class="col-md-6">
                                         <div class="row">
                                             <div class="form-group col-md-12">
@@ -44,6 +46,9 @@
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="HolidayDepartment" id="HolidayDepartment" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Department --</option>
+                                                        @foreach ($departments as $department)
+                                                            <option value="{{$department['id']}}">{{$department['name']}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
@@ -97,15 +102,15 @@
         $("#add_form").submit(function(event){
 
             event.preventDefault();
-            var_form_data = $(this).serialize();
+            var form_data = $(this).serialize();
 
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
             $.ajax({
                 type:"POST",
-                url:"/api/holidays/create",
+                url:"/api/holidays",
                 cache: false,
-                data: var_form_data,
+                data: form_data,
                 success: function(response){
                     $("#Results").html(response);
                 }
@@ -125,8 +130,8 @@
             ignore: "",
             rules: {
                 HolidayDate:      { required: true },
-                HolidayCompany:   { required: true },
-                HolidaySite:      { required: true }
+                HolidayDepartment:   { required: true },
+                HolidayName:      { required: true }
             },
 
             invalidHandler: function (event, validator) {

@@ -185,9 +185,9 @@ class UserController extends Controller
 
     public function get_one($id)
     {
-        $r_user = Helpers::callAPI('GET', "/users/" . $id, "");
+        $r_user = Helpers::callAPI('GET', "/users/{$id}");
 
-        return response()->json(["data" => $r_user['data']], 200);
+        return response()->json($r_user, 200);
     }
 
     public function clock(Request $request)
@@ -232,6 +232,23 @@ class UserController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/users/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> User Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
 

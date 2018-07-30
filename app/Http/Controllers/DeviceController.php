@@ -96,9 +96,9 @@ class DeviceController extends Controller
 
     public function get_one($id)
     {
-        $r_device = Helpers::callAPI('GET', "/devices/" . $id, "");
+        $r_device = Helpers::callAPI('GET', "/devices/{$id}");
 
-        return $r_device['data'];
+        return response()->json($r_device, 200);
     }
 
     public function create(Request $request)
@@ -118,7 +118,7 @@ class DeviceController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/devices/" . $id , $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/devices/{$id}" , $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Information Successfully Updated!</div>";
@@ -127,6 +127,23 @@ class DeviceController extends Controller
             $error = Helpers::getError($response);
             return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
         }
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/devices/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Device Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_array($request){

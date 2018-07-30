@@ -72,9 +72,9 @@ class DepartmentController extends Controller
 
     public function get_one($id)
     {
-        $response = Helpers::callAPI('GET', "/departments/" . $id, "");
+        $response = Helpers::callAPI('GET', "/departments/{$id}");
 
-        return $response['data'];
+        return response()->json($response, 200);
     }
 
     public function create(Request $request)
@@ -94,7 +94,7 @@ class DepartmentController extends Controller
 
     public function update(Request $request, $id)
     {
-        $response = Helpers::callAPI( "PUT", "/departments/" . $id, $this->get_array($request));
+        $response = Helpers::callAPI( "PUT", "/departments/{$id}", $this->get_array($request));
 
         if($response['code'] == 201 || $response['code'] == 200){
             $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Information  Successfully Updated!</div>";
@@ -106,6 +106,23 @@ class DepartmentController extends Controller
         }
 
         return $message;
+    }
+
+    public function delete($id){
+
+        $response  = Helpers::callAPI('DELETE', "/departments/{$id}");
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $code    = "success";
+            $message =  "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> Department Successfully Deleted!</div>";
+        }
+        else{
+            $code = "error";
+            $error = Helpers::getError($response);
+            $message = "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+
+        return response()->json(['message' => $message, 'code' => $code], 200);
     }
 
     public function get_array($request)

@@ -63,11 +63,83 @@
         </div>
     </div>
     <!-- END PAGE CONTAINER-->
+    <!-- START DELETE MODAL -->
+    <div class="modal fade" id="DeleteDeviceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="myModalLabel" class="semi-bold">Delete Device</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="" id="delete_form">
+                        <input name="deleteDeviceId" id="deleteDeviceId" type="hidden" >
+                        <input name="deleteDeviceRowIndex" id="deleteDeviceRowIndex" type="hidden" >
+                        <h4>Are you sure You want to delete <b><span id="deleteDeviceName"></span></b>? After deletion, the operation cannot be reversed!</h4>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-left">
+                        <div id="deleteResults"></div>
+                    </div>
+                    <button type="button"  class="btn btn-danger " onclick="delete_device()"> Delete</button>
+                    <button type="button" class="btn btn-white " data-dismiss="modal"> Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- END DELETE MODAL -->
 @endsection
 @section('footer')
     @parent
 
     <script>
+        function delete_device(){
+            var id        = $('#deleteDeviceId').val();
+            var row_index = $('#deleteDeviceRowIndex').val();
+
+            $('#deleteResults').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
+
+            $.ajax({
+                type:"DELETE",
+                url: "/api/devices/" + id,
+                cache: false,
+                data: {},
+                success: function(response){
+                    $('#deleteResults').html(response.message);
+
+                    if(response.code === "success"){
+                        $('#_table').DataTable().rows(row_index).remove().draw(true);
+                        $('#DeleteDeviceModal').modal('toggle');
+                    }
+                }
+            });
+        }
+        //Delete Modal
+        $('#DeleteDeviceModal').on('show.bs.modal', function (event) {
+            $('#deleteResults').html('');
+            var button     = $(event.relatedTarget); // Button that triggered the modal
+            var id         = button.data('id'); // Extract info from data-* attributes
+            var row_index  = button.data('index'); // Extract info from data-* attributes
+            var modal      = $(this);
+
+            //get config
+            $.ajax({
+                type: "GET",
+                url: "/api/devices/" + id,
+                cache: false,
+                data: {},
+                success: function (response) {
+                    var obj = response.data;
+
+                    modal.find("#deleteDeviceId").val(obj.id);
+                    modal.find("#deleteDeviceName").html(obj.name);
+                    modal.find("#deleteDeviceRowIndex").val(row_index);
+                }
+            });
+        });
+
         $(document).ready(function() {
 
             $("#search_form").submit(function(event) {
@@ -175,7 +247,7 @@
                                     var str_edit   = '';
 
                                     @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['delete_devices'] == 1)
-                                        str_delete = '<a href = "" class="btn btn-danger btn-small" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
+                                        str_delete = '<a href = "#" class="btn btn-danger btn-small" data-index="'+ meta.row + '" data-id="'+ data.id + '" data-toggle="modal" data-target="#DeleteDeviceModal" ><i class="fa fa-trash"></i></a>&nbsp;&nbsp;';
                                     @endif
 
                                     @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['edit_devices'] == 1)
@@ -189,8 +261,6 @@
                     });
 
                     $('div.dataTables_length select').select2({minimumResultsForSearch: -1});
-
-
             });
 
             var table =  $('#_table').DataTable({
