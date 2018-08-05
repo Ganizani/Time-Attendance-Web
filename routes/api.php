@@ -79,3 +79,6 @@ Route::get('/user-groups/{id}', 'UserGroupController@get_one');
 Route::post('/user-groups', 'UserGroupController@create');
 Route::put('/user-groups/{id}', 'UserGroupController@update');
 Route::delete('/user-groups/{id}', 'UserGroupController@delete');
+
+//Admin
+Route::post('/admin/manual-clock', 'HomeController@manual_clocking_data');

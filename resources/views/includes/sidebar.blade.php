@@ -133,7 +133,7 @@
                 || $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_users'] == 1
                 || $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_users'] == 1))
             <li @if(Request::is('users') || Request::is('users')) class="open active" @endif>
-                <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('users') || Request::is('users')) open @endif arrow"></span> </a>
+                <a href="javascript:;"> <i class="material-icons">person</i> <span class="title">Users</span>  <span class="@if(Request::is('users/*') || Request::is('users')) open @endif arrow"></span> </a>
                 <ul class="sub-menu">
                     @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_users']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_users'] == 1 )
                         <li> <a href="/users"> List</a> </li>
@@ -152,7 +152,7 @@
                 || $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_user_groups'] == 1
                 || $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['print_user_groups'] == 1))
             <li @if(Request::is('access-control') || Request::is('access-control')) class="open active" @endif>
-                <a href="javascript:;"> <i class="material-icons">phonelink_lock</i> <span class="title">Access Control</span>  <span class="@if(Request::is('access-control') || Request::is('access-control')) open @endif arrow"></span> </a>
+                <a href="javascript:;"> <i class="material-icons">phonelink_lock</i> <span class="title">Access Control</span>  <span class="@if(Request::is('access-control/*') || Request::is('access-control')) open @endif arrow"></span> </a>
                 <ul class="sub-menu">
                     @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_user_groups']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['list_user_groups'] == 1 )
                         <li> <a href="/user-groups/"> List</a> </li>
@@ -162,6 +162,28 @@
                     @endif
                 </ul>
             </li>
+            @endif
+
+            @if((
+                    isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking'])
+                    || isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave'])
+                )
+                &&
+                (
+                    $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking'] == 1
+                    || $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave'] == 1
+                ))
+                <li @if(Request::is('admin') || Request::is('admin')) class="open active" @endif>
+                    <a href="javascript:;"> <i class="material-icons">assignment_ind</i> <span class="title">Admin</span>  <span class="@if(Request::is('admin/*') || Request::is('admin')) open @endif arrow"></span> </a>
+                    <ul class="sub-menu">
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking'] == 1 )
+                            <li> <a href="/admin/manual-clock"> Manual Clock</a> </li>
+                        @endif
+                        @if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave'] == 1 )
+                            <li> <a href="/admin/apply-for-leave">  Apply For Leave </a> </li>
+                        @endif
+                    </ul>
+                </li>
             @endif
 
         </ul>

@@ -637,7 +637,7 @@ var Event = Hammer.event = {
 
 
   /**
-   * we have different events for each devices/browser
+   * we have different events for each device/browser
    * determine what we need and set them in the Hammer.EVENT_TYPES constant
    */
   determineEventTypes: function determineEventTypes() {

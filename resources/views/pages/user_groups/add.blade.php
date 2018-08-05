@@ -69,11 +69,37 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group col-md-1">
+                                                <div class="form-group col-md-3">
                                                     <div class="row-fluid">
                                                         <div class="checkbox check-info">
                                                             <input id="acheckSystemUpdateUserType" name="acheckSystemUpdateUserType" type="checkbox" value="1" >
                                                             <label for="acheckSystemUpdateUserType">Update User Type</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group col-md-1">
+                                                    <div class="row-fluid">
+                                                        <label>&nbsp;</label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-2">
+                                                    <div class="row-fluid">
+                                                        <div class="checkbox check-info">
+                                                            <input id="acheckSystemManualClocking" name="acheckSystemManualClocking" type="checkbox" value="1" >
+                                                            <label for="acheckSystemManualClocking">Manual Clocking</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-2">
+                                                    <div class="row-fluid">
+                                                        <div class="checkbox check-info">
+                                                            <input id="acheckSystemApplyForLeave" name="acheckSystemApplyForLeave" type="checkbox" value="1" >
+                                                            <label for="acheckSystemApplyForLeave">Apply For Leave</label>
                                                         </div>
                                                     </div>
                                                 </div>

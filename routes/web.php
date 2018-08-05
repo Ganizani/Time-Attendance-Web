@@ -12,10 +12,13 @@
 */
 
 //Home Controller
-Route::get('/', 'HomeController@clock_in_out');
+Route::get('/', 'HomeController@index');
 Route::get('/dashboard', 'HomeController@index');
 Route::get('/password/update', 'UserController@updatePassword');
 
+//Admin
+Route::get('/admin/apply-for-leave', 'HomeController@apply_for_leave');
+Route::get('/admin/manual-clock', 'HomeController@manual_clock');
 
 //Login
 Route::get('/login', 'HomeController@login');

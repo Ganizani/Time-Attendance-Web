@@ -111,6 +111,8 @@ class UserGroupController extends Controller
                 'update_user_type'  => isset($request->acheckSystemUpdateUserType) ?$request->acheckSystemUpdateUserType : 0,
                 'login'             => isset($request->acheckSystemLogin) ?$request->acheckSystemLogin : 0,
                 'system_admin'      => isset($request->acheckSystemAdmin) ?$request->acheckSystemAdmin : 0,
+                'manual_clocking'   => isset($request->acheckSystemManualClocking) ?$request->acheckSystemManualClocking : 0,
+                'apply_for_leave'   => isset($request->acheckSystemApplyForLeave) ?$request->acheckSystemApplyForLeave : 0,
                 'view_reports'      => isset($request->acheckReportView) ?$request->acheckReportView : 0,
                 'print_reports'     => isset($request->acheckReportPrint) ? $request->acheckReportPrint : 0,
                 'add_departments'   => isset($request->acheckDepartmentAdd) ? $request->acheckDepartmentAdd : 0,
