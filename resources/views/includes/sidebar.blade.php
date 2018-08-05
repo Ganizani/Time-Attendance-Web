@@ -8,7 +8,7 @@
                 <!--div class="availability-bubble online"></div-->
             </div>
             <div class="user-info sm">
-                <div class="username"> <span class="semi-bold"></span></div>
+                <div class="username"> {{isset($_SESSION['GANIZANI-EMPLG-TITLE']) ? $_SESSION['GANIZANI-EMPLG-TITLE'] : "" }} <span class="semi-bold"> {{isset($_SESSION['GANIZANI-EMPLG-LAST-NAME']) ? $_SESSION['GANIZANI-EMPLG-LAST-NAME'] : "" }}</span></div>
                 <div class="status"></div>
             </div>
         </div>
