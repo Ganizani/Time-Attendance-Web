@@ -31,10 +31,10 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <button class="btn btn-warning btn-cons pull-right" type="submit">Login</button>
+                        <button class="btn btn-warning btn-cons btn-medium pull-right" type="submit"><i class="fa fa-check"></i>&nbsp; Login</button>
                     </div>
                 </div>
-                <div class="row" >
+                <!--div class="row" >
                     <div class="form-group col-md-12">
                         <label class="center-text"> =============================== OR ============================= </label>
                     </div>
@@ -43,7 +43,7 @@
                             <a href="/records/clock"class="btn btn-info btn-cons pull-right btn-block" type="submit">Clock</a>
                         </div>
                     </div>
-                </div>
+                </div-->
             </form>
         </div>
         <div class="col-md-6">

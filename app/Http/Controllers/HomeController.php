@@ -51,6 +51,42 @@ class HomeController extends Controller
         else return view('pages.login');
     }
 
+    public function manual_clock()
+    {
+        if(Helpers::hasValidSession()) {
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['manual_clocking'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $user = Helpers::callAPI('GET', "/users/{$this->user_id}");
+
+                return view('pages.admin.manual_clock', [
+                    'user' => isset($user['data']) ? $user['data'] : []
+                ]);
+            }
+        }
+        else return view('pages.login');
+    }
+
+    public function apply_for_leave()
+    {
+        if(Helpers::hasValidSession()) {
+            if(isset($_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave']) && $_SESSION['GANIZANI-EMPLG-ACCESS-CONTROL']['apply_for_leave'] == 0){
+                return response()->view('errors.401', [], 404);
+            }
+            else {
+                $user        = Helpers::callAPI('GET', "/users/{$this->user_id}");
+                $leave_types = Helpers::callAPI('GET', "/leave_types");
+
+                return view('pages.admin.apply_for_leave', [
+                    'user'        => isset($user['data']) ? $user['data'] : [],
+                    'leave_types' => isset($leave_types['data']) ? $leave_types['data'] : []
+                ]);
+            }
+        }
+        else return view('pages.login');
+    }
+
     public function login()
     {
         if (session_status() == PHP_SESSION_NONE) session_start();
@@ -117,9 +153,7 @@ class HomeController extends Controller
     }
 
     //API CALLS
-    public function recent_records(Request $request)
-    {
-
+    public function recent_records(Request $request){
         $response = Helpers::callAPI('GET', "/records/recently");
 
         return response()->json(["data" => $response['data']], 200);

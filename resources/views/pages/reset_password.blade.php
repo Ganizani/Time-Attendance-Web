@@ -28,15 +28,14 @@
 
                 <div class="row" >
                     <div class="form-group col-md-12">
-                        <a href="/login" class="btn btn-white btn-cons btn-medium pull-left" type="submit">Login</a>
-                        <button class="btn btn-warning btn-cons btn-medium pull-right" type="submit">Reset Password</button>
+                        <a href="/login" class="btn btn-info btn-cons btn-medium pull-left" type="submit">Login</a>
+                        <button class="btn btn-warning btn-cons btn-medium pull-right" type="submit"><i class="fa fa-check"></i>&nbsp; Submit</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-5">
-            <img src="{{URL::asset("theme/img/")}}" width="450" height="400" alt="Logo 450x400">
+        <div class="col-md-6">
+            <img src="{{URL::asset("theme/img/ness-logo.jpg")}}" width="100%" height="400" alt="Logo">
         </div>
         <div class="clearfix"></div>
         <br><br><br>

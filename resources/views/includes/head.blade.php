@@ -22,7 +22,6 @@
 <!-- END PLUGIN CSS -->
 
 <!-- BEGIN DATA TABLE CORE  -->
-<!--link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/af-2.2.0/b-1.4.0/b-colvis-1.4.0/b-flash-1.4.0/b-html5-1.4.0/b-print-1.4.0/cr-1.3.3/r-2.1.1/sc-1.4.2/se-1.2.2/datatables.min.css"/-->
 <link href={{ URL::asset("theme/css/datatables.min.css") }} rel="stylesheet" type="text/css" />
 <!-- END DATA TABLE CORE  -->
 
@@ -39,4 +38,4 @@
 <!-- END CORE CSS FRAMEWORK -->
 
 <!--  TOASTR -->
-<link rel="stylesheet" type="text/css" href={{ URL::asset("theme//plugins/toastr/toastr.css")}}  >
+<link rel="stylesheet" type="text/css" href={{ URL::asset("theme/plugins/toastr/toastr.css")}}  >

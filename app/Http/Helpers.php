@@ -69,6 +69,7 @@ class Helpers {
         //User
         if(isset($response['error']['user_id'])) $error = $response['error']['user_id'][0];
         elseif(isset($response['error']['email'])) $error = $response['error']['email'][0];
+        elseif(isset($response['error']['username'])) $error = $response['error']['username'][0];
         elseif(isset($response['error']['password'])) $error = $response['error']['password'][0];
         elseif(isset($response['error']['title'])) $error = $response['error']['title'][0];
         elseif(isset($response['error']['gender'])) $error = $response['error']['gender'][0];
@@ -125,6 +126,10 @@ class Helpers {
         //User Permission
         elseif(isset($response['error']['user_group_id'])) $error = $response['error']['user_group_id'][0];
         elseif(isset($response['error']['access_control_id'])) $error = $response['error']['access_control_id'][0];
+        elseif(isset($response['error']['manual_clocking'])) $error = $response['error']['manual_clocking'][0];
+        elseif(isset($response['error']['login'])) $error = $response['error']['login'][0];
+        elseif(isset($response['error']['system_admin'])) $error = $response['error']['system_admin'][0];
+        elseif(isset($response['error']['apply_for_leave'])) $error = $response['error']['apply_for_leave'][0];
         elseif(isset($response['error']['view_reports'])) $error = $response['error']['view_reports'][0];
         elseif(isset($response['error']['print_reports'])) $error = $response['error']['print_reports'][0];
         elseif(isset($response['error']['add_departments'])) $error = $response['error']['add_departments'][0];
