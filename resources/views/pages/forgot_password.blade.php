@@ -44,7 +44,7 @@
     <script>
         $("#forgot-password-form").submit(function(event){
             event.preventDefault();
-            var_form_data = $(this).serialize();
+            var form_data = $(this).serialize();
 
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
@@ -52,7 +52,7 @@
                 type:"POST",
                 url:"/api/users/password/forgot",
                 cache: false,
-                data: var_form_data,
+                data: form_data,
                 success: function(response){
                     $('#Results').html(response);
                 }
