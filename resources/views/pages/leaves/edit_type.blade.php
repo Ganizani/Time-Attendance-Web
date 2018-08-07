@@ -53,7 +53,7 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp;Update</button>
+                                        <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp;Submit</button>
                                         <button class="btn btn-white btn-cons btn-medium" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>

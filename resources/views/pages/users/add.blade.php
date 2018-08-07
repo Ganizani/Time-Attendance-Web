@@ -234,7 +234,7 @@
                                             <div class="form-group col-md-4">
                                                 <label for="UserJobTitle">Job Title<span class="txt-red">*</span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
-                                                    <input name="UserJobTitle" id="UserJobTitle" type="text" class="form-control" placeholder="Home Phone">
+                                                    <input name="UserJobTitle" id="UserJobTitle" type="text" class="form-control" placeholder="Job Title">
                                                 </div>
                                             </div>
 
@@ -410,7 +410,7 @@
 
                                         <div class="row">
                                             <div class="form-group col-md-4">
-                                                <label for="UserEmergencyRelationship">Relationship <span class="txt-red">*</span></label>
+                                                <label for="UserEmergencyRelationship">Relationship <span class="txt-red"></span></label>
                                                 <div class="input-with-icon  right"><i class=""></i>
                                                     <select name="UserEmergencyRelationship" id="UserEmergencyRelationship" class="select2 form-control"  data-init-plugin="select2">
                                                         <option value="">-- Relationship --</option>
@@ -467,8 +467,9 @@
                                         <div id="Results"></div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-check"></i> &nbsp;Create</button>
-                                        <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
+                                        <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp;Submit</button>
+                                        <button id = "btnClear" class="btn btn-default btn-cons btn-medium" onclick="clear_form()" ><i class="fa fa-retweet" ></i> &nbsp;Clear</button>
+                                        <button class="btn btn-white btn-cons btn-medium" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
                             </form>
@@ -491,11 +492,26 @@
         });
 
 
+        $("#btnClear").click(function () {
+
+            $("#add_form")[0].reset();
+
+            $('#UserTitle').val('');
+            $('#UserStatus').val('');
+            $('#UserType').val('');
+            $('#UserGender').val('');
+            $('#UserMaritalStatus').val('');
+            $('#UserEmergencyRelationship').val('');
+            $('#UserReportingTo').val('');
+            $('#UserDepartment').val('');
+
+            return false; // prevent submitting
+        });
 
         $("#add_form").submit(function(event){
 
             event.preventDefault();
-            var_form_data = $(this).serialize();
+            var form_data = $(this).serialize();
 
             $('#Results').html('<img src={{URL::asset("theme/img/ajax-loader.gif")}} />');
 
@@ -503,7 +519,7 @@
                 type:"POST",
                 url:"/api/users",
                 cache: false,
-                data: var_form_data,
+                data: form_data,
                 success: function(response){
                     $("#Results").html(response);
                 }
