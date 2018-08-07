@@ -468,7 +468,7 @@
                                     </div>
                                     <div class="pull-right">
                                         <button class="btn btn-warning btn-cons btn-medium" type="submit"><i class="fa fa-check"></i> &nbsp;Submit</button>
-                                        <button id = "btnClear" class="btn btn-default btn-cons btn-medium" onclick="clear_form()" ><i class="fa fa-retweet" ></i> &nbsp;Clear</button>
+                                        <button id = "btnClear" class="btn btn-default btn-cons btn-medium" ><i class="fa fa-retweet" ></i> &nbsp;Clear</button>
                                         <button class="btn btn-white btn-cons btn-medium" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
