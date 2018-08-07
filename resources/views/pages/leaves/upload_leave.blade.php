@@ -41,7 +41,8 @@
                                         </div>
                                     </div>
                                     <div class="pull-right">
-                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-upload"></i> &nbsp;Upload</button>
+                                        <button class="btn btn-warning btn-cons" type="submit"><i class="fa fa-upload"></i> &nbsp;Submit</button>
+                                        <button id="btnClear" class="btn btn-default btn-cons btn-medium" type="submit"><i class="fa fa-retweet"></i> &nbsp;Clear</button>
                                         <button class="btn btn-white btn-cons" onclick="window.history.back();return false;">Back</button>
                                     </div>
                                 </div>
@@ -57,6 +58,13 @@
 @section('footer')
     @parent
     <script>
+        $("#btnClear").click(function () {
+
+            $("#add_form")[0].reset();
+
+            return false; // prevent submitting
+        });
+
         var options = {
             target:   '#Results'     // target element(s) to be updated with server response
         };
