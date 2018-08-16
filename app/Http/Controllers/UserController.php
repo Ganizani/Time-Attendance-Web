@@ -280,6 +280,35 @@ class UserController extends Controller
         }
     }
 
+    public function forgot_password_data(Request $request)
+    {
+        $response = Helpers::callAPI( "POST", "/users/forgot_password" , $this->get_forgot_password_array($request));
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $data = (isset($response['data']) && $response['data'] != "") ? $response['data']  : "Password reset Link has been sent to {$request->txt_username}, The link is valid for 24 Hours.";
+            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$data} </div>";
+        }
+        else{
+            $error = Helpers::getError($response);
+            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+    }
+
+    public function reset_password_data(Request $request)
+    {
+        //die(json_encode($this->get_reset_password_array($request)));
+        $response = Helpers::callAPI( "POST", "/users/reset_password" , $this->get_reset_password_array($request));
+
+        if($response['code'] == 201 || $response['code'] == 200){
+            $data = (isset($response['data']) && $response['data'] != "") ? $response['data']  : "Password Successfully Reset.";
+            return "<div class='alert alert-success'><b><button class='close' data-dismiss='alert'></button>Success:</b> {$data} </div>";
+        }
+        else{
+            $error = Helpers::getError($response);
+            return "<div class='alert alert-danger'><b><button class='close' data-dismiss='alert'></button>Error:</b> {$error}</div>";
+        }
+    }
+
     public function get_search_array($request){
 
         $data = [
@@ -297,6 +326,25 @@ class UserController extends Controller
             'latitude'  => (isset($request->Latitude) && $request->Latitude != null) ? $request->Latitude : 0,
             'longitude' => (isset($request->Longitude) && $request->Longitude != null) ? $request->Longitude : 0,
             'password'  => $request->Password,
+        ];
+
+        return $data;
+    }
+
+    public function get_forgot_password_array($request){
+        $data = [
+            'email' => $request->txt_username
+        ];
+
+        return $data;
+    }
+
+    public function get_reset_password_array($request){
+        $data = [
+            'email'     => $request->txt_email,
+            'token'     => $request->txt_token,
+            'password'  => $request->txt_password,
+            'password_confirmation' => $request->txt_confirm_password
         ];
 
         return $data;
