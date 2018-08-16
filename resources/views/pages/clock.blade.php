@@ -95,23 +95,6 @@
                     $('#Results').html(response);
                 }
             });
-
-            /*if ( $("#Latitude").val() === "" || $("#Longitude").val() === "") {
-                $('#Results').html("<div class='alert alert-info'><b><button class='close' data-dismiss='alert'></button>Info:</b> Waiting for Geo Coordinates data!, Please Try again in a few seconds.</div>");
-                return false;
-            }
-            else {
-                $('#Results').html('<img src=/>');
-                $.ajax({
-                    type:"POST",
-                    url:"/api/users/clock",
-                    cache: false,
-                    data: data,
-                    success: function(response){
-                        $('#Results').html(response);
-                    }
-                });
-            }*/
         });
 
     </script>
