@@ -11,6 +11,7 @@
             </ul>
             <!-- BEGIN LOGO -->
             <a href="/" >
+                <!--img  style="padding-left: 15px; padding-top: 5px;" src="{{URL::asset("theme/img/Mamgo-Logo.png")}}" data-src="{{URL::asset("theme/img/Mamgo-Logo.png")}}" width="200" height="50"-->
             </a>
             <!-- END LOGO -->
         </div>
